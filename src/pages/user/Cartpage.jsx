@@ -36,14 +36,14 @@ export const CartPage = () => {
   const makePayment = async () => {
     try {
         console.log("Payment button clicked"); 
-        const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_Key); // Ensure consistent key case
+        const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_Key); 
 
-        console.log(import.meta.env.VITE_STRIPE_Publishable_Key); // Corrected environment variable name
+        console.log(stripe); 
         const session = await axiosinstance({
             url: "/payment/create-checkout-session",
             method: "POST",
             data: { products: cartItems },
-            withCredentials: true // Important for cross-origin requests involving cookies
+            withCredentials: true 
         });
 
         const result = await stripe.redirectToCheckout({
