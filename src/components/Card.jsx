@@ -52,38 +52,37 @@ export const Card = ({ hotels }) => {
 
 
 
-export const CartCards = ({ item, onRemove }) => {
-  console.log('Item passed to CartCards:', item);
-
-  
-  const itemName = item?.name || "Item name not available";
-  const itemPrice = item?.price || 0;
-  const itemQuantity = item?.quantity || 0;
-
+export const CartItem = ({ itemName, itemPrice, itemQuantity, item }) => {
   const handleremove = async (ID) => {
+      const confirmRemove = window.confirm("Are you sure you want to remove this item from your cart?");
+      if (!confirmRemove) return; // Exit if the user cancels
+
       try {
           const response = await axiosinstance({
               method: "DELETE",
               url: '/cart/remove',
-              data: { ID }, 
+              data: { ID },
           });
           console.log('Item removed:', response.data);
+          // Optionally, update the UI or state here to reflect the item removal
       } catch (error) {
           console.log(error);
       }
   };
 
   return (
-      <div className="cart flex w-full h-32 items-center gap-20 bg-base-300 mb-10 rounded-md justify-center">
-          <div className="text-center">
-              <h2>{itemName}</h2> 
-              <h3>${itemPrice}</h3> 
-              <p>Quantity: {itemQuantity}</p> 
-              <button onClick={() => handleremove(item?.foodItemId)}> 
+      <div style={styles.cart}>
+          <div style={styles.textCenter}>
+              <h2 style={styles.itemName}>{itemName}</h2>
+              <h3 style={styles.itemPrice}>${itemPrice}</h3>
+              <p style={styles.itemQuantity}>Quantity: {itemQuantity}</p>
+              <button
+                  onClick={() => handleremove(item?.foodItemId)}
+                  style={styles.removeButton}
+              >
                   Remove
               </button>
           </div>
       </div>
   );
 };
-

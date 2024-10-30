@@ -31,7 +31,7 @@ function Fooditems() {
         console.log('Adding to cart, Food Item ID:', foodItemId); 
         try {
             const response = await axiosinstance.post('/cart/add-to-cart', {
-                foodItemId
+                foodItemId,quantity,
             });
             console.log('Response after adding to cart:', response.data); 
             toast.success('Food item added to cart!');
