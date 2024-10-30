@@ -1,85 +1,133 @@
 import { useState } from "react";
 import { axiosinstance } from "../../config/axiosinstance";
 
-export function CreateHotels() {
-  const [image, setImage] = useState({ preview: '', data: '' });
-  const [status, setStatus] = useState('');
-  const [data, setData] = useState({ name: '', phone: '', email: '' });
+export function CreateHotelsAndFoodItems() {
+  // Hotel state
+  const [hotelImage, setHotelImage] = useState({ preview: '', data: '' });
+  const [hotelStatus, setHotelStatus] = useState('');
+  const [hotelData, setHotelData] = useState({ name: '', phone: '', email: '' });
 
-  // Handles form submission
-  const handleSubmit = async (e) => {
+  // Food Item state
+  const [foodImage, setFoodImage] = useState({ preview: '', data: '' });
+  const [foodStatus, setFoodStatus] = useState('');
+  const [foodData, setFoodData] = useState({ name: '', description: '', price: '', availability: true });
+
+  // Handles hotel form submission
+  const handleHotelSubmit = async (e) => {
     e.preventDefault();
-    
-    // Create FormData object and append fields
     let formData = new FormData();
-    formData.append('image', image.data); // Correct usage of FormData
-    formData.append('name', data.name);    // Append the name
-    formData.append('phone', data.phone);  // Append the phone
-    formData.append('email', data.email);  // Append the email
-const response=await axiosinstance({
-  url:'/hotel/createhotel',
-  method:'POST',
-  data:formData,
-})
-console.log(formData)
-    // POST the form data to the backend
-    //const response = await fetch('ttp://localhost:3002/image', {
-    //  method: 'POST',
-   //   body: formData,
-  //  });
-    if (response) setStatus(response.statusText);
+    formData.append('image', hotelImage.data);
+    formData.append('name', hotelData.name);
+    formData.append('phone', hotelData.phone);
+    formData.append('email', hotelData.email);
+
+    try {
+      const response = await axiosinstance({
+        url: '/hotel/createhotel',
+        method: 'POST',
+        data: formData,
+      });
+      if (response) setHotelStatus('Hotel created successfully!');
+    } catch (error) {
+      setHotelStatus('Failed to create hotel');
+      console.error(error);
+    }
   };
 
-  // Handles image file change
-  const handleFileChange = (e) => {
+  // Handles food item form submission
+  const handleFoodSubmit = async (e) => {
+    e.preventDefault();
+    let formData = new FormData();
+    formData.append('image', foodImage.data);
+    formData.append('name', foodData.name);
+    formData.append('description', foodData.description);
+    formData.append('price', foodData.price);
+    formData.append('availability', foodData.availability);
+
+    try {
+      const response = await axiosinstance({
+        url: '/fooditems/createfood',
+        method: 'POST',
+        data: formData,
+      });
+      if (response) setFoodStatus('Food item created successfully!');
+    } catch (error) {
+      setFoodStatus('Failed to create food item');
+      console.error(error);
+    }
+  };
+
+  // Handles hotel image file change
+  const handleHotelFileChange = (e) => {
     const img = {
       preview: URL.createObjectURL(e.target.files[0]),
       data: e.target.files[0],
     };
-    setImage(img);
+    setHotelImage(img);
   };
-console.log(data)
-  // Hand
- 
-  const handleInput = (event) => {
-    setData((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+
+  // Handles food item image file change
+  const handleFoodFileChange = (e) => {
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
+    };
+    setFoodImage(img);
+  };
+
+  // Handles hotel input changes
+  const handleHotelInput = (event) => {
+    setHotelData((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+  };
+
+  // Handles food item input changes
+  const handleFoodInput = (event) => {
+    const { name, value, type, checked } = event.target;
+    setFoodData((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
   };
 
   return (
     <div>
-  <h1>Upload to Server</h1>
-  {image.preview && <img src={image.preview} width='100' height='100' />}
-  <hr />
-  <form onSubmit={handleSubmit}>
-    {/* Basic Hotel Details */}
-    <input type='file' name='file' onChange={handleFileChange} />
-    <input type='text' name='name' placeholder='Hotel Name' onChange={handleInput} required />
-    <input type='text' name='phone' placeholder='Phone' onChange={handleInput} required />
-    <input type='text' name='email' placeholder='Email' onChange={handleInput} required />
-    <input type='text' name='website' placeholder='Website' onChange={handleInput} />
+      <h1>Create Hotel and Food Item</h1>
 
-    {/* Address Fields */}
-    <h3>Address Details</h3>
-    <input type='text' name='street' placeholder='Street' onChange={handleInput} required />
-    <input type='text' name='city' placeholder='City' onChange={handleInput} required />
-    <input type='text' name='state' placeholder='State' onChange={handleInput} />
-    <input type='text' name='postalcode' placeholder='Postal Code' onChange={handleInput} required />
-    <input type='text' name='country' placeholder='Country' onChange={handleInput} required />
+      {/* Hotel Form */}
+      <section>
+        <h2>Upload Hotel</h2>
+        {hotelImage.preview && <img src={hotelImage.preview} width="100" height="100" alt="Hotel preview" />}
+        <form onSubmit={handleHotelSubmit}>
+          <input type="file" name="file" onChange={handleHotelFileChange} />
+          <input type="text" name="name" placeholder="Hotel Name" onChange={handleHotelInput} required />
+          <input type="text" name="phone" placeholder="Phone" onChange={handleHotelInput} required />
+          <input type="text" name="email" placeholder="Email" onChange={handleHotelInput} required />
+          <input type="text" name="website" placeholder="Website" onChange={handleHotelInput} />
+          <button type="submit">Submit Hotel</button>
+        </form>
+        {hotelStatus && <h4>{hotelStatus}</h4>}
+      </section>
 
-    {/* Hotel Information */}
-    <h3>Additional Information</h3>
-    <input type='number' name='rating' placeholder='Rating (0-5)' min='0' max='5' onChange={handleInput} />
-    <input type='text' name='cuisineType' placeholder='Cuisine Type (comma separated)' onChange={handleInput} />
-    
-    {/* Opening Hours */}
-    <h3>Opening Hours</h3>
-    <input type='text' name='open' placeholder='Opening Time (e.g., 9:00 AM)' onChange={handleInput} />
-    <input type='text' name='close' placeholder='Closing Time (e.g., 10:00 PM)' onChange={handleInput} />
+      <hr />
 
-    <button type='submit'>Submit</button>
-  </form>
-  {status && <h4>{status}</h4>}
-</div>
-
+      {/* Food Item Form */}
+      <section>
+        <h2>Upload Food Item</h2>
+        {foodImage.preview && <img src={foodImage.preview} width="100" height="100" alt="Food preview" />}
+        <form onSubmit={handleFoodSubmit}>
+          <input type="file" name="file" onChange={handleFoodFileChange} />
+          <input type="text" name="name" placeholder="Food Item Name" onChange={handleFoodInput} required />
+          <textarea name="description" placeholder="Description" onChange={handleFoodInput} />
+          <input type="number" name="price" placeholder="Price" onChange={handleFoodInput} required />
+          <label>
+            <input type="checkbox" name="availability" checked={foodData.availability} onChange={handleFoodInput} />
+            Available
+          </label>
+          <button type="submit">Submit Food Item</button>
+        </form>
+        {foodStatus && <h4>{foodStatus}</h4>}
+      </section>
+    </div>
   );
 }
+                                                                                                                                                                                                                                                                                         
