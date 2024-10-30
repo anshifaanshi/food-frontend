@@ -35,27 +35,28 @@ export const CartPage = () => {
 
   const makePayment = async () => {
     try {
-      console.log("Payment button clicked"); 
-      const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_Key); // Use the correct case
+        console.log("Payment button clicked"); 
+        const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_Key); // Ensure consistent key case
 
-      console.log(import.meta.env.VITE_STRIPE_Publishable_key);
-      const session = await axiosinstance({
-        url: "/payment/create-checkout-session",
-        method: "POST",
-        data: { products: cartItems },
-      });
+        console.log(import.meta.env.VITE_STRIPE_Publishable_Key); // Corrected environment variable name
+        const session = await axiosinstance({
+            url: "/payment/create-checkout-session",
+            method: "POST",
+            data: { products: cartItems },
+            withCredentials: true // Important for cross-origin requests involving cookies
+        });
 
-      const result = await stripe.redirectToCheckout({
-        sessionId: session.data.sessionId,
-      });
+        const result = await stripe.redirectToCheckout({
+            sessionId: session.data.sessionId,
+        });
 
-      if (result.error) {
-        console.log(result.error.message);
-      }
+        if (result.error) {
+            console.log(result.error.message);
+        }
     } catch (error) {
-      console.log(error);
+        console.error("Error during payment process:", error);
     }
-  };
+};
 
   const applyCoupon = async () => {
     console.log("Applying coupon:", couponCode);
