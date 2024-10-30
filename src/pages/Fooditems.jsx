@@ -3,14 +3,12 @@ import { axiosinstance } from "../config/axiosinstance";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import { Link } from "react-router-dom";
-import Header from "../components/Header";
 
 function Fooditems() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    
     const fetchFoodItems = async () => {
         console.log("Fetching food items..."); 
         try {
@@ -26,22 +24,21 @@ function Fooditems() {
         }
     };
 
-    
-    const addToCart = async (foodItemId) => {
-        console.log('Adding to cart, Food Item ID:', foodItemId); 
+    const addToCart = async (foodItemId, quantity) => {
+        console.log('Adding to cart, Food Item ID:', foodItemId, 'Quantity:', quantity); 
         try {
             const response = await axiosinstance.post('/cart/add-to-cart', {
-                foodItemId,quantity,
+                foodItemId,
+                quantity,
             });
             console.log('Response after adding to cart:', response.data); 
             toast.success('Food item added to cart!');
         } catch (error) {
             console.error('Error adding to cart:', error.response ? error.response.data : error.message); 
-            toast.error(error.response?.data?.message || 'please login');
+            toast.error(error.response?.data?.message || 'Please login');
         }
     };
 
-    
     useEffect(() => {
         fetchFoodItems();
     }, []);
@@ -63,7 +60,6 @@ function Fooditems() {
 
     return (
         <div className="menu container my-5">
-            
             <h1 className="menuhead text-center mb-4">Menu</h1>
             <div className="row">
                 {data.map((menu) => (
@@ -74,11 +70,11 @@ function Fooditems() {
                                 <p className="card-text"><strong>Description:</strong> {menu.description}</p><br />
                                 <p className="card-text"><strong>Price:</strong> ${menu.price.toFixed(2)}</p><br />
                                 
-                            
                                 <button 
                                     onClick={() => {
+                                        const quantity = 1; // You can set this to a default value or allow user input for quantity
                                         console.log("Add to Cart button clicked for:", menu.name); 
-                                        addToCart(menu._id);
+                                        addToCart(menu._id, quantity);
                                     }} 
                                     className="btn btn-primary me-2"
                                 >

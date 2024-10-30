@@ -595,6 +595,7 @@ p:last-of-type {
   font-weight: bold;
   padding: 10px 15px;
   border: none;
+
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s;
