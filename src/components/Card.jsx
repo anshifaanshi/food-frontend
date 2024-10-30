@@ -64,6 +64,7 @@ export const CartItem = ({ itemName, itemPrice, itemQuantity, item }) => {
               data: { ID },
           });
           console.log('Item removed:', response.data);
+          toast.success("item removed from cart")
           // Optionally, update the UI or state here to reflect the item removal
       } catch (error) {
           console.log(error);
