@@ -24,18 +24,20 @@ function Fooditems() {
         }
     };
 
-    const addToCart = async (foodItemId, quantity) => {
-        console.log('Adding to cart, Food Item ID:', foodItemId, 'Quantity:', quantity); 
+    const addToCart = async (foodItemId) => {
+        const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
+        if (!token) {
+            toast.error("Please login to add items to your cart");
+            return;
+        }
+        
         try {
-            const response = await axiosinstance.post('/cart/add-to-cart', {
-                foodItemId,
-                quantity,
-            });
+            const response = await axiosinstance.post('/cart/add-to-cart', { foodItemId });
             console.log('Response after adding to cart:', response.data); 
             toast.success('Food item added to cart!');
         } catch (error) {
             console.error('Error adding to cart:', error.response ? error.response.data : error.message); 
-            toast.error(error.response?.data?.message || 'Please login');
+            toast.error(error.response?.data?.message || 'An error occurred');
         }
     };
 
@@ -72,7 +74,7 @@ function Fooditems() {
                                 
                                 <button 
                                     onClick={() => {
-                                        const quantity = 1; // You can set this to a default value or allow user input for quantity
+                                        const quantity = 1;
                                         console.log("Add to Cart button clicked for:", menu.name); 
                                         addToCart(menu._id, quantity);
                                     }} 
