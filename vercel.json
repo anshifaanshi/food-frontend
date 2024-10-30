@@ -1,7 +1,7 @@
 {
     "rewrites": [
       {
-        "source": "https://food-frontend-rust.vercel.app/", 
+        "source": "https://food-frontend-rust.vercel.app", 
         "destination": "https://your-backend-domain.com/api/:path*" 
       }
     ],
