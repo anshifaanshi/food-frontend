@@ -26,6 +26,7 @@ function Home() {
             <Link to={'/login'}>
               <button className='btn'>LogIn</button>
             </Link>
+            
             <br />
             <button className='btn'>
               <Link className='nav-link' to='/hotel/hotels'>
@@ -143,10 +144,9 @@ function Home() {
       
    <div className='download-platform'>
     <h1>Available In</h1>
-    <img src='https://zepto-1-ajzu.vercel.app/assets/play_store-B2tFv0Hy.png'/>
-    <img src='https://zepto-1-ajzu.vercel.app/assets/app_store-C8O_cY6s.png'/>
+    <img src=''/>
+    <img src=''/>
    </div>
-
     </>
   );
 }
