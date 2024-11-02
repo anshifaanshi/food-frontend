@@ -134,6 +134,7 @@ function Home() {
           <img src='https://food-order-frontend-henna.vercel.app/assets/delivery-B5z5n2Qz.png' className='workimage'></img></div>
           <div>
           <p>wait for your delivery</p></div>
+          console.log("hello")
         </div>
         </div>
       </div>

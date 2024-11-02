@@ -110,6 +110,7 @@ export const router = createBrowserRouter([
         path: 'createhotel',
         element: <CreateHotels />,
 
+
       },
     ],
   },
