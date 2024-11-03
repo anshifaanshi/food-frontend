@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { axiosinstance } from "../../config/axiosinstance";
-import { CartCards } from "../../components/Card";
+import { Card } from "../../components/Card";
 import { loadStripe } from "@stripe/stripe-js";
 import { toast } from "react-toastify"; // For notifications
 

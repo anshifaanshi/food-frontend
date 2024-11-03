@@ -19,7 +19,7 @@ import About from '../pages/About';
 import Authadmin from '../routes/protectedroutes/Authadmin';
 import UserEditPage from '../pages/user/UserEditPage';
 import ErrorPage from '../pages/ErrorPage';
-import { CreateHotels } from '../components/admin/CreateHotels';
+import { CreateHotelsAndFoodItems } from '../components/admin/CreateHotels';
 import OrderHistory from '../pages/Order';
 import PaymentSuccessPage from '../payment/PaymentSuccessPage'
 import PaymentCancelPage from '../payment/PaymentCancelPage';
@@ -108,7 +108,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'createhotel',
-        element: <CreateHotels />,
+        element: <CreateHotelsAndFoodItems />,
 
 
       },
