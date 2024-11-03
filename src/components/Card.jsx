@@ -10,13 +10,13 @@ export const Card = ({ hotels }) => {
   return (
     <div className="d-flex justify-content-center align-items-center mb-4">
   <div className="col-sm-12 col-md-6 col-lg-4">
-    <div className="card h-100" style={{ width: "100%" }}>
+    <div className="card h-100" >
       <figure className="mb-0 d-flex justify-content-center align-items-center p-3">
         <img
           src={hotels?.image ? hotels.image : defaultImage}
           alt={hotels?.name}
           className="card-img-top hotelimage rounded-circle"
-          style={{ width: "150px", height: "150px", objectFit: "cover", borderRadius: "50%" }}
+          
         />
       </figure>
       <div className="hotelcard card-body text-center">
@@ -72,14 +72,14 @@ export const CartItem = ({ itemName, itemPrice, itemQuantity, item }) => {
   };
 
   return (
-      <div style={styles.cart}>
-          <div style={styles.textCenter}>
-              <h2 style={styles.itemName}>{itemName}</h2>
-              <h3 style={styles.itemPrice}>${itemPrice}</h3>
-              <p style={styles.itemQuantity}>Quantity: {itemQuantity}</p>
+      <div >
+          <div >
+              <h2 >{itemName}</h2>
+              <h3 >${itemPrice}</h3>
+              <p >Quantity: {itemQuantity}</p>
               <button
                   onClick={() => handleremove(item?.foodItemId)}
-                  style={styles.removeButton}
+                  
               >
                   Remove
               </button>
