@@ -99,7 +99,7 @@ export const CartPage = () => {
           <p>{error}</p>
         ) : cartItems.length > 0 ? (
           cartItems.map((value, index) => (
-            <CartCards item={value} key={index} />
+            <Card item={value} key={index} />
           ))
         ) : (
           <p>Your cart is empty</p>
