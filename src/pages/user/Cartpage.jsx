@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { axiosinstance } from "../../config/axiosinstance";
-import { Card } from "../../components/Card";
+import { CartItem, cartItem } from "../../components/Card";
 import { loadStripe } from "@stripe/stripe-js";
 import { toast } from "react-toastify"; // For notifications
 
@@ -99,7 +99,7 @@ export const CartPage = () => {
           <p>{error}</p>
         ) : cartItems.length > 0 ? (
           cartItems.map((value, index) => (
-            <Card item={value} key={index} />
+            <CartItem item={value} key={index} />
           ))
         ) : (
           <p>Your cart is empty</p>
