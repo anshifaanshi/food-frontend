@@ -1,9 +1,8 @@
-
 import React, { useEffect, useState } from "react";
 import { axiosinstance } from "../../config/axiosinstance";
-import { CartItem, cartItem } from "../../components/Card";
+import { CartItem } from "../../components/Card"; // Removed cartItem import
 import { loadStripe } from "@stripe/stripe-js";
-import { toast } from "react-toastify"; // For notifications
+import { toast } from "react-toastify";
 
 export const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -13,17 +12,15 @@ export const CartPage = () => {
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0);
   const [finalAmount, setFinalAmount] = useState(0);
+  const [paymentLoading, setPaymentLoading] = useState(false);
 
   const fetchCartItems = async () => {
     setLoading(true);
     try {
-      const { data } = await axiosinstance({
-        method: "GET",
-        url: "/cart/getcart",
-      });
+      const { data } = await axiosinstance.get("/cart/getcart");
       setCartItems(data?.foodItems || []);
-      setCartData(data); // Set cartData with the fetched data
-      setFinalAmount(data.totalPrice); // Initialize finalAmount to totalPrice
+      setCartData(data); 
+      setFinalAmount(data.totalPrice); 
       setError(null);
     } catch (error) {
       console.log(error);
@@ -34,6 +31,7 @@ export const CartPage = () => {
   };
 
   const makePayment = async () => {
+    setPaymentLoading(true); // Start loading
     try {
       console.log("Payment button clicked"); 
       const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_Key);
@@ -43,10 +41,9 @@ export const CartPage = () => {
         return;
       }
   
-      const session = await axiosinstance({
-        url: "/payment/create-checkout-session",
-        method: "POST",
-        data: { products: cartItems },
+      const session = await axiosinstance.post("/payment/create-checkout-session", {
+        products: cartItems,
+      }, {
         withCredentials: true 
       });
   
@@ -63,27 +60,25 @@ export const CartPage = () => {
       }
     } catch (error) {
       console.error("Error during payment process:", error.response?.data || error.message);
+      toast.error("Payment failed. Please try again.");
+    } finally {
+      setPaymentLoading(false); // Stop loading
     }
   };
-  
+
   const applyCoupon = async () => {
     console.log("Applying coupon:", couponCode);
     try {
-      const response = await axiosinstance({
-        url: "/coupons/checkout",
-        method: "POST",
-        data: {
-          couponCode,
-          cartId: cartData._id,
-        },
+      const response = await axiosinstance.post("/coupons/checkout", {
+        couponCode,
+        cartId: cartData._id,
       });
 
       if (response.data.message === "Coupon applied successfully") {
         const { finalAmount: updatedFinalAmount, discount: appliedDiscount } = response.data;
 
-        // Update state with the correct values
         setDiscount(appliedDiscount || 0);
-        setFinalAmount(updatedFinalAmount || cartData.totalPrice); // Use updated final amount from response
+        setFinalAmount(updatedFinalAmount || cartData.totalPrice);
         toast.success("Coupon applied successfully!");
       }
     } catch (error) {
@@ -99,7 +94,7 @@ export const CartPage = () => {
   return (
     <div className="flex gap-10 px-20 py-10">
       <div className="w-8/12">
-        <h2>This is the cart Page</h2>
+        <h2>This is the Cart Page</h2>
 
         {loading ? (
           <p>Loading cart items...</p>
@@ -130,7 +125,7 @@ export const CartPage = () => {
               className="coupon-input border rounded-md p-2 w-full"
             />
             <button
-              onClick={applyCoupon} // Pass the function reference
+              onClick={applyCoupon}
               className="apply-coupon-btn bg-blue-500 text-white rounded-md p-2 hover:bg-blue-600"
             >
               Apply Coupon
@@ -151,9 +146,9 @@ export const CartPage = () => {
         <button
           className="pay-btn bg-green-500 text-white rounded-md p-2 mt-5 hover:bg-green-600"
           onClick={makePayment}
-          disabled={loading}
+          disabled={loading || paymentLoading} // Disable if loading
         >
-          Proceed to Payment
+          {paymentLoading ? "Processing Payment..." : "Proceed to Payment"}
         </button>
       </div>
     </div>
