@@ -53,6 +53,8 @@ export const Card = ({ hotels }) => {
 
 
 export const CartItem = ({ itemName, itemPrice, itemQuantity, item }) => {
+  console.log("Cart Item Props:", { itemName, itemPrice, itemQuantity, item });
+
   const handleremove = async (ID) => {
       const confirmRemove = window.confirm("Are you sure you want to remove this item from your cart?");
       if (!confirmRemove) return; // Exit if the user cancels
