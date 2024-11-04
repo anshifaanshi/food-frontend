@@ -77,9 +77,9 @@ export const CartItem = ({ itemName, itemPrice, itemQuantity, item }) => {
       <h2 className="title">Cart Summary</h2>
     
       
-          <h2 className="item-name">{foodItems.name}</h2>
-          <h3 className="item-price">${foodItems.price}</h3>
-          <p className="item-quantity">Quantity: {foodItems.quantity}</p>
+          <h2 className="item-name">{itemName}</h2>
+          <h3 className="item-price">${itemPrice}</h3>
+          <p className="item-quantity">Quantity: {itemQuantity}</p>
           <button className="remove-button" onClick={() => handleremove(item.fooditemid)}>
             Remove
           </button>
