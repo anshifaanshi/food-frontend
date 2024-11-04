@@ -76,17 +76,16 @@ export const CartItem = ({ itemName, itemPrice, itemQuantity, item }) => {
          <div className="cart-container">
       <h2 className="title">Cart Summary</h2>
     
-      {foodItems.map((item) => (
-        <div key={item.foodItemId} className="item-card">
-          <h2 className="item-name">{item.name}</h2>
-          <h3 className="item-price">${item.price.toFixed(2)}</h3>
-          <p className="item-quantity">Quantity: {item.quantity}</p>
-          <button className="remove-button" onClick={() => handleremove(item.foodItemId)}>
+      
+          <h2 className="item-name">{itemName}</h2>
+          <h3 className="item-price">${itemPrice.toFixed(2)}</h3>
+          <p className="item-quantity">Quantity: {itemQuantity}</p>
+          <button className="remove-button" onClick={() => handleremove(item.fooditemid)}>
             Remove
           </button>
         </div>
-      ))}
+     
     </div>
-      </div>
+     
   );
 };
