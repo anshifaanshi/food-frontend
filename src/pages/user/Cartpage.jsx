@@ -35,29 +35,37 @@ export const CartPage = () => {
 
   const makePayment = async () => {
     try {
-        console.log("Payment button clicked"); 
-        const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_Key); 
-
-        console.log(stripe); 
-        const session = await axiosinstance({
-            url: "/payment/create-checkout-session",
-            method: "POST",
-            data: { products: cartItems },
-            withCredentials: true 
-        });
-
+      console.log("Payment button clicked"); 
+      const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_Key);
+  
+      if (!stripe) {
+        console.error("Stripe.js failed to load");
+        return;
+      }
+  
+      const session = await axiosinstance({
+        url: "/payment/create-checkout-session",
+        method: "POST",
+        data: { products: cartItems },
+        withCredentials: true 
+      });
+  
+      if (session.data && session.data.sessionId) {
         const result = await stripe.redirectToCheckout({
-            sessionId: session.data.sessionId,
+          sessionId: session.data.sessionId,
         });
-
+        
         if (result.error) {
-            console.log(result.error.message);
+          console.error("Stripe Checkout Error:", result.error.message);
         }
+      } else {
+        console.error("Error: Session ID not found in response");
+      }
     } catch (error) {
-        console.error("Error during payment process:", error);
+      console.error("Error during payment process:", error.response?.data || error.message);
     }
-};
-
+  };
+  
   const applyCoupon = async () => {
     console.log("Applying coupon:", couponCode);
     try {
