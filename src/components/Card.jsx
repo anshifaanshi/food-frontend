@@ -75,8 +75,7 @@ export const CartItem = ({ itemName, itemPrice, itemQuantity, item }) => {
       <div>
          <div className="cart-container">
       <h2 className="title">Cart Summary</h2>
-      <h3 className="total-price">Total Price: ${totalPrice.toFixed(2)}</h3>
-
+    
       {foodItems.map((item) => (
         <div key={item.foodItemId} className="item-card">
           <h2 className="item-name">{item.name}</h2>
