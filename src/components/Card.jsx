@@ -54,12 +54,46 @@ export const Card = ({ hotels }) => {
 
 
 export const CartItem = ({ itemName, itemPrice, itemQuantity, item }) => {
+  const styles = {
+    cart: {
+      border: '1px solid #ccc',
+      borderRadius: '5px',
+      padding: '10px',
+      margin: '10px 0',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    textCenter: {
+      textAlign: 'center',
+    },
+    itemName: {
+      fontSize: '20px',
+      fontWeight: 'bold',
+    },
+    itemPrice: {
+      fontSize: '18px',
+      color: '#333',
+    },
+    itemQuantity: {
+      fontSize: '16px',
+    },
+    removeButton: {
+      padding: '5px 10px',
+      backgroundColor: '#ff4d4d',
+      color: 'white',
+      border: 'none',
+      borderRadius: '3px',
+      cursor: 'pointer',
+    },
+  };
+
   const handleremove = async (ID) => {
       const confirmRemove = window.confirm("Are you sure you want to remove this item from your cart?");
       if (!confirmRemove) return; // Exit if the user cancels
 
       try {
-          const response = await axiosinstance({
+          const response = await axios({
               method: "DELETE",
               url: '/cart/remove',
               data: { ID },
