@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { axiosinstance } from "../config/axiosinstance";
 import toast from "react-hot-toast";
-import { Link } from 'react-router-dom';
+
 
 export const Card = ({ hotels }) => {
   
