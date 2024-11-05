@@ -172,7 +172,7 @@ export const CartPage = () => {
             <input
               type="text"
               value={deliveryAddress}
-              onChange={(e) => setDeliveryAddress(e.target.value)}
+              
               placeholder="Enter your delivery address"
               className="address-input border rounded-md p-2 w-full"
             />
