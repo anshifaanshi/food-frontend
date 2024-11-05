@@ -61,6 +61,8 @@ export const Card = ({ hotels }) => {
  // Ensure axios instance is correctly imported
 
 // CartItem Component
+
+// CartItem Component
 export const CartItem = ({ item, onRemove }) => {
   const styles = {
     cart: {
@@ -96,18 +98,10 @@ export const CartItem = ({ item, onRemove }) => {
     },
   };
 
-  const handleRemove = async () => {
+  const handleRemove = () => {
     const confirmRemove = window.confirm("Are you sure you want to remove this item from your cart?");
-    if (!confirmRemove) return;
-
-    try {
-      await axiosinstance.delete('/cart/remove', { data: { ID: item.foodItemId } });
-      console.log('Item removed from server');
-      
-      // Trigger removal in parent component
+    if (confirmRemove) {
       onRemove(item.foodItemId);
-    } catch (error) {
-      console.error("Error removing item:", error);
     }
   };
 
@@ -129,18 +123,24 @@ export const CartItem = ({ item, onRemove }) => {
 export const Cart = ({ initialCartData }) => {
   const [cartData, setCartData] = useState(initialCartData);
 
-  const handleRemoveItem = (foodItemId) => {
-    const updatedFoodItems = cartData.foodItems.filter(item => item.foodItemId !== foodItemId);
+  const handleRemoveItem = async (foodItemId) => {
+    try {
+      const response = await axios.delete('/cart/remove', { data: { ID: foodItemId } });
 
-    const updatedTotalPrice = updatedFoodItems.reduce(
-      (total, item) => total + item.price * item.quantity, 0
-    );
-
-    setCartData({
-      ...cartData,
-      foodItems: updatedFoodItems,
-      totalPrice: updatedTotalPrice,
-    });
+      if (response.data.success) {
+        // Update cartData with the updated cart returned from the server
+        const updatedCart = response.data.cart;
+        setCartData({
+          foodItems: updatedCart.foodItems,
+          totalPrice: updatedCart.totalPrice,
+        });
+        console.log(response.data.message);
+      } else {
+        console.error("Failed to remove item from cart");
+      }
+    } catch (error) {
+      console.error("Error removing item:", error);
+    }
   };
 
   return (
