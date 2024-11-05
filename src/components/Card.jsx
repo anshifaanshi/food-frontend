@@ -63,7 +63,7 @@ export const Card = ({ hotels }) => {
 // CartItem Component
 
 // CartItem Component
-export const CartItem = ({ item }) => {
+export const CartItem = ({ item, onRemove }) => {
   const styles = {
     cart: {
       border: '1px solid #ccc',
@@ -98,20 +98,10 @@ export const CartItem = ({ item }) => {
     },
   };
 
-  const handleremove = async (ID) => {
+  const handleRemove = async () => {
     const confirmRemove = window.confirm("Are you sure you want to remove this item from your cart?");
-    if (!confirmRemove) return; // Exit if the user cancels
-
-    try {
-      const response = await axiosinstance({
-        method: "DELETE",
-        url: '/cart/remove',
-        data: { ID },
-      });
-      console.log('Item removed:', response.data);
-      // Optionally, update the UI or state here to reflect the item removal
-    } catch (error) {
-      console.log(error);
+    if (confirmRemove) {
+      await onRemove(item.foodItemId);
     }
   };
 
@@ -121,25 +111,10 @@ export const CartItem = ({ item }) => {
         <h2 style={styles.itemName}>{item.name}</h2>
         <h3 style={styles.itemPrice}>${item.price}</h3>
         <p style={styles.itemQuantity}>Quantity: {item.quantity}</p>
-        <button
-          onClick={() => handleremove(item.foodItemId)}
-          style={styles.removeButton}
-        >
+        <button onClick={handleRemove} style={styles.removeButton}>
           Remove
         </button>
       </div>
-    </div>
-  );
-};
-
-// Example of rendering the CartItem component
-export const Cart = ({ cartData }) => {
-  return (
-    <div>
-      {cartData.foodItems.map(item => (
-        <CartItem key={item.foodItemId} item={item} />
-      ))}
-      <h3>Total Price: ${cartData.totalPrice}</h3>
     </div>
   );
 };
