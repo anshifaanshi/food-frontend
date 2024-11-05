@@ -2,54 +2,51 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { axiosinstance } from "../config/axiosinstance";
 import toast from "react-hot-toast";
+import { Link } from 'react-router-dom';
+
 export const Card = ({ hotels }) => {
   
   const defaultImage = "https://www.ubereats.com/_static/711d51ca1b458931.webp";
   
-  
   return (
-    <div className="container">
-    <div className="row">
-      {hotels.map((hotel, index) => (
-        <div key={index} className="col-12 col-md-6 col-lg-4 mb-4">
-          <div className="card h-100">
-            <figure className="mb-0 d-flex justify-content-center align-items-center p-3">
-              <img
-                src={hotel?.image ? hotel.image : defaultImage}
-                alt={hotel?.name}
-                className="card-img-top hotelimage rounded-circle"
-              />
-            </figure>
-            <div className="hotelcard card-body text-center">
-              <h5 className="card-title">{hotel?.name}</h5>
-              <p className="card-text">
-                <strong>Address:</strong> {hotel?.address?.street}, {hotel?.address?.city}, {hotel?.address?.state}, {hotel?.address?.country}
-              </p>
-              <p className="card-text">
-                <strong>Rating:</strong> {hotel?.rating} / 5
-              </p>
-              <p className="card-text">
-                <strong>Cuisine:</strong> {hotel?.cuisineType?.join(", ")}
-              </p>
-              <p className="card-text">
-                <strong>Phone:</strong> {hotel?.phone}
-              </p>
-              <p className="card-text">
-                <strong>Email:</strong> {hotel?.email}
-              </p>
-              <div className="d-flex justify-content-center">
-                <Link to={`/hotel/hotelprofile/${hotel?._id}`} className="btn btn-primary">
-                  See More
-                </Link>
+    <div className="d-flex justify-content-center align-items-center mb-4">
+      <div className="row">
+      <div className="col-sm-12 col-md-6 col-lg-4">
+        <div className="card h-100">
+          <figure className="mb-0 d-flex justify-content-center align-items-center p-3">
+            <img
+              src={hotels?.image ? hotels.image : defaultImage}
+              alt={hotels?.name}
+              className="card-img-top hotelimage rounded-circle"
+            />
+          </figure>
+          <div className="hotelcard card-body text-center">
+            <h5 className="card-title">{hotels?.name}</h5>
+            <p className="card-text">
+              <strong>Address:</strong> {hotels?.address?.street}, {hotels?.address?.city}, {hotels?.address?.state}, {hotels?.address?.country}
+            </p>
+            <p className="card-text">
+              <strong>Rating:</strong> {hotels?.rating} / 5
+            </p>
+            <p className="card-text">
+              <strong>Cuisine:</strong> {hotels?.cuisineType?.join(", ")}
+            </p>
+            <p className="card-text">
+              <strong>Phone:</strong> {hotels?.phone}
+            </p>
+            <p className="card-text">
+              <strong>Email:</strong> {hotels?.email}
+            </p>
+            <div className="d-flex justify-content-center">
+              <Link to={`/hotel/hotelprofile/${hotels?._id}`} className="btn btn-primary">
+                See More
+              </Link>
               </div>
             </div>
           </div>
         </div>
-      ))}
+      </div>
     </div>
-  </div>
-     
-  
   );
 };
 
