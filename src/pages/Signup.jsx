@@ -26,7 +26,7 @@ export const Signup = ({ role = "user" }) => {
         try {
             const response = await axiosinstance({ method: "POST", url: user.signup_api, data });
             console.log(response, "====response");
-            toast.success("Log-in success");
+            toast.success("sign-in success");
             navigate('/');
         } catch (error) {
             toast.error("user already exist");
