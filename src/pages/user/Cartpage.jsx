@@ -13,6 +13,23 @@ export const CartPage = () => {
   const [discount, setDiscount] = useState(0);
   const [finalAmount, setFinalAmount] = useState(0);
   const [paymentLoading, setPaymentLoading] = useState(false);
+const [cart,setCart]=useState(cartData)
+
+
+
+
+const handleRemoveItem = (itemId) => {
+  // Update cart state after item removal
+  const updatedFoodItems = cart.foodItems.filter(item => item.foodItemId !== itemId);
+  const updatedTotalPrice = updatedFoodItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
+  setCart({
+    ...cart,
+    foodItems: updatedFoodItems,
+    totalPrice: updatedTotalPrice,
+  });
+};
+
 
   const fetchCartItems = async () => {
     setLoading(true);
