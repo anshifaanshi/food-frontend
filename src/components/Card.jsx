@@ -58,6 +58,9 @@ export const Card = ({ hotels }) => {
 
 
 // CartItem Component
+ // Ensure axios instance is correctly imported
+
+// CartItem Component
 export const CartItem = ({ item, onRemove }) => {
   const styles = {
     cart: {
@@ -104,7 +107,7 @@ export const CartItem = ({ item, onRemove }) => {
       // Trigger removal in parent component
       onRemove(item.foodItemId);
     } catch (error) {
-      console.error(error);
+      console.error("Error removing item:", error);
     }
   };
 
@@ -142,9 +145,13 @@ export const Cart = ({ initialCartData }) => {
 
   return (
     <div>
-      {cartData.foodItems.map(item => (
-        <CartItem key={item.foodItemId} item={item} onRemove={handleRemoveItem} />
-      ))}
+      {cartData.foodItems.length > 0 ? (
+        cartData.foodItems.map(item => (
+          <CartItem key={item.foodItemId} item={item} onRemove={handleRemoveItem} />
+        ))
+      ) : (
+        <p>Your cart is empty</p>
+      )}
       <h3>Total Price: ${cartData.totalPrice.toFixed(2)}</h3>
     </div>
   );
