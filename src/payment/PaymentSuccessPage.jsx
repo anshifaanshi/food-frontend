@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 const PaymentSuccessPage = () => {
+    console.log("Client domain:", client_domain);
+
     const navigate = useNavigate();
 
     useEffect(() => {

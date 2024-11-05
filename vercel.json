@@ -3,6 +3,14 @@
     {
       "source": "/api/(.*)", 
       "destination": "https://food-backend-9-ajzi.onrender.com/api/$1" 
+    },
+    {
+      "source": "/user/payment/success",
+      "destination": "/user/payment/success"
+    },
+    {
+      "source": "/user/payment/cancel",
+      "destination": "/user/payment/cancel"
     }
   ],
   "headers": [

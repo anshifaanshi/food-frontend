@@ -5,6 +5,7 @@ import Home from '../pages/Home';
 import { LoginPage } from '../pages/Login';
 import { Signup } from '../pages/Signup';
 import { Hotel } from '../pages/Hotels';
+
 import Hoteldetails from '../pages/Hoteldetails';
 import Fooditems from '../pages/Fooditems';
 import { AdminLogin } from '../pages/admin/AdminLogin';
@@ -59,11 +60,12 @@ export const router = createBrowserRouter([
         element: <Fooditems />,
       },
       {
-        path: "/payment/success",
+        path: "user/payment/success",
         element: <PaymentSuccessPage />,
+
       },
       {
-        path: "/payment/cancel",
+        path: "user/payment/cancel",
         element: <PaymentCancelPage />,
       },
       {
