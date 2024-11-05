@@ -54,9 +54,13 @@ export const Hotel = () => {
             )}
 
             <div className="hotel-list">
+                <div className="row">
+                <div className="col-lg-4 col-sm-12">
                 {data.map((hotel) => (
                     <Card hotels={hotel} key={hotel?._id} />
                 ))}
+                </div>
+                </div>
             </div>
         </div>
     );
