@@ -574,19 +574,6 @@ p:last-of-type {
   text-align: center;
 }
 
-.item-name {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.item-price {
-  font-size: 16px;
-  font-weight: medium;
-}
-
-.item-quantity {
-  font-size: 14px;
-}
 
 .remove-button {
   margin-top: 10px;
