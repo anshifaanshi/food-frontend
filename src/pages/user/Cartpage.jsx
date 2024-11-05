@@ -171,7 +171,7 @@ export const CartPage = () => {
           <div className="flex flex-col gap-3">
             <input
               type="text"
-              value={deliveryAddress}
+              
               
               placeholder="Enter your delivery address"
               className="address-input border rounded-md p-2 w-full"
