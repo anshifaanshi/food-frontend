@@ -54,8 +54,6 @@ export const Card = ({ hotels }) => {
 
 
 export const CartItem = ({ itemName, itemPrice, itemQuantity, item }) => {
-  console.log("Cart Item Props:", { itemName, itemPrice, itemQuantity, item });
-
   const handleremove = async (ID) => {
       const confirmRemove = window.confirm("Are you sure you want to remove this item from your cart?");
       if (!confirmRemove) return; // Exit if the user cancels
@@ -67,7 +65,6 @@ export const CartItem = ({ itemName, itemPrice, itemQuantity, item }) => {
               data: { ID },
           });
           console.log('Item removed:', response.data);
-          toast.success("item removed from cart")
           // Optionally, update the UI or state here to reflect the item removal
       } catch (error) {
           console.log(error);
@@ -75,20 +72,18 @@ export const CartItem = ({ itemName, itemPrice, itemQuantity, item }) => {
   };
 
   return (
-      <div>
-         <div className="cart-container">
-      <h2 className="title">Cart Summary</h2>
-    
-      
-          <h2 className="item-name">{itemName}</h2>
-          <h3 className="item-price">${itemPrice}</h3>
-          <p className="item-quantity">Quantity: {itemQuantity}</p>
-          <button className="remove-button" onClick={() => handleremove(item.fooditemid)}>
-            Remove
-          </button>
-        </div>
-     
-    </div>
-     
+      <div style={styles.cart}>
+          <div style={styles.textCenter}>
+              <h2 style={styles.itemName}>{itemName}</h2>
+              <h3 style={styles.itemPrice}>${itemPrice}</h3>
+              <p style={styles.itemQuantity}>Quantity: {itemQuantity}</p>
+              <button
+                  onClick={() => handleremove(item?.foodItemId)}
+                  style={styles.removeButton}
+              >
+                  Remove
+              </button>
+          </div>
+      </div>
   );
 };
