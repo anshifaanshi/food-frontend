@@ -53,7 +53,8 @@ export const Card = ({ hotels }) => {
 
 
 
-export const CartItem = ({ itemName, itemPrice, itemQuantity, item }) => {
+
+export const CartItem = ({ item }) => {
   const styles = {
     cart: {
       border: '1px solid #ccc',
@@ -89,35 +90,47 @@ export const CartItem = ({ itemName, itemPrice, itemQuantity, item }) => {
   };
 
   const handleremove = async (ID) => {
-      const confirmRemove = window.confirm("Are you sure you want to remove this item from your cart?");
-      if (!confirmRemove) return; // Exit if the user cancels
+    const confirmRemove = window.confirm("Are you sure you want to remove this item from your cart?");
+    if (!confirmRemove) return; // Exit if the user cancels
 
-      try {
-          const response = await axios({
-              method: "DELETE",
-              url: '/cart/remove',
-              data: { ID },
-          });
-          console.log('Item removed:', response.data);
-          // Optionally, update the UI or state here to reflect the item removal
-      } catch (error) {
-          console.log(error);
-      }
+    try {
+      const response = await axios({
+        method: "DELETE",
+        url: '/cart/remove',
+        data: { ID },
+      });
+      console.log('Item removed:', response.data);
+      // Optionally, update the UI or state here to reflect the item removal
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-      <div style={styles.cart}>
-          <div style={styles.textCenter}>
-              <h2 style={styles.itemName}>{itemName}</h2>
-              <h3 style={styles.itemPrice}>${itemPrice}</h3>
-              <p style={styles.itemQuantity}>Quantity: {itemQuantity}</p>
-              <button
-                  onClick={() => handleremove(item?.foodItemId)}
-                  style={styles.removeButton}
-              >
-                  Remove
-              </button>
-          </div>
+    <div style={styles.cart}>
+      <div style={styles.textCenter}>
+        <h2 style={styles.itemName}>{item.name}</h2>
+        <h3 style={styles.itemPrice}>${item.price}</h3>
+        <p style={styles.itemQuantity}>Quantity: {item.quantity}</p>
+        <button
+          onClick={() => handleremove(item.foodItemId)}
+          style={styles.removeButton}
+        >
+          Remove
+        </button>
       </div>
+    </div>
+  );
+};
+
+// Example of rendering the CartItem component
+export const Cart = ({ cartData }) => {
+  return (
+    <div>
+      {cartData.foodItems.map(item => (
+        <CartItem key={item.foodItemId} item={item} />
+      ))}
+      <h3>Total Price: ${cartData.totalPrice}</h3>
+    </div>
   );
 };

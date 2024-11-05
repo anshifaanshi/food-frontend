@@ -57,9 +57,7 @@ function UserEditPage() {
           <Link to={'/user/edit'}>
             <button className="btn btn-primary">Edit</button>
           </Link>
-          <Link to={'/user/history'}>
-            <button className="btn btn-primary">HISTORY</button>
-          </Link>
+          
         </div>
       </div>
     </div>
