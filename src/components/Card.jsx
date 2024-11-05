@@ -63,7 +63,7 @@ export const Card = ({ hotels }) => {
 // CartItem Component
 
 // CartItem Component
-export const CartItem = ({ item }) => {
+export const CartItem = ({ item, onRemove }) => {
   const styles = {
     cart: {
       border: '1px solid #ccc',
@@ -98,20 +98,18 @@ export const CartItem = ({ item }) => {
     },
   };
 
-  const handleremove = async (ID) => {
+  const handleRemove = async () => {
     const confirmRemove = window.confirm("Are you sure you want to remove this item from your cart?");
-    if (!confirmRemove) return; // Exit if the user cancels
+    if (!confirmRemove) return;
 
     try {
-      const response = await axiosinstance({
-        method: "DELETE",
-        url: '/cart/remove',
-        data: { ID },
-      });
-      console.log('Item removed:', response.data);
-      // Optionally, update the UI or state here to reflect the item removal
+      const response = await axiosinstance.delete('/cart/remove', { data: { ID: item.foodItemId } });
+      console.log('Item removed from server', response.data);
+      
+      // Trigger removal in parent component
+      onRemove(item.foodItemId);
     } catch (error) {
-      console.log(error);
+      console.error("Error removing item:", error);
     }
   };
 
@@ -121,10 +119,7 @@ export const CartItem = ({ item }) => {
         <h2 style={styles.itemName}>{item.name}</h2>
         <h3 style={styles.itemPrice}>${item.price}</h3>
         <p style={styles.itemQuantity}>Quantity: {item.quantity}</p>
-        <button
-          onClick={() => handleremove(item.foodItemId)}
-          style={styles.removeButton}
-        >
+        <button onClick={handleRemove} style={styles.removeButton}>
           Remove
         </button>
       </div>
@@ -132,14 +127,33 @@ export const CartItem = ({ item }) => {
   );
 };
 
-// Example of rendering the CartItem component
-export const Cart = ({ cartData }) => {
+// Cart Component
+export const Cart = ({ initialCartData }) => {
+  const [cartData, setCartData] = useState(initialCartData);
+
+  const handleRemoveItem = (foodItemId) => {
+    const updatedFoodItems = cartData.foodItems.filter(item => item.foodItemId !== foodItemId);
+    const updatedTotalPrice = updatedFoodItems.reduce(
+      (total, item) => total + item.price * item.quantity, 0
+    );
+
+    setCartData({
+      ...cartData,
+      foodItems: updatedFoodItems,
+      totalPrice: updatedTotalPrice,
+    });
+  };
+
   return (
     <div>
-      {cartData.foodItems.map(item => (
-        <CartItem key={item.foodItemId} item={item} />
-      ))}
-      <h3>Total Price: ${cartData.totalPrice}</h3>
+      {cartData.foodItems.length > 0 ? (
+        cartData.foodItems.map(item => (
+          <CartItem key={item.foodItemId} item={item} onRemove={handleRemoveItem} />
+        ))
+      ) : (
+        <p>Your cart is empty</p>
+      )}
+      <h3>Total Price: ${cartData.totalPrice.toFixed(2)}</h3>
     </div>
   );
 };
