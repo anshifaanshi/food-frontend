@@ -15,6 +15,7 @@ export const CartPage = () => {
   const [finalAmount, setFinalAmount] = useState(0);
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [redirecting, setRedirecting] = useState(false);
   const fetchCartItems = async () => {
     setLoading(true);
     try {
@@ -117,6 +118,18 @@ export const CartPage = () => {
   useEffect(() => {
     fetchCartItems();
   }, []);
+
+
+  useEffect(() => {
+    if (showModal) {
+      // Redirect after 3 seconds of showing the modal
+      setTimeout(() => {
+        setRedirecting(true);
+        window.location.href = "/";  // Redirect to home page
+      }, 3000);
+    }
+  }, [showModal]);
+
 
   return (
     <div className="flex gap-10 px-20 py-10">
