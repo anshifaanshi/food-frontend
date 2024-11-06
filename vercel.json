@@ -6,11 +6,11 @@
     },
     {
       "source": "/user/payment/success",
-      "destination": "/user/payment/success"
+      "destination": "/index.html"
     },
     {
       "source": "/user/payment/cancel",
-      "destination": "/user/payment/cancel"
+      "destination": "/index.html"
     }
   ],
   "headers": [

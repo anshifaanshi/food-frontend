@@ -59,11 +59,11 @@ export const router = createBrowserRouter([
         path: "fooditems/allfood",
         element: <Fooditems />,
       },
-       //{
-       // path: "user/payment/success",
-       // element: <PaymentSuccessPage />,
+       {
+        path: "user/payment/success",
+        element: <PaymentSuccessPage />,
 
-    //  },
+     },
       {
         path: "user/payment/cancel",
         element: <PaymentCancelPage />,

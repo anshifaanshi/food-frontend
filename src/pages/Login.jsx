@@ -29,7 +29,7 @@ export const LoginPage = ({ role = "user" }) => {
             toast.success("Log-in success");
             navigate('/user/profile');
         } catch (error) {
-            toast.error("user found");
+            toast.error("user  not found");
             console.log(error);
         }
     };
