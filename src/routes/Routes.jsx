@@ -22,8 +22,7 @@ import UserEditPage from '../pages/user/UserEditPage';
 import ErrorPage from '../pages/ErrorPage';
 import { CreateHotelsAndFoodItems } from '../components/admin/CreateHotels';
 import OrderHistory from '../pages/Order';
-import PaymentSuccess from '../payment/PaymentSuccessPage';
-import PaymentCancelPage from '../payment/PaymentCancelPage';
+
 
 export const router = createBrowserRouter([
   {
@@ -84,10 +83,7 @@ export const router = createBrowserRouter([
           }
         ],
       },
-      {
-        path: "payment/success", // The URL path for the payment success page
-        element: <PaymentSuccess />,  // The component to show when the user is redirected after a successful payment
-      },
+      
     ],
   },
   {

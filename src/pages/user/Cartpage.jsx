@@ -78,21 +78,28 @@ export const CartPage = () => {
         if (result.error) {
           setShowModal(true);
           setTimeout(() => {
-              setShowModal(false);
-              navigate("/"); // Redirect to homepage
-          }, 3000);
-          console.error("Stripe Checkout Error:", result.error.message);
-        }
+            setShowModal(false);
+            window.location.href = "/"; // Redirect to homepage
+        }, 3000); // 3 seconds delay for the modal
+        console.error("Stripe Checkout Error:", result.error.message);
       } else {
-        console.error("Error: Session ID not found in response");
+        // Successfully initiated payment, show success modal
+        setShowModal(true);
+        setTimeout(() => {
+            setRedirecting(true);
+            window.location.href = "/";  // Redirect to home page
+        }, 3000); // 3 seconds delay for the modal to appear before redirect
       }
-    } catch (error) {
-      console.error("Error during payment process:", error.response?.data || error.message);
-      toast.error("Payment failed. Please try again.");
-    } finally {
-      setPaymentLoading(false);
+    } else {
+      console.error("Error: Session ID not found in response");
     }
-  };
+  } catch (error) {
+    console.error("Error during payment process:", error.response?.data || error.message);
+    toast.error("Payment failed. Please try again.");
+  } finally {
+    setPaymentLoading(false);
+  }
+};
 
   const applyCoupon = async () => {
     console.log("Applying coupon:", couponCode);
