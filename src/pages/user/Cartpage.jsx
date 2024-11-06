@@ -13,7 +13,6 @@ export const CartPage = () => {
   const [discount, setDiscount] = useState(0);
   const [finalAmount, setFinalAmount] = useState(0);
   const [paymentLoading, setPaymentLoading] = useState(false);
-  const [showModal, setShowModal] = useState(false);
   const [redirecting, setRedirecting] = useState(false);
 
   const fetchCartItems = async () => {
@@ -25,7 +24,6 @@ export const CartPage = () => {
       setFinalAmount(data.totalPrice);
       setError(null);
     } catch (error) {
-      console.log(error);
       setError("Failed to load cart items. Please try again.");
     } finally {
       setLoading(false);
@@ -45,11 +43,10 @@ export const CartPage = () => {
         setFinalAmount(updatedTotalPrice);
         toast.success("Item removed successfully!");
       } else {
-        toast.error("Failed to remove item. Please try again.");
+        toast.error("Failed to remove item.");
       }
     } catch (error) {
-      toast.error("Failed to remove item. Please try again.");
-      console.error(error);
+      toast.error("Failed to remove item.");
     }
   };
 
@@ -77,12 +74,13 @@ export const CartPage = () => {
           toast.error("Payment failed. Please try again.");
           console.error("Stripe Checkout Error:", result.error.message);
         } else {
-          toast.success("Payment successful! Redirecting to home page...", {
-            onClose: () => {
-              // After toast close, redirect the user
-              window.location.href = "/"; // Redirect to homepage
-            },
-          });
+          toast.success("Payment successful! Redirecting to home page...");
+          
+          // Start a delay for redirection after toast success
+          setRedirecting(true);
+          setTimeout(() => {
+            window.location.href = "/"; // Redirect to homepage after 5 seconds
+          }, 5000); // 5 seconds delay to show the success toast
         }
       } else {
         console.error("Error: Session ID not found in response");
@@ -96,7 +94,6 @@ export const CartPage = () => {
   };
 
   const applyCoupon = async () => {
-    console.log("Applying coupon:", couponCode);
     try {
       const response = await axiosinstance.post("/coupons/checkout", {
         couponCode,
@@ -111,7 +108,6 @@ export const CartPage = () => {
         toast.success("Coupon applied successfully!");
       }
     } catch (error) {
-      console.error("Coupon application error:", error);
       toast.error(error.response?.data?.message || "Failed to apply coupon.");
     }
   };
