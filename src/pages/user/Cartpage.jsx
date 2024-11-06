@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { axiosinstance } from "../../config/axiosinstance";
 import { CartItem } from "../../components/Card"; 
 import { loadStripe } from "@stripe/stripe-js";
-import { toast } from "react-toastify";
-import PopupModal from "../../components/PopupModel";
+import { toast ,ToastContainer} from "react-toastify";
+
 
 export const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -76,30 +76,25 @@ export const CartPage = () => {
         });
         
         if (result.error) {
-          setShowModal(true);
+          toast.error("payment failed.please try again.")
+          console.error("Stripe Checkout Error:", result.error.message);
+        } else {
+          // If payment is successful, show a success toast and redirect
+          toast.success("Payment successful! Redirecting to home page...");
           setTimeout(() => {
-            setShowModal(false);
-            window.location.href = "/"; // Redirect to homepage
-        }, 3000); // 3 seconds delay for the modal
-        console.error("Stripe Checkout Error:", result.error.message);
+            window.location.href = "/";  // Redirect to homepage after 3 seconds
+          }, 3000); // Show success message for 3 seconds before redirect
+        }
       } else {
-        // Successfully initiated payment, show success modal
-        setShowModal(true);
-        setTimeout(() => {
-            setRedirecting(true);
-            window.location.href = "/";  // Redirect to home page
-        }, 3000); // 3 seconds delay for the modal to appear before redirect
+        console.error("Error: Session ID not found in response");
       }
-    } else {
-      console.error("Error: Session ID not found in response");
+    } catch (error) {
+      console.error("Error during payment process:", error.response?.data || error.message);
+      toast.error("Payment failed. Please try again.");
+    } finally {
+      setPaymentLoading(false);
     }
-  } catch (error) {
-    console.error("Error during payment process:", error.response?.data || error.message);
-    toast.error("Payment failed. Please try again.");
-  } finally {
-    setPaymentLoading(false);
-  }
-};
+  };
 
   const applyCoupon = async () => {
     console.log("Applying coupon:", couponCode);
@@ -197,12 +192,7 @@ export const CartPage = () => {
         {/* Final Amount */}
         <h2 className="mt-5">Final Amount: ${finalAmount.toFixed(2)}</h2>
 
-        {showModal && (
-                <PopupModal 
-                    message="Payment successful! Redirecting to home page..."
-                    onClose={() => setShowModal(false)}
-                />
-            )}
+     
 
 
         <button
@@ -213,6 +203,14 @@ export const CartPage = () => {
           {paymentLoading ? "Processing Payment..." : "Proceed to Payment"}
         </button>
       </div>
+      <ToastContainer
+        position="top-center"    // Position the toast at the top center of the page
+        autoClose={5000}         // Duration to show the toast (5000ms = 5 seconds)
+        hideProgressBar={false} // Display the progress bar while the toast is visible
+        closeOnClick            // Allow closing the toast when clicked
+        pauseOnHover            // Pause on hover
+        theme="colored"         // Toast theme (colored for better styling)
+      />
     </div>
   );
 };
