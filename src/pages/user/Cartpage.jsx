@@ -14,7 +14,7 @@ export const CartPage = () => {
   const [discount, setDiscount] = useState(0);
   const [finalAmount, setFinalAmount] = useState(0);
   const [paymentLoading, setPaymentLoading] = useState(false);
-
+  const [showModal, setShowModal] = useState(false);
   const fetchCartItems = async () => {
     setLoading(true);
     try {
