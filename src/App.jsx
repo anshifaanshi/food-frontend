@@ -8,6 +8,9 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
+  const clientDomain = process.env.REACT_APP_CLIENT_DOMAIN;
+console.log(clientDomain);  // This should print the domain value set in Vercel
+
   return (
     <>
   <RouterProvider router={router} />
