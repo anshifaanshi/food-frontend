@@ -1,29 +1,30 @@
 
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+
 const PaymentSuccessPage = () => {
-    console.log("Client domain:", client_domain);
+    const history = useHistory();
+    const clientDomain = process.env.REACT_APP_CLIENT_DOMAIN;
 
-    const navigate = useNavigate();
+    console.log("Client domain:", clientDomain);
 
+    // Trigger success notification
     useEffect(() => {
+        toast.success("Your order has been confirmed!");
         
-
-        toast.success("your order confirmed")
         const timer = setTimeout(() => {
-            navigate('/user/profile'); 
-        }, 5000); 
+            history.push("/user/profile");
+        }, 5000); // Redirect after 5 seconds
 
-        return () => clearTimeout(timer); 
-    }, [navigate]);
+        return () => clearTimeout(timer); // Cleanup the timer on component unmount
+    }, [history]);
 
     return (
-        <div className="payment-container">
-      <h1>Payment Successful!</h1>
-      <p>Your payment has been processed successfully.</p>
-      <p>You will be redirected to your profile shortly.</p>
-    </div>
+        <div>
+            <h2>Order Successful</h2>
+            <p>Your order has been confirmed. You will be redirected to your profile shortly.</p>
+        </div>
     );
 };
 
