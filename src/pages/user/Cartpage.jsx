@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { axiosinstance } from "../../config/axiosinstance";
 import { CartItem } from "../../components/Card"; 
 import { loadStripe } from "@stripe/stripe-js";
-import { toast ,ToastContainer} from "react-toastify";
-
+import { toast, ToastContainer } from "react-toastify";
 
 export const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -16,6 +15,7 @@ export const CartPage = () => {
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [redirecting, setRedirecting] = useState(false);
+
   const fetchCartItems = async () => {
     setLoading(true);
     try {
@@ -34,17 +34,15 @@ export const CartPage = () => {
 
   const handleRemoveItem = async (itemId) => {
     try {
-      // Make an API call to remove the item
       const response = await axiosinstance.delete("/cart/remove", { data: { ID: itemId } });
       
-      // Update cart items in state
       if (response.data.success) {
         const updatedCartItems = cartItems.filter(item => item.foodItemId !== itemId);
         const updatedTotalPrice = updatedCartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
         setCartItems(updatedCartItems);
-        setCartData(prev => ({ ...prev, totalPrice: updatedTotalPrice })); // Update cartData if needed
-        setFinalAmount(updatedTotalPrice); // Update final amount directly if required
+        setCartData(prev => ({ ...prev, totalPrice: updatedTotalPrice }));
+        setFinalAmount(updatedTotalPrice);
         toast.success("Item removed successfully!");
       } else {
         toast.error("Failed to remove item. Please try again.");
@@ -76,14 +74,15 @@ export const CartPage = () => {
         });
         
         if (result.error) {
-          toast.error("payment failed.please try again.")
+          toast.error("Payment failed. Please try again.");
           console.error("Stripe Checkout Error:", result.error.message);
         } else {
-          // If payment is successful, show a success toast and redirect
-          toast.success("Payment successful! Redirecting to home page...");
-          
-            window.location.href = "/";  // Redirect to homepage after 3 seconds
-           // Show success message for 3 seconds before redirect
+          toast.success("Payment successful! Redirecting to home page...", {
+            onClose: () => {
+              // After toast close, redirect the user
+              window.location.href = "/"; // Redirect to homepage
+            },
+          });
         }
       } else {
         console.error("Error: Session ID not found in response");
@@ -121,18 +120,6 @@ export const CartPage = () => {
     fetchCartItems();
   }, []);
 
-
-  useEffect(() => {
-    if (showModal) {
-      // Redirect after 3 seconds of showing the modal
-      setTimeout(() => {
-        setRedirecting(true);
-        window.location.href = "/";  // Redirect to home page
-      }, 3000);
-    }
-  }, [showModal]);
-
-
   return (
     <div className="flex gap-10 px-20 py-10">
       <div className="w-8/12">
@@ -145,8 +132,8 @@ export const CartPage = () => {
           cartItems.map((item, index) => (
             <CartItem 
               item={item} 
-              key={item.foodItemId || index} // Use unique id for key
-              onRemove={handleRemoveItem} // Pass the remove handler
+              key={item.foodItemId || index} 
+              onRemove={handleRemoveItem} 
             />
           ))
         ) : (
@@ -185,31 +172,25 @@ export const CartPage = () => {
           </div>
         )}
 
-
-
-
-
         {/* Final Amount */}
         <h2 className="mt-5">Final Amount: ${finalAmount.toFixed(2)}</h2>
-
-     
-
 
         <button
           className="pay-btn bg-green-500 text-white rounded-md p-2 mt-5 hover:bg-green-600"
           onClick={makePayment}
-          disabled={loading || paymentLoading} // Disable if loading
+          disabled={loading || paymentLoading}
         >
           {paymentLoading ? "Processing Payment..." : "Proceed to Payment"}
         </button>
       </div>
+      
       <ToastContainer
-        position="top-center"    // Position the toast at the top center of the page
-        autoClose={5000}         // Duration to show the toast (5000ms = 5 seconds)
-        hideProgressBar={false} // Display the progress bar while the toast is visible
-        closeOnClick            // Allow closing the toast when clicked
-        pauseOnHover            // Pause on hover
-        theme="colored"         // Toast theme (colored for better styling)
+        position="top-center" 
+        autoClose={5000} // Adjust this value to control how long the toast stays
+        hideProgressBar={false} 
+        closeOnClick
+        pauseOnHover
+        theme="colored"
       />
     </div>
   );
