@@ -166,19 +166,7 @@ export const CartPage = () => {
 
 
 
-<div className="delivery-info bg-white p-5 rounded-lg shadow-md mt-5">
-          <h3 className="text-lg font-semibold">Delivery Information</h3>
-          <div className="flex flex-col gap-3">
-            <input
-              type="text"
-              
-              
-              placeholder="Enter your delivery address"
-              className="address-input border rounded-md p-2 w-full"
-            />
-            <p className="text-sm text-gray-600">Please enter your delivery address for accurate order processing.</p>
-          </div>
-        </div>
+
 
         {/* Final Amount */}
         <h2 className="mt-5">Final Amount: ${finalAmount.toFixed(2)}</h2>
