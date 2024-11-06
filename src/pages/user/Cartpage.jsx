@@ -3,6 +3,7 @@ import { axiosinstance } from "../../config/axiosinstance";
 import { CartItem } from "../../components/Card"; 
 import { loadStripe } from "@stripe/stripe-js";
 import { toast } from "react-toastify";
+import PopupModal from "../../components/PopupModel";
 
 export const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -74,6 +75,11 @@ export const CartPage = () => {
         });
         
         if (result.error) {
+          setShowModal(true);
+          setTimeout(() => {
+              setShowModal(false);
+              navigate("/"); // Redirect to homepage
+          }, 3000);
           console.error("Stripe Checkout Error:", result.error.message);
         }
       } else {
@@ -170,6 +176,14 @@ export const CartPage = () => {
 
         {/* Final Amount */}
         <h2 className="mt-5">Final Amount: ${finalAmount.toFixed(2)}</h2>
+
+        {showModal && (
+                <PopupModal 
+                    message="Payment successful! Redirecting to home page..."
+                    onClose={() => setShowModal(false)}
+                />
+            )}
+
 
         <button
           className="pay-btn bg-green-500 text-white rounded-md p-2 mt-5 hover:bg-green-600"
