@@ -70,7 +70,7 @@ export const CartPage = () => {
         withCredentials: true 
       });
 
-      if (session.data && session.data.sessionId) {
+      if (session.data) {
         const result = await stripe.redirectToCheckout({
           sessionId: session.data.sessionId,
         });
@@ -81,9 +81,9 @@ export const CartPage = () => {
         } else {
           // If payment is successful, show a success toast and redirect
           toast.success("Payment successful! Redirecting to home page...");
-          setTimeout(() => {
+          
             window.location.href = "/";  // Redirect to homepage after 3 seconds
-          }, 3000); // Show success message for 3 seconds before redirect
+           // Show success message for 3 seconds before redirect
         }
       } else {
         console.error("Error: Session ID not found in response");
