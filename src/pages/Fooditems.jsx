@@ -25,6 +25,7 @@ function Fooditems() {
     };
 
     const addToCart = async (foodItemId) => {
+        
         const token = localStorage.getItem('token'); // Adjust if your token is stored elsewhere
 
     if (!token) {

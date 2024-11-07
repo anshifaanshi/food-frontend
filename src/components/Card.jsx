@@ -71,6 +71,22 @@ export const CartItem = ({ item, onRemove }) => {
       borderRadius: '3px',
       cursor: 'pointer',
     },
+    incrementButton: {
+      padding: '5px 10px',
+      backgroundColor: '#4CAF50',
+      color: 'white',
+      border: 'none',
+      borderRadius: '3px',
+      cursor: 'pointer',
+    },
+    decrementButton: {
+      padding: '5px 10px',
+      backgroundColor: '#ff9800',
+      color: 'white',
+      border: 'none',
+      borderRadius: '3px',
+      cursor: 'pointer',
+    },
   };
 
   const handleRemove = async () => {
@@ -80,12 +96,30 @@ export const CartItem = ({ item, onRemove }) => {
     }
   };
 
+  const handleIncrement = () => {
+    onUpdateQuantity(item.foodItemId, item.quantity + 1);
+  };
+
+  const handleDecrement = () => {
+    if (item.quantity > 1) {
+      onUpdateQuantity(item.foodItemId, item.quantity - 1);
+    }
+  };
+
   return (
     <div style={styles.cart}>
       <div style={styles.textCenter}>
         <h2 style={styles.itemName}>{item.name}</h2>
         <h3 style={styles.itemPrice}>${item.price}</h3>
         <p style={styles.itemQuantity}>Quantity: {item.quantity}</p>
+        <div style={styles.buttonGroup}>
+          <button onClick={handleIncrement} style={styles.incrementButton}>
+            +
+          </button>
+          <button onClick={handleDecrement} style={styles.decrementButton}>
+            -
+          </button>
+        </div>
         <button onClick={handleRemove} style={styles.removeButton}>
           Remove
         </button>
