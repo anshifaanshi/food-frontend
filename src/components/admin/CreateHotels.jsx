@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { axiosinstance } from "../../config/axiosinstance";
+import toast from "react-hot-toast";
 
 export function CreateHotelsAndFoodItems() {
   // Hotel state
@@ -27,9 +28,9 @@ export function CreateHotelsAndFoodItems() {
         method: 'POST',
         data: formData,
       });
-      if (response) setHotelStatus('Hotel created successfully!');
+      if (response) toast.success('Hotel created successfully!,check hotels list');
     } catch (error) {
-      setHotelStatus('Failed to create hotel');
+      toast.error('Failed to create hotel');
       console.error(error);
     }
   };
@@ -91,7 +92,7 @@ export function CreateHotelsAndFoodItems() {
 
   return (
     <div>
-      <h1>Create Hotel and Food Item</h1>
+      <h1>Create Hotel </h1>
 
       {/* Hotel Form */}
       <section>
@@ -111,22 +112,7 @@ export function CreateHotelsAndFoodItems() {
       <hr />
 
       {/* Food Item Form */}
-      <section>
-        <h2>Upload Food Item</h2>
-        {foodImage.preview && <img src={foodImage.preview} width="100" height="100" alt="Food preview" />}
-        <form onSubmit={handleFoodSubmit}>
-          <input type="file" name="file" onChange={handleFoodFileChange} />
-          <input type="text" name="name" placeholder="Food Item Name" onChange={handleFoodInput} required />
-          <textarea name="description" placeholder="Description" onChange={handleFoodInput} />
-          <input type="number" name="price" placeholder="Price" onChange={handleFoodInput} required />
-          <label>
-            <input type="checkbox" name="availability" checked={foodData.availability} onChange={handleFoodInput} />
-            Available
-          </label>
-          <button type="submit">Submit Food Item</button>
-        </form>
-        {foodStatus && <h4>{foodStatus}</h4>}
-      </section>
+      
     </div>
   );
 }
