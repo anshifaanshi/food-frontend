@@ -71,10 +71,10 @@ function Fooditems() {
 
 <div className="menucontainer">
     <div className="image-box left">
-        <img src="https://drive.google.com/uc?export=view&id=1QN-GOZGARk15WKJxjYz2bZSN4XaTmJg3" alt="Image 1"/>
+        <img src="https://tse2.mm.bing.net/th?id=OIP.HclffFvjlHenc9Y0iJsFpQHaD0&pid=Api&P=0&h=220" alt="Image 1"/>
     </div>
     <div className="image-box right">
-        <img src="https://drive.google.com/uc?export=view&id=1qMTB0zZg3gB7Znmlf7mCMBdiDNsbYcIR" alt="Image 2"/>
+        <img src="https://tse2.mm.bing.net/th?id=OIP.x7db1Ot6seQg-_WEETdDQgHaEe&pid=Api&h=220" alt="Image 2"/>
     </div>
 </div>
 
