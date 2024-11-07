@@ -16,7 +16,7 @@ import ProfilePage from '../pages/ProfilePage';
 import { Adminlayout } from '../layout/Adminlayout';
 import AdminProfile from '../pages/admin/AdminProfile';
 import { UserLayout } from '../layout/Userlayout';
-import About from '../pages/About';
+
 import Authadmin from '../routes/protectedroutes/Authadmin';
 import UserEditPage from '../pages/user/UserEditPage';
 import ErrorPage from '../pages/ErrorPage';
