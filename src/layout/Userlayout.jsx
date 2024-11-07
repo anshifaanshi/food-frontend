@@ -7,7 +7,7 @@ import { axiosinstance } from "../config/axiosinstance";
 import { saveUser, clearUser } from '../redux/features/userSlice';
 import Header from '../components/Header';
 import AdminFooter from '../pages/admin/AdminFooter';
-import Loading from '../components/Loading';  // Import the new Loading component
+import Loading from '../components/user/Loading';  // Import the new Loading component
 
 export const UserLayout = () => {
   const { isUserExist } = useSelector((state) => state.user);
