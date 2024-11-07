@@ -67,7 +67,12 @@ function Fooditems() {
 
     return (
         <div className="menu container my-5">
-
+<div className="menu-section">
+      <div className="heading-container">
+        <h1 className="heading-animate">Explore Our Menu</h1>
+      </div>
+      
+    </div>
 
 <ImageCarousel/>
 

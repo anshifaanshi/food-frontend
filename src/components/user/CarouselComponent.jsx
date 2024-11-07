@@ -9,7 +9,11 @@ const ImageCarousel = () => {
     "https://tse2.mm.bing.net/th?id=OIP.HclffFvjlHenc9Y0iJsFpQHaD0&pid=Api&P=0&h=220",
     "https://tse2.mm.bing.net/th?id=OIP.x7db1Ot6seQg-_WEETdDQgHaEe&pid=Api&h=220",
     "https://tse1.mm.bing.net/th?id=OIP.vFeytGRIasd8dLMA1F0OUgHaFY&pid=Api&P=0&h=220",
-    "https://tse4.mm.bing.net/th?id=OIP.rfHEhtl9HL_UIfOU_PeSxgHaD9&pid=Api&P=0&h=220"
+    "https://tse4.mm.bing.net/th?id=OIP.rfHEhtl9HL_UIfOU_PeSxgHaD9&pid=Api&P=0&h=220",
+    "https://tse1.mm.bing.net/th?id=OIP.NlUdyrKPVYM1ckxiR9scOAHaF7&pid=Api&P=0&w=500&h=400",
+    "https://tse2.mm.bing.net/th?id=OIP.JVrEXbO_RPgrAQbEEHVCyQHaDs&pid=Api&P=0&h=220",
+    "http://www.pngmart.com/files/7/Fresh-Healthy-Food-Background-PNG.png",
+    "https://www.pngarts.com/files/3/Food-PNG-Transparent-Image.png"
   ];
 
   return (
