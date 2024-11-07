@@ -25,7 +25,12 @@ function Fooditems() {
     };
 
     const addToCart = async (foodItemId) => {
-        
+        const token = localStorage.getItem('token'); // Adjust if your token is stored elsewhere
+
+    if (!token) {
+        toast.error('Please log in to add items to the cart.');
+        return;
+    }
         
         try {
             const response = await axiosinstance.post('/cart/add-to-cart', { foodItemId });
