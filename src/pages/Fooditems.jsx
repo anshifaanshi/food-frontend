@@ -33,7 +33,10 @@ function Fooditems() {
             toast.success('Food item added to cart!');
         } catch (error) {
             console.error('Error adding to cart:', error.response ? error.response.data : error.message); 
-            toast.error( 'please login');
+            const errorMessage = error.response && error.response.data && error.response.data.message 
+        ? error.response.data.message 
+        : "An unexpected error occurred. Please try again.";
+            toast.error(  errorMessage);
         }
     };
 

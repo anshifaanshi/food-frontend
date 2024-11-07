@@ -27,7 +27,7 @@ export const LoginPage = ({ role = "user" }) => {
             const response = await axiosinstance({ method: "POST", url: user.login_api, data });
             console.log(response, "====response");
             toast.success("Log-in success");
-            navigate('/user/profile');
+            navigate('/');
         } catch (error) {
             toast.error("user  not found");
             console.log(error);
