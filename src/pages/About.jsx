@@ -1,11 +1,10 @@
 import React from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+
 
 function About() {
   return (
     <div>
-      <Header />
+      
       
       {/* Hero Section with Background Image and Title */}
       <div className="hero-section bg-cover bg-center h-80 flex items-center justify-center" style={{ backgroundImage: "url('https://drive.google.com/uc?export=view&id=1QN-GOZGARk15WKJxjYz2bZSN4XaTmJg3')" }}>
@@ -53,7 +52,7 @@ function About() {
         </p>
       </section>
 
-      <Footer />
+      
     </div>
   );
 }
