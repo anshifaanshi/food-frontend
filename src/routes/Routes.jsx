@@ -1,4 +1,4 @@
-//import Aboutus from '../pages/Aboutus';
+import About from '../pages/About';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 import Rootlayout from '../layout/Rootlayout';
 import Home from '../pages/Home';
@@ -34,10 +34,10 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
-     // {
-      //  path: "about",
-       // element: <About />,
-     // },
+      {
+        path: "about",
+       element: <About />,
+      },
       {
         path: "login",
         element: <LoginPage />,
