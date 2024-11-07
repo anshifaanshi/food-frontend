@@ -11,6 +11,7 @@ export const Card = ({ hotels }) => {
   const defaultImage = "https://www.ubereats.com/_static/711d51ca1b458931.webp";
   
   return (
+    <div className="container">
     <div className="card">
     <img src={hotels?.image || 'default-image.jpg'} alt={hotels?.name} className="card-img-top" />
     <div className="card-body">
@@ -18,6 +19,7 @@ export const Card = ({ hotels }) => {
       <p className="card-text">{hotels?.description}</p>
       <p className="card-text">{hotels?.phone}</p>
       <p className="card-text">{hotels?.email}</p>
+      </div>
     </div>
   </div>
       

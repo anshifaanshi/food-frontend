@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { axiosinstance } from "../config/axiosinstance"; 
-import { Card } from "../components/Card";
+//import { Card } from "../components/Card";
 
 export const Hotel = () => {
     const [data, setData] = useState([]);
@@ -52,16 +52,29 @@ export const Hotel = () => {
             ) : (
                 <h1 className="hotelhead">Explore Our Restaurants</h1>
             )}
+<div className="hotel-list">
+  <div className="row">
+    {data.map((hotel) => (
+      <div className="col-lg-4 col-md-6 col-sm-12 mb-4" key={hotel?._id}>
+        <div className="card">
+          <img
+            src={hotel?.image || 'default-image.jpg'}
+            alt={hotel?.name}
+            className="card-img-top"
+          />
+          <div className="card-body">
+            <h5 className="card-title">{hotel?.name}</h5>
+            <p className="card-text">{hotel?.description}</p>
+            <p className="card-text">{hotel?.phone}</p>
+            <p className="card-text">{hotel?.email}</p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
 
-            <div className="hotel-list">
-                <div className="row">
-                <div className="col-lg-4 col-sm-12">
-                {data.map((hotel) => (
-                    <Card hotels={hotel} key={hotel?._id} />
-                ))}
-                </div>
-                </div>
-            </div>
+            
         </div>
     );
 };
