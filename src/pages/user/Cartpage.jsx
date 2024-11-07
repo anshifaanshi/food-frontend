@@ -3,7 +3,7 @@ import { axiosinstance } from "../../config/axiosinstance";
 import { CartItem } from "../../components/Card"; 
 import { loadStripe } from "@stripe/stripe-js";
 import { toast, ToastContainer } from "react-toastify";
-
+import  {useNavigate} from "react-router-dom"
 export const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [cartData, setCartData] = useState({});
@@ -14,6 +14,9 @@ export const CartPage = () => {
   const [finalAmount, setFinalAmount] = useState(0);
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [redirecting, setRedirecting] = useState(false);
+
+
+  const navigate=useNavigate();
 
   const fetchCartItems = async () => {
     setLoading(true);
@@ -74,13 +77,11 @@ export const CartPage = () => {
           toast.error("Payment failed. Please try again.");
           console.error("Stripe Checkout Error:", result.error.message);
         } else {
-          toast.success("Payment successful! Redirecting to home page...");
+          
           
           // Start a delay for redirection after toast success
-          setRedirecting(true);
-          setTimeout(() => {
-            window.location.href = "/"; // Redirect to homepage after 5 seconds
-          }, 5000); // 5 seconds delay to show the success toast
+          navigate("/user/payment/success")
+         
         }
       } else {
         console.error("Error: Session ID not found in response");

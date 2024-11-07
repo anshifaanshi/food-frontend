@@ -22,7 +22,7 @@ import UserEditPage from '../pages/user/UserEditPage';
 import ErrorPage from '../pages/ErrorPage';
 import { CreateHotelsAndFoodItems } from '../components/admin/CreateHotels';
 import OrderHistory from '../pages/Order';
-
+import PaymentSuccess from '../payment/PaymentSuccessPage';
 
 export const router = createBrowserRouter([
   {
@@ -80,8 +80,12 @@ export const router = createBrowserRouter([
           {
             path: 'history',
             element: <OrderHistory />
+          },{
+            path:'payment/success',
+            element:<PaymentSuccess/>
           }
         ],
+        
       },
       
     ],
