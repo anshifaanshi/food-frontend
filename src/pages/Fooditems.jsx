@@ -97,16 +97,17 @@ function Fooditems() {
                                 >
                                     Add To Cart
                                 </button>
-                                <Link to="/Cart/getcart">
-                                    <button className="btn btn-secondary">
-                                        Show Cart
-                                    </button>
-                                </Link>
+                                
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
+            <Link to="/Cart/getcart">
+                                    <button className="btn btn-secondary">
+                                        Show Cart
+                                    </button>
+                                </Link>
             <ToastContainer />
         </div>
     );
