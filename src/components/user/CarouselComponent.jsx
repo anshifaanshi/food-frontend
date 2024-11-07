@@ -1,4 +1,5 @@
 // src/components/ImageCarousel.jsx
+// src/components/ImageCarousel.jsx
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -17,9 +18,10 @@ const ImageCarousel = () => {
         showThumbs={false} 
         autoPlay 
         infiniteLoop 
-        interval={3000} 
+        interval={2000}  // 2-second interval
         showStatus={false} 
         showIndicators={true}
+        stopOnHover={false}  // Keeps auto-play active when hovering
       >
         {images.map((url, index) => (
           <div key={index} className="image-box">

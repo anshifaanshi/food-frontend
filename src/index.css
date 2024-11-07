@@ -591,18 +591,9 @@ p:last-of-type {
 .remove-button:hover {
   background-color: #e60000; /* Darker red on hover */
 }
-.menucontainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  background: linear-gradient(to right, lightyellow, lightorange);
-  border-radius: 8px;
-}
 
-.image-box {
-  flex: 1;
-}
+
+
 
 .image-box.left {
   display: flex;
@@ -633,4 +624,14 @@ p:last-of-type {
   to {
     transform: rotate(360deg);
   }
+}
+.menucontainer {
+  width: 300px;  /* Adjust the width to a smaller size */
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.image-box img {
+  border-radius: 8px;
+  max-height: 200px;  /* Control the height of each slide */
 }
