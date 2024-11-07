@@ -43,7 +43,7 @@ function Home() {
 
         <div>
         <div className="image-container">
-  <img src="https://www.talabat.com/assets/images/banner-img-1.webp" alt="" className="talabatpic1" />
+  <img src="https://www.talabat.com/assets/images/banner-img-1.webp" alt="" className="talabatpic1"  />
   
 
   <p className="between-text">Discover your favorite meals and get them delivered fresh to your door with just a few clicks!</p>
@@ -99,12 +99,12 @@ function Home() {
         </div>
         <div className='col-lg-3 col-sm'>
           
-          <img src='https://b.zmtcdn.com/webFrontend/e5b8785c257af2a7f354f1addaf37e4e1647364814.jpeg?output-format=webp&fit=around|402:360&crop=402:360;*,*' className='styled-image'></img>
+          <img src='https://b.zmtcdn.com/webFrontend/e5b8785c257af2a7f354f1addaf37e4e1647364814.jpeg?output-format=webp&fit=around|402:360&crop=402:360;*,*' className='styled-image h-7 w-7'></img>
                
               </div>
               <div className='col-lg-3 col-sm'>
           
-          <img src='https://b.zmtcdn.com/webFrontend/e5b8785c257af2a7f354f1addaf37e4e1647364814.jpeg?output-format=webp&fit=around|402:360&crop=402:360;*,*' className='styled-image'></img>
+          <img src='https://b.zmtcdn.com/webFrontend/e5b8785c257af2a7f354f1addaf37e4e1647364814.jpeg?output-format=webp&fit=around|402:360&crop=402:360;*,*' className='styled-image h-7 w-7'></img>
                
               </div>
             </div>
