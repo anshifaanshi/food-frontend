@@ -126,7 +126,7 @@ function Home() {
       </div>
       <div className='col-lg-4 col-sm'>
         <div className='image-container1'>
-        <img src='https://food-order-frontend-henna.vercel.app/assets/food-DxWcjOl0.png' className='workimage'></img>/</div>
+        <img src='https://food-order-frontend-henna.vercel.app/assets/food-DxWcjOl0.png' className='workimage'></img></div>
         <div>
           <p>confirm your order</p>
         </div>
@@ -144,8 +144,8 @@ function Home() {
       
    <div className='download-platform'>
     <h1>Available In</h1>
-    <img src=''/>
-    <img src=''/>
+    <img src='https://tse3.mm.bing.net/th?id=OIP.dAKQ-RFshwA3YbeX7AuJeAHaEK&pid=Api&P=0&h=220'/>
+    <img src='https://tse4.mm.bing.net/th?id=OIP.NNY1egMmJCjJIvXiY2J1egHaE8&pid=Api&P=0&h=220'/>
    </div>
     </>
   );
