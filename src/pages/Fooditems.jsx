@@ -3,7 +3,7 @@ import { axiosinstance } from "../config/axiosinstance";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import { Link } from "react-router-dom";
-
+import ImageCarousel from "../components/user/CarouselComponent";
 function Fooditems() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -69,14 +69,8 @@ function Fooditems() {
         <div className="menu container my-5">
 
 
-<div className="menucontainer">
-    <div className="image-box left">
-        <img src="https://tse2.mm.bing.net/th?id=OIP.HclffFvjlHenc9Y0iJsFpQHaD0&pid=Api&P=0&h=220" alt="Image 1"/>
-    </div>
-    <div className="image-box right">
-        <img src="https://tse2.mm.bing.net/th?id=OIP.x7db1Ot6seQg-_WEETdDQgHaEe&pid=Api&h=220" alt="Image 2"/>
-    </div>
-</div>
+<ImageCarousel/>
+
 
             <h1 className="menuhead text-center"></h1>
             <div className="row">
