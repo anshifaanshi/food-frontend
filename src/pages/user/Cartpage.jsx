@@ -153,7 +153,7 @@ export const CartPage = () => {
   return (
     <div className="flex gap-10 px-20 py-10">
       <div className="w-8/12">
-        <h2>This is the Cart Page</h2>
+        
         {loading ? (
           <p>Loading cart items...</p>
         ) : error ? (

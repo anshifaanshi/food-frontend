@@ -7,10 +7,6 @@ function Footer() {
     <div className="container">
       <div className="row">
  
-        <div className="col-md-4">
-          <h5 className='footerhead'>About</h5>
-          <p className='footerlist list-unstyled'>Learn more about us and our mission to deliver quality food at your convenience.</p>
-        </div>
      
         <div className="col-md-4">
           <h5 className='footerhead'>Quick Links</h5>

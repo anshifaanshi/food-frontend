@@ -67,7 +67,18 @@ function Fooditems() {
 
     return (
         <div className="menu container my-5">
-            <h1 className="menuhead text-center mb-4">Menu</h1>
+
+
+<div className="menucontainer">
+    <div className="image-box left">
+        <img src="https://drive.google.com/uc?export=view&id=1QN-GOZGARk15WKJxjYz2bZSN4XaTmJg3" alt="Image 1"/>
+    </div>
+    <div className="image-box right">
+        <img src="https://drive.google.com/uc?export=view&id=1qMTB0zZg3gB7Znmlf7mCMBdiDNsbYcIR" alt="Image 2"/>
+    </div>
+</div>
+
+            <h1 className="menuhead text-center"></h1>
             <div className="row">
                 {data.map((menu) => (
                     <div key={menu._id} className="col-md-4 mb-4">

@@ -75,7 +75,7 @@ const Hoteldetails = () => {
             >
               Menu
             </button>
-            <button>reviews</button></div>
+            </div>
           </div>
           <div className="col-md-4 my-3 text-center">
             <img 
