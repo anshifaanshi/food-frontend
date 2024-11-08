@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { axiosinstance } from "../config/axiosinstance"; 
 import { Link } from "react-router-dom"; // Ensure Link is imported
-
+import Loading from "../components/user/Loading";
 export const Hotel = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -34,7 +34,7 @@ export const Hotel = () => {
     }, [isLoggedIn]);
 
     if (loading) {
-        return <p>Loading...</p>;
+        <Loading/>
     }
 
     if (data.length === 0) {

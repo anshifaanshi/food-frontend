@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom"; // Import useNavigate
 import { axiosinstance } from "../config/axiosinstance"; // Import axiosinstance
 import { toast } from 'react-toastify'; // Assuming you're using react-toastify for notifications
 import Header from "../components/Header";
+import Loading from "../components/user/Loading";
 const Hoteldetails = () => {
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
@@ -46,7 +47,7 @@ const Hoteldetails = () => {
     }, [id]);
 
     if (loading) {
-        return <p>Loading...</p>;
+        <Loading />
     }
 
     if (!data || Object.keys(data).length === 0) {

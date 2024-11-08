@@ -4,6 +4,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import { Link } from "react-router-dom";
 import ImageCarousel from "../components/user/CarouselComponent";
+import Loading from "../components/user/Loading"
+
 function Fooditems() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -26,11 +28,7 @@ function Fooditems() {
 
     const addToCart = async (foodItemId) => {
         
-        const token = localStorage.getItem('token'); // Adjust if your token is stored elsewhere
-
-    if (!token) {
-        toast.error('Please log in to add items to the cart.');
-        return;
+       
     }
         
         try {
@@ -52,7 +50,7 @@ function Fooditems() {
 
     if (loading) {
         console.log("Component is loading..."); 
-        return <p>Loading...</p>;
+        <Loading/>
     }
 
     if (error) {
@@ -79,25 +77,25 @@ function Fooditems() {
 
             <h1 className="menuhead text-center"></h1>
             <div className="row">
-                {data.map((menu) => (
-                    <div key={menu._id} className="col-md-4 mb-4">
-                        <div className="card">
-                            <div className="menubody card-body">
-                                <h2 className="card-title">{menu.name}</h2>
-                                <p className="card-text"><strong>Description:</strong> {menu.description}</p><br />
-                                <p className="card-text"><strong>Price:</strong> ${menu.price.toFixed(2)}</p><br />
-                                
-                                <button 
-                                    onClick={() => {
-                                        const quantity = 1;
-                                        console.log("Add to Cart button clicked for:", menu.name); 
-                                        addToCart(menu._id, quantity);
-                                    }} 
-                                    className="btn btn-primary me-2"
-                                >
-                                    Add To Cart
-                                </button>
-                                
+            {data.map((menu) => (
+        <div key={menu._id} className="col-md-4 mb-4">
+            <div className="card4 custom-card">
+                <div className="menubody3 card-body">
+                    <h2 className="card4-title">{menu.name}</h2>
+                    <p className="card4-text"><strong>Description:</strong> {menu.description}</p><br />
+                    <p className="card4-text"><strong>Price:</strong> ${menu.price.toFixed(2)}</p><br />
+                    
+                    <button 
+                        onClick={() => {
+                            const quantity = 1;
+                            console.log("Add to Cart button clicked for:", menu.name); 
+                            addToCart(menu._id, quantity);
+                        }} 
+                        className="btn btn-primary me-2"
+                    >
+                        Add To Cart
+                    </button>
+               
                             </div>
                         </div>
                     </div>
