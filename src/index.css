@@ -611,20 +611,7 @@ p:last-of-type {
   border-radius: 8px;
 }
 /* Add this to your global CSS file or inlined in your component using CSS Modules */
-.loading-spinner .spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid rgba(255, 165, 0, 0.2); /* Light orange background */
-  border-top-color: orange; /* Dark orange top */
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
 .menucontainer {
   width: 300px;  /* Adjust the width to a smaller size */
   margin: 0 auto;
@@ -671,4 +658,84 @@ p:last-of-type {
     opacity: 1;
     transform: translateY(0);
   }
+}
+.custom-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%; /* Ensures uniform height */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+  border-radius: 10px; /* Smooth edges */
+  border: none; /* Removes any border */
+  padding: 20px;
+  background-color: #ffffff; /* Light background for contrast */
+  transition: transform 0.2s ease; /* Adds a subtle hover effect */
+}
+
+.custom-card:hover {
+  transform: translateY(-5px); /* Moves card up slightly on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Increases shadow on hover */
+}
+
+.card4-title {
+  font-size: 1.25rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.card4-text {
+  font-size: 1rem;
+  color: #555;
+}
+
+.menubody3 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn {
+  align-self: flex-start; /* Aligns the button to the left */
+}
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f3f4f6; /* Light gray background */
+}
+
+.loading-spinner {
+  text-align: center;
+}
+
+.spinner {
+  width: 80px; /* Increase size */
+  height: 80px;
+  border: 10px solid #e0e0e0; /* Light border color */
+  border-top: 10px solid #3498db; /* Blue color for spinning part */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto; /* Center the spinner */
+}
+
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+.text-gray-600 {
+  color: #4b5563; /* Slightly darker gray */
+}
+
+.text-xl {
+  font-size: 1.25rem;
+}
+
+.font-medium {
+  font-weight: 500;
 }
