@@ -4,7 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import { Link } from "react-router-dom";
 import ImageCarousel from "../components/user/CarouselComponent";
-import Loading from "../components/user/Loading"
+import Loading from "../components/user/Loading";
 
 function Fooditems() {
     const [data, setData] = useState([]);
@@ -26,21 +26,17 @@ function Fooditems() {
         }
     };
 
-    const addToCart = async (foodItemId) => {
-        
-       
-    }
-        
+    const addToCart = async (foodItemId, quantity) => {
         try {
-            const response = await axiosinstance.post('/cart/add-to-cart', { foodItemId });
+            const response = await axiosinstance.post('/cart/add-to-cart', { foodItemId, quantity });
             console.log('Response after adding to cart:', response.data); 
             toast.success('Food item added to cart!');
         } catch (error) {
             console.error('Error adding to cart:', error.response ? error.response.data : error.message); 
             const errorMessage = error.response && error.response.data && error.response.data.message 
-        ? error.response.data.message 
-        : "An unexpected error occurred. Please try again.";
-            toast.error(  errorMessage);
+                ? error.response.data.message 
+                : "An unexpected error occurred. Please try again.";
+            toast.error(errorMessage);
         }
     };
 
@@ -50,7 +46,7 @@ function Fooditems() {
 
     if (loading) {
         console.log("Component is loading..."); 
-        <Loading/>
+        return <Loading />;
     }
 
     if (error) {
@@ -65,47 +61,44 @@ function Fooditems() {
 
     return (
         <div className="menu container my-5">
-<div className="menu-section">
-      <div className="heading-container">
-        <h1 className="heading-animate">Explore Our Menu</h1>
-      </div>
-      
-    </div>
+            <div className="menu-section">
+                <div className="heading-container">
+                    <h1 className="heading-animate">Explore Our Menu</h1>
+                </div>
+            </div>
 
-<ImageCarousel/>
-
+            <ImageCarousel />
 
             <h1 className="menuhead text-center"></h1>
             <div className="row">
-            {data.map((menu) => (
-        <div key={menu._id} className="col-md-4 mb-4">
-            <div className="card4 custom-card">
-                <div className="menubody3 card-body">
-                    <h2 className="card4-title">{menu.name}</h2>
-                    <p className="card4-text"><strong>Description:</strong> {menu.description}</p><br />
-                    <p className="card4-text"><strong>Price:</strong> ${menu.price.toFixed(2)}</p><br />
-                    
-                    <button 
-                        onClick={() => {
-                            const quantity = 1;
-                            console.log("Add to Cart button clicked for:", menu.name); 
-                            addToCart(menu._id, quantity);
-                        }} 
-                        className="btn btn-primary me-2"
-                    >
-                        Add To Cart
-                    </button>
-               
+                {data.map((menu) => (
+                    <div key={menu._id} className="col-md-4 mb-4">
+                        <div className="card4 custom-card">
+                            <div className="menubody3 card-body">
+                                <h2 className="card4-title">{menu.name}</h2>
+                                <p className="card4-text"><strong>Description:</strong> {menu.description}</p><br />
+                                <p className="card4-text"><strong>Price:</strong> ${menu.price.toFixed(2)}</p><br />
+                                
+                                <button 
+                                    onClick={() => {
+                                        const quantity = 1;
+                                        console.log("Add to Cart button clicked for:", menu.name); 
+                                        addToCart(menu._id, quantity);
+                                    }} 
+                                    className="btn btn-primary me-2"
+                                >
+                                    Add To Cart
+                                </button>
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
             <Link to="/Cart/getcart">
-                                    <button className="btn btn-secondary">
-                                        Show Cart
-                                    </button>
-                                </Link>
+                <button className="btn btn-secondary">
+                    Show Cart
+                </button>
+            </Link>
             <ToastContainer />
         </div>
     );
