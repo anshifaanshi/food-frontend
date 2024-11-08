@@ -47,11 +47,11 @@ const Hoteldetails = () => {
     }, [id]);
 
     if (loading) {
-        <Loading />
+       return <Loading />
     }
 
     if (!data || Object.keys(data).length === 0) {
-        return <p>No hotel details found.</p>;
+        return <p>no hotel details found</p>;
     }
 
     return (

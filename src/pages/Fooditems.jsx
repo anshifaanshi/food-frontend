@@ -71,25 +71,25 @@ function Fooditems() {
 
             <h1 className="menuhead text-center"></h1>
             <div className="row">
-                {data.map((menu) => (
-                    <div key={menu._id} className="col-md-4 mb-4">
-                        <div className="card4 custom-card">
-                            <div className="menubody3 card-body">
-                                <h2 className="card4-title">{menu.name}</h2>
-                                <p className="card4-text"><strong>Description:</strong> {menu.description}</p><br />
-                                <p className="card4-text"><strong>Price:</strong> ${menu.price.toFixed(2)}</p><br />
-                                
-                                <button 
-                                    onClick={() => {
-                                        const quantity = 1;
-                                        console.log("Add to Cart button clicked for:", menu.name); 
-                                        addToCart(menu._id, quantity);
-                                    }} 
-                                    className="btn btn-primary me-2"
-                                >
-                                    Add To Cart
-                                </button>
-                            </div>
+    {data.map((menu) => (
+        <div key={menu._id} className="col-md-4 mb-4 d-flex align-items-stretch">
+            <div className="card4 custom-card">
+                <div className="menubody3 card-body">
+                    <h2 className="card4-title">{menu.name}</h2>
+                    <p className="card4-text"><strong>Description:</strong> {menu.description}</p><br />
+                    <p className="card4-text"><strong>Price:</strong> ${menu.price.toFixed(2)}</p><br />
+                    
+                    <button 
+                        onClick={() => {
+                            const quantity = 1;
+                            console.log("Add to Cart button clicked for:", menu.name); 
+                            addToCart(menu._id, quantity);
+                        }} 
+                        className="btn btn-primary me-2"
+                    >
+                        Add To Cart
+                    </button>
+                </div>
                         </div>
                     </div>
                 ))}

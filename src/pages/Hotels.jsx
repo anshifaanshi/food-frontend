@@ -34,12 +34,12 @@ export const Hotel = () => {
     }, [isLoggedIn]);
 
     if (loading) {
-        <Loading/>
+       return <Loading/>
     }
-
-    if (data.length === 0) {
-        return <p>No hotels found.</p>;
-    }
+if (data.length==0){
+    <p>no hotels found</p>
+}
+    
 
     return (
         <div className="hotels">

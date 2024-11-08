@@ -9,7 +9,7 @@ const PaymentCancelPage = () => {
         <div>
             <h1>Payment Canceled</h1>
             <p>Your payment has been canceled.</p>
-            <button onClick={() => navigate('/cart')}>Return to Cart</button>
+            <button onClick={() => navigate('/cart/getcart')}>Return to Cart</button>
         </div>
     );
 };
