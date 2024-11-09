@@ -73,7 +73,7 @@ export const CartItem = ({ item, onRemove,onUpdateQuantity }) => {
     },
     incrementButton: {
       padding: '5px 10px',
-      backgroundColor: '#4CAF50',
+      backgroundColor: '#ff9800',
       color: 'white',
       border: 'none',
       borderRadius: '3px',
