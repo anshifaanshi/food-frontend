@@ -91,29 +91,71 @@ export function CreateHotelsAndFoodItems() {
   };
 
   return (
-    <div>
-      <h1>Create Hotel </h1>
+    <div className="create-hotel-container">
+      <h1>Create Hotel</h1>
 
       {/* Hotel Form */}
-      <section>
+      <section className="form-section">
         <h2>Upload Hotel</h2>
-        {hotelImage.preview && <img src={hotelImage.preview} width="100" height="100" alt="Hotel preview" />}
-        <form onSubmit={handleHotelSubmit}>
-          <input type="file" name="file" onChange={handleHotelFileChange} />
-          <input type="text" name="name" placeholder="Hotel Name" onChange={handleHotelInput} required />
-          <input type="text" name="phone" placeholder="Phone" onChange={handleHotelInput} required />
-          <input type="text" name="email" placeholder="Email" onChange={handleHotelInput} required />
-          <input type="text" name="website" placeholder="Website" onChange={handleHotelInput} />
-          <button type="submit">Submit Hotel</button>
+        {hotelImage.preview && (
+          <img
+            src={hotelImage.preview}
+            width="100"
+            height="100"
+            alt="Hotel preview"
+            className="hotel-preview"
+          />
+        )}
+        <form onSubmit={handleHotelSubmit} className="hotel-form">
+          <input
+            type="file"
+            name="file"
+            onChange={handleHotelFileChange}
+            className="input-file"
+          />
+          <input
+            type="text"
+            name="name"
+            placeholder="Hotel Name"
+            onChange={handleHotelInput}
+            required
+            className="input-field"
+          />
+          <input
+            type="text"
+            name="phone"
+            placeholder="Phone"
+            onChange={handleHotelInput}
+            required
+            className="input-field"
+          />
+          <input
+            type="text"
+            name="email"
+            placeholder="Email"
+            onChange={handleHotelInput}
+            required
+            className="input-field"
+          />
+          <input
+            type="text"
+            name="website"
+            placeholder="Website"
+            onChange={handleHotelInput}
+            className="input-field"
+          />
+          <button type="submit" className="submit-button">
+            Submit Hotel
+          </button>
         </form>
-        {hotelStatus && <h4>{hotelStatus}</h4>}
+        {hotelStatus && <h4 className="status-message">{hotelStatus}</h4>}
       </section>
 
-      <hr />
+      <hr className="divider" />
 
       {/* Food Item Form */}
-      
+      {/* Add your food item form here if needed */}
     </div>
-  );
+  )
 }
                                                                                                                                                                                                                                                                                          
