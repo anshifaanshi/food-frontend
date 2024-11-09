@@ -38,7 +38,7 @@ export const Card = ({ hotels }) => {
 // CartItem Component
 
 // CartItem Component
-export const CartItem = ({ item, onRemove }) => {
+export const CartItem = ({ item, onRemove,onUpdateQuantity }) => {
   const styles = {
     cart: {
       border: '1px solid #ccc',
@@ -65,7 +65,7 @@ export const CartItem = ({ item, onRemove }) => {
     },
     removeButton: {
       padding: '5px 10px',
-      backgroundColor: '#ff4d4d',
+      backgroundColor: '#4CAF50',
       color: 'white',
       border: 'none',
       borderRadius: '3px',

@@ -163,7 +163,8 @@ export const CartPage = () => {
             <CartItem 
               item={item} 
               key={item.foodItemId || index} 
-              onRemove={handleRemoveItem} 
+              onRemove={handleRemoveItem}
+              onUpdateQuantity={handleUpdateQuantity} 
             />
           ))
         ) : (
