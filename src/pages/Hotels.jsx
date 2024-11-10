@@ -42,40 +42,43 @@ if (data.length==0){
     
 
     return (
-        <div className="hotels">
-            {isLoggedIn ? (
-                <h1 className="hotelhead">Welcome Back! Explore Our Restaurants</h1>
-            ) : (
-                <h1 className="hotelhead">Explore Our Restaurants</h1>
-            )}
-
-            <div className="hotel-list">
-                <div className="row">
-                    {data.map((hotel) => (
-                        <div className="col-lg-4 col-md-6 col-sm-12 mb-4" key={hotel?._id}>
-                            <div className="card">
-                                <img
-                                    src={hotel?.image || 'default-image.jpg'}
-                                    alt={hotel?.name}
-                                    className="card-img-top"
-                                />
-                                <div className="card-body">
-                                    <h5 className="card-title">{hotel?.name}</h5>
-                                    <p className="card-text">{hotel?.description}</p>
-                                    <p className="card-text">{hotel?.phone}</p>
-                                    <p className="card-text">{hotel?.email}</p>
-                                    <div className="d-flex justify-content-center">
-                                        <Link to={`/hotel/hotelprofile/${hotel?._id}`} className="btn btn-primary">
-                                            See More
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+        <div className="hotels1">
+        {isLoggedIn ? (
+          <h1 className="hotelhead1">Welcome Back! Explore Our Restaurants</h1>
+        ) : (
+          <h1 className="hotelhead1">Explore Our Restaurants</h1>
+        )}
+      
+        <div className="hotel-list container">
+          <div className="row">
+            {data.map((hotel) => (
+              <div className="col-lg-4 col-md-6 col-sm-12 mb-4" key={hotel?._id}>
+                <div className="card shadow-sm rounded hotel-card">
+                  <img
+                    src={hotel?.image || 'default-image.jpg'}
+                    alt={hotel?.name}
+                    className="card-img-top rounded-top"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">{hotel?.name}</h5>
+                    <p className="card-text text-muted small">{hotel?.description}</p>
+                    <p className="card-text text-muted small">
+                      <strong>Phone:</strong> {hotel?.phone}
+                    </p>
+                    <p className="card-text text-muted small">
+                      <strong>Email:</strong> {hotel?.email}
+                    </p>
+                    <div className="text-center">
+                      <Link to={`/hotel/hotelprofile/${hotel?._id}`} className="btn btn-primary btn-see-more">
+                        See More
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-            </div>
+              </div>
+            ))}
+          </div>
         </div>
-    );
-};
-
+      </div>
+    )
+}

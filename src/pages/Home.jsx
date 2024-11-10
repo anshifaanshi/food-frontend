@@ -142,10 +142,10 @@ function Home() {
   
 
       
-   <div className='download-platform'>
+   <div className='download-platform1'>
     <h1>Available In</h1>
-    <img src='https://tse3.mm.bing.net/th?id=OIP.dAKQ-RFshwA3YbeX7AuJeAHaEK&pid=Api&P=0&h=220'/>
-    <img src='https://tse4.mm.bing.net/th?id=OIP.NNY1egMmJCjJIvXiY2J1egHaE8&pid=Api&P=0&h=220'/>
+    <img src='https://tse4.mm.bing.net/th?id=OIP.AYxU4dOa9Fuk_v3U5eRiLAHaFg&pid=Api&P=0&h=220' className='h-7 w-7'/>
+    <img src='https://tse4.mm.bing.net/th?id=OIP.NNY1egMmJCjJIvXiY2J1egHaE8&pid=Api&P=0&h=220' className='h-7 w-7'/>
    </div>
     </>
   );
