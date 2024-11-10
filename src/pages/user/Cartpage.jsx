@@ -79,7 +79,7 @@ export const CartPage = () => {
         toast.error("Failed to update quantity.");
       }
     } catch (error) {
-      toast.error("Failed to update quantity.");
+      toast.error("Failed to update quantity...");
     }
   };
   

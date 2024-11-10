@@ -18,7 +18,7 @@ function AdminFooter() {
 
             <div className="col-md-4">
               <h5 className="footerhead">Quick Links</h5>
-              <ul className="footerlist list-unstyled">
+              <ul className="footerlist ">
                 <li><a href="#">Home</a></li>
                 <li><a href="#">About Us</a></li>
                 <li><a href="#">Contact</a></li>
@@ -30,7 +30,7 @@ function AdminFooter() {
 
             <div className="col-md-4">
               <h5 className="footerhead">Contact Us</h5>
-              <ul className="footerlist list-unstyled">
+              <ul className="footerlist ">
                 <li>Email: info@mealmate.com</li>
                 <li>Phone: +123 456 7890</li>
                 <li>Address: 123 Food St, City</li>
