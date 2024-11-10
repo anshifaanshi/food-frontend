@@ -6,7 +6,7 @@ import { LoginPage } from '../pages/Login';
 import { Signup } from '../pages/Signup';
 import { Hotel } from '../pages/Hotels';
 
-import Hoteldetails from '../pages/Hoteldetails';
+import {Hoteldetails} from '../pages/Hoteldetails';
 import Fooditems from '../pages/Fooditems';
 import { AdminLogin } from '../pages/admin/AdminLogin';
 import { AuthUser } from '../routes/protectedroutes/Authuser';
