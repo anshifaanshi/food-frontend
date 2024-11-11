@@ -99,7 +99,7 @@ export const CartItem = ({ item, onRemove}) => {
 
   const handleIncrement = () => {
     console.log("button clicked")
-    setquantity(item.foodItemId, item.quantity + 1);
+    setquantity(quantity + 1);
 
    
   };
@@ -107,7 +107,7 @@ export const CartItem = ({ item, onRemove}) => {
   const handleDecrement = () => {
     console.log("button clicked")
     if (item.quantity > 1) {
-      setquantity(item.foodItemId, item.quantity - 1);
+      setquantity(quantity - 1);
       if (quantity===1){
         setquantity(1)
         toast.error("Buy Atleast One Item")
@@ -120,7 +120,7 @@ export const CartItem = ({ item, onRemove}) => {
       <div style={styles.textCenter}>
         <h2 style={styles.itemName}>{item.name}</h2>
         <h3 style={styles.itemPrice}>${item.price}</h3>
-        <p style={styles.itemQuantity}>Quantity: {item.quantity}</p>
+        <p style={styles.itemQuantity}>Quantity: </p>
         <div style={styles.buttonGroup}>
           <button onClick={handleIncrement} style={styles.incrementButton}>
             +
