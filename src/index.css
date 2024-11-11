@@ -939,3 +939,13 @@ form {
     width: 100%;
   }
 }
+.download-platform1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.download-platform1 h1 {
+  margin-bottom: 10px; /* Space between heading and image */
+}
