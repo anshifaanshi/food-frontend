@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import{toast} from 'react-toastify'
 
 
 import toast from "react-hot-toast";
@@ -38,8 +39,11 @@ export const Card = ({ hotels }) => {
 // CartItem Component
 
 // CartItem Component
-export const CartItem = ({ item, onRemove}) => {
-  const [quantity,setquantity] =useState(1);
+
+
+export const CartItem = ({ item, onRemove }) => {
+  const [quantity, setQuantity] = useState(1);
+
   const styles = {
     cart: {
       border: '1px solid #ccc',
@@ -98,21 +102,16 @@ export const CartItem = ({ item, onRemove}) => {
   };
 
   const handleIncrement = () => {
-    console.log("button clicked")
-    setquantity(quantity + 1);
-
-   
+    setQuantity(quantity + 1);
   };
 
   const handleDecrement = () => {
-    console.log("button clicked")
-    
-      setquantity(quantity - 1);
-      if (quantity===1){
-        setquantity(1)
-        toast.error("Buy Atleast One Item")
-      }
-    }
+      setQuantity(quantity - 1);
+  if(quantity==1)
+  {
+    setQuantity(1)
+      toast.error("Buy at least one item");
+  }
   };
 
   return (
@@ -120,20 +119,14 @@ export const CartItem = ({ item, onRemove}) => {
       <div style={styles.textCenter}>
         <h2 style={styles.itemName}>{item.name}</h2>
         <h3 style={styles.itemPrice}>${item.price}</h3>
-        <p style={styles.itemQuantity}>Quantity: </p>
+        <p style={styles.itemQuantity}>Quantity:</p>
         <div style={styles.buttonGroup}>
-          <button onClick={handleIncrement} style={styles.incrementButton}>
-            +
-          </button>
-        <button> {quantity}</button>
-          <button onClick={handleDecrement} style={styles.decrementButton}>
-            -
-          </button>
+          <button onClick={handleIncrement} style={styles.incrementButton}>+</button>
+          <span>{quantity}</span>
+          <button onClick={handleDecrement} style={styles.decrementButton}>-</button>
         </div>
-        <button onClick={handleRemove} style={styles.removeButton}>
-          Remove
-        </button>
+        <button onClick={handleRemove} style={styles.removeButton}>Remove</button>
       </div>
     </div>
   );
-
+};
