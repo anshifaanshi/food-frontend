@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import Loading from '../../components/user/Loading';
+
 
 const PaymentSuccess = () => {
     const location = useLocation();
@@ -18,7 +18,11 @@ const PaymentSuccess = () => {
     }, [location]);
 
     if (loading) {
-        return <Loading />; // Display loading spinner while loading is true
+        return <p className="flex items-center justify-center text-2xl font-semibold text-gray-700">
+        <span className="mr-3 animate-spin text-blue-500">🔄</span>
+        Loading...
+    </p>
+    ; // Display loading spinner while loading is true
     }
 
     return (
