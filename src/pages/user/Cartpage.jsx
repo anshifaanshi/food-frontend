@@ -53,35 +53,36 @@ export const CartPage = () => {
     }
   };
 
-  const handleUpdateQuantity = async (itemId, newQuantity) => {
-    try {
+  //const handleUpdateQuantity = async (itemId, newQuantity) => {
+  //  try {
       // Send the update to your backend
-      const response = await axiosinstance.put("/cart/update-quantity", {
-        itemId,
-        quantity: newQuantity,
-      });
+   //   const response = await axiosinstance.put("/cart/update-quantity", {
+    //    itemId,
+     //   quantity: newQuantity,
+     // });
       
-      if (response.data.success) {
+     // if (response.data.success) {
         // Update local state with the new quantity
-        const updatedCartItems = cartItems.map(item => 
-          item.foodItemId === itemId ? { ...item, quantity: newQuantity } : item
-        );
+       // const updatedCartItems = cartItems.map(item => 
+        //  item.foodItemId === itemId ? { ...item, quantity: newQuantity } : item
+        //);
         
-        const updatedTotalPrice = updatedCartItems.reduce(
-          (total, item) => total + item.price * item.quantity,
-          0
-        );
+       // const updatedTotalPrice = updatedCartItems.reduce(
+        //  (total, item) => total + item.price * item.quantity,
+        //  0
+       // );
         
-        setCartItems(updatedCartItems);
-        setCartData(prev => ({ ...prev, totalPrice: updatedTotalPrice }));
-        setFinalAmount(updatedTotalPrice);
-      } else {
-        toast.error("Failed to update quantity.");
-      }
-    } catch (error) {
-      toast.error("Failed to update quantity...");
-    }
-  };
+       // setCartItems(updatedCartItems);
+        //setCartData(prev => ({ ...prev, totalPrice: updatedTotalPrice }));
+       // setFinalAmount(updatedTotalPrice);
+    //  } else {
+      //  toast.error("Failed to update quantity.");
+    //  }
+   // } catch (error) {
+    //  toast.error("Failed to update quantity...");
+   // }
+ //
+ // };
   
 
 

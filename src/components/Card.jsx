@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
@@ -39,6 +39,7 @@ export const Card = ({ hotels }) => {
 
 // CartItem Component
 export const CartItem = ({ item, onRemove,onUpdateQuantity }) => {
+  const [quantity,setquantity] =useState(1);
   const styles = {
     cart: {
       border: '1px solid #ccc',
@@ -97,12 +98,12 @@ export const CartItem = ({ item, onRemove,onUpdateQuantity }) => {
   };
 
   const handleIncrement = () => {
-    onUpdateQuantity(item.foodItemId, item.quantity + 1);
+    setquantity(item.foodItemId, item.quantity + 1);
   };
 
   const handleDecrement = () => {
     if (item.quantity > 1) {
-      onUpdateQuantity(item.foodItemId, item.quantity - 1);
+      setquantity(item.foodItemId, item.quantity - 1);
     }
   };
 
@@ -116,6 +117,7 @@ export const CartItem = ({ item, onRemove,onUpdateQuantity }) => {
           <button onClick={handleIncrement} style={styles.incrementButton}>
             +
           </button>
+        <button> {quantity}</button>
           <button onClick={handleDecrement} style={styles.decrementButton}>
             -
           </button>
