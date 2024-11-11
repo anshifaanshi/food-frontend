@@ -38,7 +38,7 @@ export const Card = ({ hotels }) => {
 // CartItem Component
 
 // CartItem Component
-export const CartItem = ({ item, onRemove,onUpdateQuantity }) => {
+export const CartItem = ({ item, onRemove}) => {
   const [quantity,setquantity] =useState(1);
   const styles = {
     cart: {
@@ -99,6 +99,11 @@ export const CartItem = ({ item, onRemove,onUpdateQuantity }) => {
 
   const handleIncrement = () => {
     setquantity(item.foodItemId, item.quantity + 1);
+
+    if(quantity===1){
+      setquantity(1);
+      toast.error("Buy Atleast One Item")
+    }
   };
 
   const handleDecrement = () => {
