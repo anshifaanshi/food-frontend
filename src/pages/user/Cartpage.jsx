@@ -84,6 +84,19 @@ export const CartPage = () => {
  //
  // };
   
+ const handleQuantityChange = (itemId, newQuantity) => {
+  const updatedCartItems = cartItems.map((item) =>
+    item.foodItemId === itemId ? { ...item, quantity: newQuantity } : item
+  );
+
+  const updatedTotalPrice = updatedCartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
+  setCartItems(updatedCartItems);
+  setFinalAmount(updatedTotalPrice);
+};
 
 
 
@@ -165,6 +178,7 @@ export const CartPage = () => {
               item={item} 
               key={item.foodItemId || index} 
               onRemove={handleRemoveItem}
+              onQuantityChange={handleQuantityChange}
               
             />
           ))
@@ -175,7 +189,7 @@ export const CartPage = () => {
 
       <div className="w-6/12 bg-base-300 flex flex-col items-center gap-5 p-5 rounded-lg shadow-md">
         <h2>Price Summary</h2>
-        <h2>Total Price: ${cartData?.totalPrice?.toFixed(2) || "N/A"}</h2>
+        <h2>Total Price: ${finalAmount.toFixed(2)} </h2>
 
         {/* Coupon Section */}
         <div className="coupon-section bg-white p-5 rounded-lg shadow-md mt-5">

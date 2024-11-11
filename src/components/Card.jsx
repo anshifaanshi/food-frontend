@@ -40,8 +40,8 @@ export const Card = ({ hotels }) => {
 // CartItem Component
 
 
-export const CartItem = ({ item, onRemove }) => {
-  const [quantity, setQuantity] = useState(1);
+export const CartItem = ({ item, onRemove,onQuantityChange }) => {
+  const [quantity, setQuantity] = useState(item.quantity || 1);
 
   const styles = {
     cart: {
@@ -101,11 +101,15 @@ export const CartItem = ({ item, onRemove }) => {
   };
 
   const handleIncrement = () => {
-    setQuantity(quantity + 1);
+    const newQuantity =quantity+1
+    setQuantity(newQuantity);
+    onQuantityChange(item.foodItemId,newQuantity)
   };
 
   const handleDecrement = () => {
-      setQuantity(quantity - 1);
+    const newQuantity=quantity-1;
+      setQuantity(newQuantity);
+      onQuantityChange(item.foodItemId,newQuantity)
   if(quantity==1)
   {
     setQuantity(1)
@@ -117,7 +121,7 @@ export const CartItem = ({ item, onRemove }) => {
     <div style={styles.cart}>
       <div style={styles.textCenter}>
         <h2 style={styles.itemName}>{item.name}</h2>
-        <h3 style={styles.itemPrice}>${item.price}</h3>
+        <h3 style={styles.itemPrice}>${(item.price * quantity).toFixed(2)}</h3>
         <p style={styles.itemQuantity}>Quantity:</p>
         <div style={styles.buttonGroup}>
           <button onClick={handleIncrement} style={styles.incrementButton}>+</button>
