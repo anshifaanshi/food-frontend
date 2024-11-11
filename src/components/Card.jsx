@@ -106,7 +106,7 @@ export const CartItem = ({ item, onRemove}) => {
 
   const handleDecrement = () => {
     console.log("button clicked")
-    if (item.quantity > 1) {
+    
       setquantity(quantity - 1);
       if (quantity===1){
         setquantity(1)
@@ -136,4 +136,4 @@ export const CartItem = ({ item, onRemove}) => {
       </div>
     </div>
   );
-};
+
