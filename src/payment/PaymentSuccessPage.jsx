@@ -3,12 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { axiosinstance } from '../config/axiosinstance';
 import toast from 'react-hot-toast';
+import Loading from '../components/user/Loading'
 
 const PaymentSuccess = ({ clearCart }) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        setLoading(true)
         console.log("PaymentSuccess useEffect triggered, clearing cart");
 
        
@@ -31,12 +33,7 @@ const PaymentSuccess = ({ clearCart }) => {
     }, [clearCart, navigate]);
 
     if (loading) {
-        return (
-            <p className="flex items-center justify-center text-2xl font-semibold text-gray-700">
-                <span className="mr-3 animate-spin text-blue-500">🔄</span>
-                Loading...
-            </p>
-        );
+        return <Loading />
     }
 
     return (

@@ -3,16 +3,18 @@ import { axiosinstance } from '../config/axiosinstance';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserRound } from 'lucide-react';
-
+import Loading from '../components/user/Loading'
 function UserEditPage() {
   const [user, setUser] = useState({});
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [loading,setloading]=useState(true)
   const navigate = useNavigate();
   
   const fetchUserDetails = async () => {
     try {
+      setloading(true)
       const response = await axiosinstance({
         url: '/user/profile',
         method: 'GET',
@@ -23,6 +25,8 @@ function UserEditPage() {
     } catch (error) {
       console.error('Error fetching user details:', error);
       toast.error('Failed to fetch user details. Please try again.');
+    }finally{
+      setloading(false)
     }
   };
 
@@ -44,6 +48,9 @@ function UserEditPage() {
     fetchUserDetails();
   }, []);
 
+  if (loading){
+    return <Loading/>
+  }
   return (
     <div className="profile-container">
       <div className="profile-card">
