@@ -97,43 +97,50 @@ export const CartPage = () => {
   setCartItems(updatedCartItems);
   setFinalAmount(updatedTotalPrice);
 };
+
 const makePayment = async () => {
   setPaymentLoading(true);
   try {
-      const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_Key);
-      if (!stripe) {
-          console.error("Stripe.js failed to load");
-          return;
-      }
+    const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_Key);
+    if (!stripe) {
+      console.error("Stripe.js failed to load");
+      return;
+    }
 
-      // Start the checkout session
-      const session = await axiosinstance.post("/payment/create-checkout-session", {
-          products: cartItems,
-      }, {
-          withCredentials: true 
+    const session = await axiosinstance.post("/payment/create-checkout-session", {
+      products: cartItems,
+    }, {
+      withCredentials: true 
+    });
+
+    if (session.data) {
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.data.sessionId,
       });
-
-      if (session.data) {
-          // Redirect to Stripe's checkout
-          const result = await stripe.redirectToCheckout({
-              sessionId: session.data.sessionId,
-          });
-          
-          // If there's an error in the Stripe redirect, notify the user
-          if (result.error) {
-               //toast.error("Payment failed. Please try again.");
-              console.error("Stripe Checkout Error:", result.error.message);
-          } 
+      
+      if (result.error) {
+        toast.error("Payment failed. Please try again.");
+        console.error("Stripe Checkout Error:", result.error.message);
       } else {
-          console.error("Error: Session ID not found in response");
+        
+        
+        // Start a delay for redirection after toast success
+        navigate("/user/payment/success")
+        console.log("enterd clear section")
+        clearCart()
+       
       }
+    } else {
+      console.error("Error: Session ID not found in response");
+    }
   } catch (error) {
-      console.error("Error during payment process:", error.response?.data || error.message);
-      toast.error("Payment failed. Please try again.");
+    console.error("Error during payment process:", error.response?.data || error.message);
+    toast.error("Payment failed. Please try again.");
   } finally {
-      setPaymentLoading(false);
+    setPaymentLoading(false);
   }
 };
+
 
 // Call clearCart function after successful payment redirection
 const handleSuccessRedirect = () => {
