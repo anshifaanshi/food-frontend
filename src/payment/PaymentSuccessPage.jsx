@@ -4,21 +4,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { axiosinstance } from '../config/axiosinstance';
 import toast from 'react-hot-toast';
 
-const PaymentSuccess = ({ clearCart, userId }) => {
+const PaymentSuccess = ({ clearCart }) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         console.log("PaymentSuccess useEffect triggered, clearing cart");
 
-        if (!userId) {
-            toast.error("User not logged in or userId missing");
-            setLoading(false);
-            return; // Stop further execution if no userId
-        }
+       
 
         // Make API request to clear cart
-        axiosinstance.post("/cart/clear-cart", { userId }, { withCredentials: true })
+        axiosinstance.post("/cart/clear-cart", { }, { withCredentials: true })
             .then((response) => {
                 console.log("Cart cleared successfully:", response.data);
                 clearCart(); // Optional: Clear frontend cart as well
@@ -32,7 +28,7 @@ const PaymentSuccess = ({ clearCart, userId }) => {
                 setLoading(false);
             });
 
-    }, [clearCart, navigate, userId]);
+    }, [clearCart, navigate]);
 
     if (loading) {
         return (
