@@ -8,21 +8,23 @@ const PaymentSuccess = ({ clearCart }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        console.log("PaymentSuccess useEffect triggered"); // Log to confirm useEffect runs
         const queryParams = new URLSearchParams(location.search);
-        
+    
+        // Check if session_id is in URL
         if (queryParams.has('session_id')) {
-            // Payment was successful
+            console.log("Session ID found, proceeding with cart clear");
             alert('Payment successful! Thank you for your order.');
-            console.log("Sending request to clear cart...");
-
-axiosinstance.post("/cart/clear-cart", {}, { withCredentials: true })
-    .then((response) => {
-        console.log("Cart cleared successfully:", response.data);
-        clearCart();  // Optionally call the frontend clearCart function
-    })
-    .catch((error) => {
-        console.error("Error clearing cart:", error.response?.data || error.message);
-    });
+    
+            // Make the request to clear the cart
+            axiosinstance.post("/cart/clear-cart", {}, { withCredentials: true })
+                .then((response) => {
+                    console.log("Cart cleared successfully:", response.data);
+                    clearCart(); // Optional frontend cart clearing
+                })
+                .catch((error) => {
+                    console.error("Error clearing cart:", error.response?.data || error.message);
+                });
 
             
             setTimeout(() => {
