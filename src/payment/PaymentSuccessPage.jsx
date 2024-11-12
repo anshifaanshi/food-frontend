@@ -1,41 +1,33 @@
 
 import React, { useEffect, useState } from 'react';
-import { useLocation, Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { axiosinstance } from '../config/axiosinstance';
+
 const PaymentSuccess = ({ clearCart }) => {
-    const location = useLocation();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        console.log("PaymentSuccess useEffect triggered"); // Log to confirm useEffect runs
-        const queryParams = new URLSearchParams(location.search);
-    
-        // Check if session_id is in URL
-        if (queryParams.has('session_id')) {
-            console.log("Session ID found, proceeding with cart clear");
-            alert('Payment successful! Thank you for your order.');
-    
-            // Make the request to clear the cart
-            axiosinstance.post("/cart/clear-cart", {}, { withCredentials: true })
-                .then((response) => {
-                    console.log("Cart cleared successfully:", response.data);
-                    clearCart(); // Optional frontend cart clearing
-                })
-                .catch((error) => {
-                    console.error("Error clearing cart:", error.response?.data || error.message);
-                });
+        // Trigger the cart clear API request immediately on mount
+        console.log("PaymentSuccess useEffect triggered, clearing cart");
 
-            
-            setTimeout(() => {
-                navigate("/user/dashboard");  // Redirect to dashboard or another page
-            }, 2000);
-        } else {
-            
-        }
-        
-        setLoading(false);
-    }, [location, clearCart, navigate]);
+        axiosinstance.post("/cart/clear-cart", {}, { withCredentials: true })
+            .then((response) => {
+                console.log("Cart cleared successfully:", response.data);
+                clearCart(); // Optional: clear frontend cart as well
+            })
+            .catch((error) => {
+                console.error("Error clearing cart:", error.response?.data || error.message);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+
+        // Optional: Redirect after a short delay
+        setTimeout(() => {
+            navigate("/user/dashboard"); // Redirect to dashboard or another page
+        }, 2000);
+    }, [clearCart, navigate]);
 
     if (loading) {
         return (
@@ -62,4 +54,3 @@ const PaymentSuccess = ({ clearCart }) => {
 };
 
 export default PaymentSuccess;
-
