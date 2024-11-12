@@ -18,7 +18,7 @@ function AdminFooter() {
 
             <div className="col-md-4">
               <h5 className="footerhead">Quick Links</h5>
-              <ul className="footerlist ">
+              <ul className="footerlist1 ">
                 <li><a href="#">Home</a></li>
                 <li><a href="#">About Us</a></li>
                 <li><a href="#">Contact</a></li>

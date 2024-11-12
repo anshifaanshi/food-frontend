@@ -949,3 +949,56 @@ form {
 .download-platform1 h1 {
   margin-bottom: 10px; /* Space between heading and image */
 }
+/* General Footer Styles */
+.footerhead {
+  color: #333; /* Dark text color for header */
+  font-weight: bold;
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.footerlist1 {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footerlink {
+  color: gray; /* Gray color for the footer links */
+  text-decoration: none;
+  font-size: 1rem;
+  display: block;
+  margin: 8px 0;
+}
+
+.footerlink:hover {
+  color: #0056b3; /* Hover color */
+  text-decoration: underline;
+}
+
+/* Button Styles */
+.admin-login-btn {
+  background-color: #007bff; /* Blue background */
+  color: white;
+  font-size: 1rem;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  text-align: center;
+}
+
+.admin-login-btn:hover {
+  background-color: #0056b3; /* Darker blue when hovered */
+}
+
+.admin-login-btn:focus {
+  outline: none; /* Remove focus outline */
+}
+
+/* Button Container (optional) */
+.footerlist li {
+  margin-bottom: 10px;
+}

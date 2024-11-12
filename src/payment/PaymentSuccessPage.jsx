@@ -10,7 +10,7 @@ const PaymentSuccess = ({ clearCart }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setLoading(true)
+        
         console.log("PaymentSuccess useEffect triggered, clearing cart");
 
        
