@@ -17,6 +17,7 @@ const PaymentSuccess = ({ clearCart }) => {
             // Clear the cart in the frontend
         
             axios.post("/cart/clear-cart", {}, { withCredentials: true })
+            console.log("eneterd to clear section")
             .then((response) => {
                 console.log("Cart cleared successfully:", response.data);
             })
