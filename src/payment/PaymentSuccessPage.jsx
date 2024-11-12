@@ -22,7 +22,7 @@ const PaymentSuccess = ({ clearCart }) => {
             })
             .catch((error) => {
                 console.error("Error clearing cart:", error.response?.data || error.message);
-                toast.error("Error clearing cart");
+                
             })
             .finally(() => {
                 setLoading(false);

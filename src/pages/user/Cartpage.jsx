@@ -27,7 +27,7 @@ export const CartPage = () => {
       setFinalAmount(data.totalPrice);
       setError(null);
     } catch (error) {
-      setError("Failed to load cart items. Please try again.");
+      setError("no items in cart to show ");
     } finally {
       setLoading(false);
     }
