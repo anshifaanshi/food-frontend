@@ -26,6 +26,10 @@ export const LoginPage = ({ role = "user" }) => {
         try {
             const response = await axiosinstance({ method: "POST", url: user.login_api, data });
             console.log(response, "====response");
+            const userId = response.data.userId;  // Adjust according to the API response structure
+            if (userId) {
+                localStorage.setItem("userId", userId); 
+            }
             toast.success("Log-in success");
             navigate('/');
         } catch (error) {
