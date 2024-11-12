@@ -128,6 +128,7 @@ export const CartPage = () => {
           
           // Start a delay for redirection after toast success
           navigate("/user/payment/success")
+          console.log("enterd clear section")
           clearCart()
          
         }
