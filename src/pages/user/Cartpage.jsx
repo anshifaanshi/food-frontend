@@ -97,56 +97,61 @@ export const CartPage = () => {
   setCartItems(updatedCartItems);
   setFinalAmount(updatedTotalPrice);
 };
-
-
-
-  const makePayment = async () => {
-    setPaymentLoading(true);
-    try {
+const makePayment = async () => {
+  setPaymentLoading(true);
+  try {
       const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_Key);
       if (!stripe) {
-        console.error("Stripe.js failed to load");
-        return;
+          console.error("Stripe.js failed to load");
+          return;
       }
 
+      // Start the checkout session
       const session = await axiosinstance.post("/payment/create-checkout-session", {
-        products: cartItems,
+          products: cartItems,
       }, {
-        withCredentials: true 
+          withCredentials: true 
       });
 
       if (session.data) {
-        const result = await stripe.redirectToCheckout({
-          sessionId: session.data.sessionId,
-        });
-        
-        if (result.error) {
-          toast.error("Payment failed. Please try again.");
-          console.error("Stripe Checkout Error:", result.error.message);
-        } else {
+          // Redirect to Stripe's checkout
+          const result = await stripe.redirectToCheckout({
+              sessionId: session.data.sessionId,
+          });
           
-          
-          // Start a delay for redirection after toast success
-          navigate("/user/payment/success")
-          console.log("enterd clear section")
-          clearCart()
-         
-        }
+          // If there's an error in the Stripe redirect, notify the user
+          if (result.error) {
+              toast.error("Payment failed. Please try again.");
+              console.error("Stripe Checkout Error:", result.error.message);
+          } 
       } else {
-        console.error("Error: Session ID not found in response");
+          console.error("Error: Session ID not found in response");
       }
-    } catch (error) {
+  } catch (error) {
       console.error("Error during payment process:", error.response?.data || error.message);
       toast.error("Payment failed. Please try again.");
-    } finally {
+  } finally {
       setPaymentLoading(false);
-    }
-  };
-  const clearCart = () => {
-    setCartItems([]); // Assuming you're using state to manage cart items
-    localStorage.removeItem("cart"); // If using localStorage, clear it here as well
-  };
+  }
+};
 
+// Call clearCart function after successful payment redirection
+const handleSuccessRedirect = () => {
+  clearCart(); // Clear the cart in the frontend
+  navigate("/user/payment/success"); // Redirect to success page
+};
+
+const clearCart = () => {
+  setCartItems([]); // Update cart items in state
+  localStorage.removeItem("cart"); // Clear cart in local storage
+};
+
+// Now, call `handleSuccessRedirect()` on the success page
+// Use `useEffect` on the success page to clear the cart when the user arrives there.
+
+
+
+ 
   const applyCoupon = async () => {
     try {
       const response = await axiosinstance.post("/coupons/checkout", {
