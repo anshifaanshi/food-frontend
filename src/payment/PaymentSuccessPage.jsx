@@ -7,6 +7,7 @@ const PaymentSuccess = ({ clearCart ,use}) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const userId = localStorage.getItem('userId');
+    console.log('User ID:', userId);
     useEffect(() => {
         
          
