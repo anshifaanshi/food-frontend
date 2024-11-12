@@ -32,10 +32,12 @@ export const LoginPage = ({ role = "user" }) => {
             console.log(response, "====response");
 
             // Retrieve userId from backend response
-            const { userId } = response.data; // Assuming userId is part of the response
+            const { userId } = response.data.user._id; // Assuming userId is part of the response
 
             if (userId) {
-                setUserId(userId); // Store the userId in state
+
+                console.log(userId)
+                 setUserId(userId)
                 toast.success("Login successful");
                 navigate('/'); // Navigate to home page or user profile after successful login
             } else {
