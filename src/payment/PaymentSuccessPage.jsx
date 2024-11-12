@@ -24,9 +24,7 @@ const PaymentSuccess = ({ clearCart }) => {
             });
 
         // Optional: Redirect after a short delay
-        setTimeout(() => {
-            navigate("/user/dashboard"); // Redirect to dashboard or another page
-        }, 2000);
+        
     }, [clearCart, navigate]);
 
     if (loading) {
