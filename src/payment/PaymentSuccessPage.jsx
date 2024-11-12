@@ -3,14 +3,20 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { axiosinstance } from '../config/axiosinstance';
 
-const PaymentSuccess = ({ clearCart }) => {
+const PaymentSuccess = ({ clearCart ,use}) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-
+    const userId = localStorage.getItem('userId');
     useEffect(() => {
-        // Trigger the cart clear API request immediately on mount
-        console.log("PaymentSuccess useEffect triggered, clearing cart");
+        
+         
 
+        console.log("PaymentSuccess useEffect triggered, clearing cart");
+        if (!userId) {
+            console.error("User ID is required to clear the cart");
+            setLoading(false);
+            return;
+        }
         axiosinstance.post("/cart/clear-cart", {}, { withCredentials: true })
             .then((response) => {
                 console.log("Cart cleared successfully:", response.data);
@@ -25,7 +31,7 @@ const PaymentSuccess = ({ clearCart }) => {
 
         // Optional: Redirect after a short delay
         
-    }, [clearCart, navigate]);
+    }, [clearCart, navigate,userId]);
 
     if (loading) {
         return (
