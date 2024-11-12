@@ -29,6 +29,7 @@ export const LoginPage = ({ role = "user" }) => {
             const userId = response.data.userId;  // Adjust according to the API response structure
             if (userId) {
                 localStorage.setItem("userId", userId); 
+                console.log('User ID stored in localStorage:', userId);
             }
             toast.success("Log-in success");
             navigate('/');
