@@ -22,7 +22,7 @@ const PaymentSuccess = ({ clearCart }) => {
                 navigate("/user/dashboard");  // Redirect to dashboard or another page
             }, 2000);
         } else {
-            alert('Payment failed or incomplete. Please try again.');
+            
         }
         
         setLoading(false);
