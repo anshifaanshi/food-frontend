@@ -15,8 +15,14 @@ const PaymentSuccess = ({ clearCart }) => {
             alert('Payment successful! Thank you for your order.');
             
             // Clear the cart in the frontend
-            clearCart();
-
+        
+            axios.post("/cart/clear-cart", {}, { withCredentials: true })
+            .then((response) => {
+                console.log("Cart cleared successfully:", response.data);
+            })
+            .catch((error) => {
+                console.error("Error clearing cart:", error.response?.data || error.message);
+            });
             // Optional: Redirect after a short delay if desired
             setTimeout(() => {
                 navigate("/user/dashboard");  // Redirect to dashboard or another page
