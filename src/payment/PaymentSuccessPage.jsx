@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
-
+import { axiosinstance } from '../config/axiosinstance';
 const PaymentSuccess = ({ clearCart }) => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ const PaymentSuccess = ({ clearCart }) => {
             
             // Clear the cart in the frontend
         
-            axios.post("/cart/clear-cart", {}, { withCredentials: true })
+            axiosinstance.post("/cart/clear-cart", {}, { withCredentials: true })
             console.log("eneterd to clear section")
             .then((response) => {
                 console.log("Cart cleared successfully:", response.data);
