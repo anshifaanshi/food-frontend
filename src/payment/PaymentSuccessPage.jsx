@@ -13,18 +13,18 @@ const PaymentSuccess = ({ clearCart }) => {
         if (queryParams.has('session_id')) {
             // Payment was successful
             alert('Payment successful! Thank you for your order.');
+            console.log("Sending request to clear cart...");
+
+axiosinstance.post("/cart/clear-cart", {}, { withCredentials: true })
+    .then((response) => {
+        console.log("Cart cleared successfully:", response.data);
+        clearCart();  // Optionally call the frontend clearCart function
+    })
+    .catch((error) => {
+        console.error("Error clearing cart:", error.response?.data || error.message);
+    });
+
             
-            // Clear the cart in the frontend
-        
-            axiosinstance.post("/cart/clear-cart", {}, { withCredentials: true })
-            console.log("eneterd to clear section")
-            .then((response) => {
-                console.log("Cart cleared successfully:", response.data);
-            })
-            .catch((error) => {
-                console.error("Error clearing cart:", error.response?.data || error.message);
-            });
-            // Optional: Redirect after a short delay if desired
             setTimeout(() => {
                 navigate("/user/dashboard");  // Redirect to dashboard or another page
             }, 2000);
