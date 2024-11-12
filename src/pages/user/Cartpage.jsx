@@ -121,7 +121,7 @@ const makePayment = async () => {
           
           // If there's an error in the Stripe redirect, notify the user
           if (result.error) {
-              toast.error("Payment failed. Please try again.");
+               //toast.error("Payment failed. Please try again.");
               console.error("Stripe Checkout Error:", result.error.message);
           } 
       } else {
