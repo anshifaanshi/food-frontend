@@ -128,6 +128,7 @@ export const CartPage = () => {
           
           // Start a delay for redirection after toast success
           navigate("/user/payment/success")
+          clearCart()
          
         }
       } else {
@@ -139,6 +140,10 @@ export const CartPage = () => {
     } finally {
       setPaymentLoading(false);
     }
+  };
+  const clearCart = () => {
+    setCartItems([]); // Assuming you're using state to manage cart items
+    localStorage.removeItem("cart"); // If using localStorage, clear it here as well
   };
 
   const applyCoupon = async () => {
