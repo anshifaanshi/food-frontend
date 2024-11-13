@@ -39,23 +39,30 @@ export function CreateHotelsAndFoodItems() {
   const handleFoodSubmit = async (e) => {
     e.preventDefault();
     let formData = new FormData();
-    formData.append('image', foodImage.data);
+    
     formData.append('name', foodData.name);
     formData.append('description', foodData.description);
     formData.append('price', foodData.price);
     formData.append('availability', foodData.availability);
 
+
+
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+  }
+
+
     try {
       const response = await axiosinstance.post('/fooditems/createfood', formData);
       if (response) {
-        setFoodStatus('Food item created successfully!');
-        toast.success('Food item created successfully!');
+          setFoodStatus('Food item created successfully!');
+          toast.success('Food item created successfully!');
       }
-    } catch (error) {
+  } catch (error) {
       toast.error('Failed to create food item');
       console.error(error);
-    }
-  };
+  }
+  
 
   const handleHotelFileChange = (e) => {
     const img = { preview: URL.createObjectURL(e.target.files[0]), data: e.target.files[0] };
@@ -117,4 +124,5 @@ export function CreateHotelsAndFoodItems() {
       </section>
     </div>
   );
+}
 }
