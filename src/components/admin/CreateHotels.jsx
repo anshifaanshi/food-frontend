@@ -9,9 +9,7 @@ export function CreateHotelsAndFoodItems() {
   const [hotelData, setHotelData] = useState({ name: '', phone: '', email: '' });
 
   // Food Item state
-  const [foodImage, setFoodImage] =
-  useState({ preview: '', data: '' });
-  
+  const [foodImage, setFoodImage] = useState({ preview: '', data: '' });
   const [foodData, setFoodData] = useState({ name: '', description: '', price: '', availability: true });
 
   // Handles hotel form submission
@@ -19,7 +17,6 @@ export function CreateHotelsAndFoodItems() {
     e.preventDefault();
     let formData = new FormData();
     formData.append('image', hotelImage.data);
-    formData.append('name', hotelImage.data);
     formData.append('name', hotelData.name);
     formData.append('phone', hotelData.phone);
     formData.append('email', hotelData.email);
@@ -29,7 +26,7 @@ export function CreateHotelsAndFoodItems() {
         method: 'POST',
         data: formData,
       });
-      if (response) toast.success('Hotel created successfully!,check hotels list');
+      if (response) toast.success('Hotel created successfully! Check the hotels list.');
     } catch (error) {
       toast.error('Failed to create hotel');
       console.error(error);
@@ -52,40 +49,45 @@ export function CreateHotelsAndFoodItems() {
         method: 'POST',
         data: formData,
       });
-      if (response) setFoodStatus('Food item created successfully!');
+      if (response) toast.success('Food item created successfully!');
     } catch (error) {
-      setFoodStatus('Failed to create food item');
+      toast.error('Failed to create food item');
       console.error(error);
     }
   };
 
- // Handles hotel image file change
- const handleHotelFileChange = (e) => {
-  const img = {
-    preview: URL.createObjectURL(e.target.files[0]),
-    data: e.target.files[0],
+  // Handles hotel image file change
+  const handleHotelFileChange = (e) => {
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
+    };
+    setHotelImage(img);
   };
-  setHotelImage(img);
-};
-const handleFoodInput = (event) => {
-  const { name, value, type, checked } = event.target;
-  setFoodData((prev) => ({
-    ...prev,
-    [name]: type === 'checkbox' ? checked : value,
-  }));
-};
-  // Handles food item image file change
-  
-  // Handles hotel input changes
-  
+
   // Handles food item input changes
-  
+  const handleFoodInput = (event) => {
+    const { name, value, type, checked } = event.target;
+    setFoodData((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
+
+  // Handles hotel input changes
+  const handleHotelInput = (event) => {
+    const { name, value } = event.target;
+    setHotelData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   return (
     <div className="create-hotel-container">
       <h1>Create Hotel</h1>
-  {/* Hotel Form */}
-  <section className="form-section">
+      {/* Hotel Form */}
+      <section className="form-section">
         <h2>Upload Hotel</h2>
         {hotelImage.preview && (
           <img
@@ -104,22 +106,22 @@ const handleFoodInput = (event) => {
             className="input-file"
           />
           <input
- type="text"
- name="name"
- placeholder="Hotel Name"
- onChange={handleHotelInput}
- required
- className="input-field"
-/>
-<input
- type="text"
- name="phone"
- placeholder="Phone"
- onChange={handleHotelInput}
- required
- className="input-field"
-/>
-<input
+            type="text"
+            name="name"
+            placeholder="Hotel Name"
+            onChange={handleHotelInput}
+            required
+            className="input-field"
+          />
+          <input
+            type="text"
+            name="phone"
+            placeholder="Phone"
+            onChange={handleHotelInput}
+            required
+            className="input-field"
+          />
+          <input
             type="text"
             name="email"
             placeholder="Email"
@@ -147,7 +149,6 @@ const handleFoodInput = (event) => {
         <form onSubmit={handleFoodSubmit} className="food-form">
           <input
             type="text"
-
             name="name"
             placeholder="Food Name"
             onChange={handleFoodInput}
@@ -160,26 +161,7 @@ const handleFoodInput = (event) => {
             onChange={handleFoodInput}
             required
             className="input-field"
-            />
-          <input
-type="number"
-name="price"
-placeholder="Price"
-onChange={handleFoodInput}
-required
-className="input-field"
-/>
-<label>
-<input
-  type="checkbox"
-  name="availability"
-  checked={foodData.availability}
-  onChange={handleFoodInput}
-  className="input-checkbox"
-/>
-Available
-          </label>
-        
+          />
           <input
             type="number"
             name="price"
@@ -204,8 +186,6 @@ Available
         </form>
         {foodStatus && <h4 className="status-message">{foodStatus}</h4>}
       </section>
-      {/* Food Item Form */}
-      {/* Add your food item form here if needed */}
-    </div>
-  )
+    </div>
+  );
 }
