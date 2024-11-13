@@ -49,7 +49,7 @@ export function CreateHotelsAndFoodItems() {
         method: 'POST',
         data: formData,
       });
-      if (response) toast.success('Food item created successfully!');
+      if (response) toast.success('Food item created successfully!,check the menu');
     } catch (error) {
       toast.error('Failed to create food item');
       console.error(error);

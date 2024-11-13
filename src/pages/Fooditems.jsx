@@ -77,7 +77,7 @@ function Fooditems() {
                 <div className="menubody3 card-body">
                     <h2 className="card4-title">{menu.name}</h2>
                     <p className="card4-text"><strong>Description:</strong> {menu.description}</p><br />
-                    <p className="card4-text"><strong>Price:</strong> ${menu.price.toFixed(2)}</p><br />
+                    <p className="card4-text"><strong>Price:</strong> ${menu.price}</p><br />
                     
                     <button 
                         onClick={() => {
