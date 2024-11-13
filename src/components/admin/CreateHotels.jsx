@@ -36,20 +36,19 @@ export function CreateHotelsAndFoodItems() {
   // Handles food item form submission
   const handleFoodSubmit = async (e) => {
     e.preventDefault();
-    let formData = new FormData();
+    const data = {
+      name: foodData.name,
+      description: foodData.description,
+      price: foodData.price,
+      availability: foodData.availability,
+    };
   
-    formData.append('name', foodData.name);
-    formData.append('description', foodData.description);
-    formData.append('price', foodData.price);
-    formData.append('availability', foodData.availability);
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
+   
     try {
       const response = await axiosinstance({
         url: '/fooditems/createfood',
         method: 'POST',
-        data: formData,
+        data,
       });
       if (response) toast.success('Food item created successfully!,check the menu');
     } catch (error) {
