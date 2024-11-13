@@ -11,7 +11,7 @@ export function CreateHotelsAndFoodItems() {
   // Food Item state
   const [foodImage, setFoodImage] = useState({ preview: '', data: '' });
   const [foodData, setFoodData] = useState({ name: '', description: '', price: '', availability: true });
-
+  const [foodStatus, setFoodStatus] = useState('');
   // Handles hotel form submission
   const handleHotelSubmit = async (e) => {
     e.preventDefault();
