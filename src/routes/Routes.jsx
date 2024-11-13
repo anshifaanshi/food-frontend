@@ -111,9 +111,6 @@ export const router = createBrowserRouter([
         element: <CreateHotelsAndFoodItems />,
 
 
-      },{
-        path:'createmenu',
-        element:<CreateMenu/>
       }
     ],
   },
