@@ -15,6 +15,8 @@ function SideBar() {
         <li><Link to='/admin/profile'> profile</Link></li>
         <li><a>create hotel</a></li>
         <li><a>show hotels</a></li>
+        
+        <li><Link to='fooditems/allfood'>show menu</Link></li>
       </ul>
     </div>
   </div></div>

@@ -10,7 +10,7 @@ export function CreateHotelsAndFoodItems() {
 
   // Food Item state
   const [foodImage, setFoodImage] = useState({ preview: '', data: '' });
-  const [foodStatus, setFoodStatus] = useState('');
+  
   const [foodData, setFoodData] = useState({ name: '', description: '', price: '', availability: true });
 
   // Handles hotel form submission
@@ -66,22 +66,6 @@ export function CreateHotelsAndFoodItems() {
     };
     setHotelImage(img);
   };
-
-  // Handles food item image file change
-  const handleFoodFileChange = (e) => {
-    const img = {
-      preview: URL.createObjectURL(e.target.files[0]),
-      data: e.target.files[0],
-    };
-    setFoodImage(img);
-  };
-
-  // Handles hotel input changes
-  const handleHotelInput = (event) => {
-    setHotelData((prev) => ({ ...prev, [event.target.name]: event.target.value }));
-  };
-
-  // Handles food item input changes
   const handleFoodInput = (event) => {
     const { name, value, type, checked } = event.target;
     setFoodData((prev) => ({
@@ -89,6 +73,13 @@ export function CreateHotelsAndFoodItems() {
       [name]: type === 'checkbox' ? checked : value,
     }));
   };
+
+  // Handles food item image file change
+  
+  // Handles hotel input changes
+  
+  // Handles food item input changes
+  
 
   return (
     <div className="create-hotel-container">
@@ -152,7 +143,67 @@ export function CreateHotelsAndFoodItems() {
       </section>
 
       <hr className="divider" />
-
+      <section className="form-section">
+        <h2>Upload Food Item</h2>
+        <form onSubmit={handleFoodSubmit} className="food-form">
+          <input
+            type="text"
+            name="name"
+            placeholder="Food Name"
+            onChange={handleFoodInput}
+            required
+            className="input-field"
+          />
+          <textarea
+            name="description"
+            placeholder="Description"
+            onChange={handleFoodInput}
+            required
+            className="input-field"
+            />
+          <input
+            type="number"
+            name="price"
+            placeholder="Price"
+            onChange={handleFoodInput}
+            required
+            className="input-field"
+          />
+          <label>
+            <input
+              type="checkbox"
+              name="availability"
+              checked={foodData.availability}
+              onChange={handleFoodInput}
+              className="input-checkbox"
+            />
+            Available
+          </label>
+        
+          <input
+            type="number"
+            name="price"
+            placeholder="Price"
+            onChange={handleFoodInput}
+            required
+            className="input-field"
+          />
+          <label>
+            <input
+              type="checkbox"
+              name="availability"
+              checked={foodData.availability}
+              onChange={handleFoodInput}
+              className="input-checkbox"
+            />
+            Available
+          </label>
+          <button type="submit" className="submit-button">
+            Submit Food Item
+          </button>
+        </form>
+        {foodStatus && <h4 className="status-message">{foodStatus}</h4>}
+      </section>
       {/* Food Item Form */}
       {/* Add your food item form here if needed */}
     </div>
