@@ -20,14 +20,7 @@ function Footer() {
           </ul>
         </div>
       
-        <div className="col-md-4">
-          <h5 className='footerhead'>Contact Us</h5>
-          <ul className="">
-            <li><a href="#">Email: info@mealmate.com</a></li>
-            <li><a href="#">Phone: +123 456 7890</a></li>
-            <li><a href="#">Address: 123 Food St, City</a></li>
-          </ul>
-        </div>
+        
       </div>
     </div>
   </footer>
