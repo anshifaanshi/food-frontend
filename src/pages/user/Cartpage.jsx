@@ -73,10 +73,12 @@ export const CartPage = () => {
 
 const makePayment = async () => {
   const minimumAmountInCents = 50; 
-  let adjustedAmount = finalAmount;
-  if (adjustedAmount < minimumAmountInCents) {
-    adjustedAmount = minimumAmountInCents;
+  let amountInCents = finalAmount * 100;
+  if (amountInCents < minimumAmountInCents) {
+    amountInCents = minimumAmountInCents;
   }
+
+ 
   setPaymentLoading(true);
   try {
     const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_Key);
@@ -87,7 +89,7 @@ const makePayment = async () => {
 
     const session = await axiosinstance.post("/payment/create-checkout-session", {
       products: cartItems,
-      adjustedAmount,
+      amountInCents,
     }, {
       withCredentials: true 
     });
