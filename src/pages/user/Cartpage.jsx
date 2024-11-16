@@ -72,7 +72,7 @@ export const CartPage = () => {
 };
 
 const makePayment = async () => {
-  const minimumAmountInCents = 5000; // Minimum charge of ₹50 (5000 cents)
+  const minimumAmountInCents = 50; // Minimum charge of ₹50 (5000 cents)
   let amountInCents = finalAmount * 100; // Convert final amount to cents
 
   // Ensure the amount is above the minimum allowed by Stripe
