@@ -72,7 +72,7 @@ export const CartPage = () => {
 };
 
 const makePayment = async () => {
-  const minimumAmountInCents = 50; 
+  const minimumAmountInCents = 5000; 
   let amountInCents = finalAmount * 100;
   if (amountInCents < minimumAmountInCents) {
     amountInCents = minimumAmountInCents;
