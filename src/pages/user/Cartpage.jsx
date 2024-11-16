@@ -72,14 +72,16 @@ export const CartPage = () => {
 };
 
 const makePayment = async () => {
-  const minimumAmountInCents = 5000; 
-  let amountInCents = finalAmount * 100;
+  const minimumAmountInCents = 5000; // Minimum charge of ₹50 (5000 cents)
+  let amountInCents = finalAmount * 100; // Convert final amount to cents
+
+  // Ensure the amount is above the minimum allowed by Stripe
   if (amountInCents < minimumAmountInCents) {
-    amountInCents = minimumAmountInCents;
+    amountInCents = minimumAmountInCents; // Set to minimum if less
   }
+
   console.log("Amount in cents:", amountInCents);
 
- 
   setPaymentLoading(true);
   try {
     const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_Key);
@@ -88,14 +90,15 @@ const makePayment = async () => {
       return;
     }
 
+    // Make API request to create checkout session
     const session = await axiosinstance.post("/payment/create-checkout-session", {
       products: cartItems,
       amountInCents,
     }, {
-      withCredentials: true 
+      withCredentials: true // Ensures cookies are sent for session tracking
     });
 
-    if (session.data) {
+    if (session.data && session.data.sessionId) {
       const result = await stripe.redirectToCheckout({
         sessionId: session.data.sessionId,
       });
@@ -104,16 +107,18 @@ const makePayment = async () => {
         toast.error("Payment failed. Please try again.");
         console.error("Stripe Checkout Error:", result.error.message);
       } else {
+        // Stripe handles redirection after successful payment
+        toast.success("Payment successful!");
         
-        
-        // Start a delay for redirection after toast success
-        navigate("/user/payment/success")
-        console.log("enterd clear section")
-        clearCart()
-       
+        // Clear cart after successful payment
+        setTimeout(() => {
+          clearCart(); // Clear cart after success
+          navigate("/user/payment/success"); // Redirect to success page
+        }, 1500); // Optional delay for user experience
       }
     } else {
       console.error("Error: Session ID not found in response");
+      toast.error("Error creating checkout session. Please try again.");
     }
   } catch (error) {
     console.error("Error during payment process:", error.response?.data || error.message);
