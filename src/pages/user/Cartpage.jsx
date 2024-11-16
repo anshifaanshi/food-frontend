@@ -77,6 +77,7 @@ const makePayment = async () => {
   if (amountInCents < minimumAmountInCents) {
     amountInCents = minimumAmountInCents;
   }
+  console.log("Amount in cents:", amountInCents);
 
  
   setPaymentLoading(true);
