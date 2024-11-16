@@ -183,79 +183,89 @@ const clearCart = () => {
   }, []);
 
   return (
-    <div className="flex gap-10 px-20 py-10">
-      <div className="w-8/12">
-        
+    <div className="container mx-auto px-4 py-5">
+  <div className="row g-4">
+    {/* Cart Items Section */}
+    <div className="col-md-8">
+      <div className="card shadow-lg p-4 bg-white rounded-lg">
+        <h2 className="text-xl font-semibold mb-4">Your Cart</h2>
         {loading ? (
-          <p>Loading cart items...</p>
+          <p className="text-gray-500">Loading cart items...</p>
         ) : error ? (
-          <p>{error}</p>
+          <p className="text-danger">{error}</p>
         ) : cartItems.length > 0 ? (
           cartItems.map((item, index) => (
-            <CartItem 
-              item={item} 
-              key={item.foodItemId || index} 
+            <CartItem
+              item={item}
+              key={item.foodItemId || index}
               onRemove={handleRemoveItem}
               onQuantityChange={handleQuantityChange}
-              
             />
           ))
         ) : (
-          <p>Your cart is empty</p>
+          <p className="text-gray-500">Your cart is empty</p>
         )}
       </div>
+    </div>
 
-      <div className="w-6/12 bg-base-300 flex flex-col items-center gap-5 p-5 rounded-lg shadow-md">
-        <h2>Price Summary</h2>
-        <h2>Total Price: ${finalAmount.toFixed(2)} </h2>
+    {/* Price Summary Section */}
+    <div className="col-md-4">
+      <div className="card shadow-lg bg-light p-4 rounded-lg">
+        <h2 className="text-xl font-semibold text-center mb-4">Price Summary</h2>
+        <p className="text-lg font-medium">Total Price: <span className="text-primary">${finalAmount.toFixed(2)}</span></p>
 
         {/* Coupon Section */}
-        <div className="coupon-section bg-white p-5 rounded-lg shadow-md mt-5">
-          <h3 className="text-lg font-semibold">Have a coupon?</h3>
-          <div className="flex gap-2">
+        <div className="mt-4">
+          <h3 className="text-lg font-semibold mb-2">Have a coupon?</h3>
+          <div className="input-group">
             <input
               type="text"
               value={couponCode}
               onChange={(e) => setCouponCode(e.target.value)}
               placeholder="Enter coupon code"
-              className="coupon-input border rounded-md p-2 w-full"
+              className="form-control"
             />
             <button
               onClick={applyCoupon}
-              className="apply-coupon-btn bg-blue-500 text-white rounded-md p-2 hover:bg-blue-600"
+              className="btn btn-primary"
             >
-              Apply Coupon
+              Apply
             </button>
           </div>
         </div>
 
-        {/* Show Discount Information */}
+        {/* Discount Information */}
         {discount > 0 && (
-          <div className="discount-info mt-3">
+          <div className="mt-3 text-success">
             <p>Discount: -${discount.toFixed(2)}</p>
           </div>
         )}
 
         {/* Final Amount */}
-        <h2 className="mt-5">Final Amount: ${finalAmount.toFixed(2)}</h2>
+        <p className="mt-4 text-lg font-medium">Final Amount: <span className="text-success">${finalAmount.toFixed(2)}</span></p>
 
+        {/* Payment Button */}
         <button
-          className="pay-btn bg-green-500 text-white rounded-md p-2 mt-5 hover:bg-green-600"
+          className={`btn btn-success w-100 mt-4 ${paymentLoading ? 'disabled' : ''}`}
           onClick={makePayment}
           disabled={loading || paymentLoading}
         >
           {paymentLoading ? "Processing Payment..." : "Proceed to Payment"}
         </button>
       </div>
-      
-      <ToastContainer
-        position="top-center" 
-        autoClose={5000} // Adjust this value to control how long the toast stays
-        hideProgressBar={false} 
-        closeOnClick
-        pauseOnHover
-        theme="colored"
-      />
     </div>
+  </div>
+
+  {/* Toast Notifications */}
+  <ToastContainer
+    position="top-center"
+    autoClose={5000}
+    hideProgressBar={false}
+    closeOnClick
+    pauseOnHover
+    theme="colored"
+  />
+</div>
+
   );
 };
