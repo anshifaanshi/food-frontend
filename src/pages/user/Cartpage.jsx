@@ -53,36 +53,9 @@ export const CartPage = () => {
     }
   };
 
-  //const handleUpdateQuantity = async (itemId, newQuantity) => {
-  //  try {
-      // Send the update to your backend
-   //   const response = await axiosinstance.put("/cart/update-quantity", {
-    //    itemId,
-     //   quantity: newQuantity,
-     // });
+  
       
-     // if (response.data.success) {
-        // Update local state with the new quantity
-       // const updatedCartItems = cartItems.map(item => 
-        //  item.foodItemId === itemId ? { ...item, quantity: newQuantity } : item
-        //);
-        
-       // const updatedTotalPrice = updatedCartItems.reduce(
-        //  (total, item) => total + item.price * item.quantity,
-        //  0
-       // );
-        
-       // setCartItems(updatedCartItems);
-        //setCartData(prev => ({ ...prev, totalPrice: updatedTotalPrice }));
-       // setFinalAmount(updatedTotalPrice);
-    //  } else {
-      //  toast.error("Failed to update quantity.");
-    //  }
-   // } catch (error) {
-    //  toast.error("Failed to update quantity...");
-   // }
- //
- // };
+ 
   
  const handleQuantityChange = (itemId, newQuantity) => {
   const updatedCartItems = cartItems.map((item) =>
@@ -99,6 +72,11 @@ export const CartPage = () => {
 };
 
 const makePayment = async () => {
+  const minimumAmountInCents = 50; 
+  let adjustedAmount = finalAmount;
+  if (adjustedAmount < minimumAmountInCents) {
+    adjustedAmount = minimumAmountInCents;
+  }
   setPaymentLoading(true);
   try {
     const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_Key);
@@ -109,6 +87,7 @@ const makePayment = async () => {
 
     const session = await axiosinstance.post("/payment/create-checkout-session", {
       products: cartItems,
+      adjustedAmount,
     }, {
       withCredentials: true 
     });
