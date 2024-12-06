@@ -23,6 +23,7 @@ import ErrorPage from '../pages/ErrorPage';
 import { CreateHotelsAndFoodItems } from '../components/admin/CreateHotels';
 import OrderHistory from '../pages/Order';
 import PaymentSuccess from '../payment/PaymentSuccessPage';
+import UserOrdersPage from '../components/user/UserOrderPage';
 
 export const router = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ export const router = createBrowserRouter([
           {
             path: 'edit',
             element: <UserEditPage />
+          },
+          {
+path:'order',
+element:<UserOrdersPage/>
           },
           {
             path: 'history',
