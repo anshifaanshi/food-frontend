@@ -12,7 +12,7 @@ const UserOrdersPage = () => {
     try {
       setLoading(true);
       const response = await axiosinstance({
-        url: "/user/orders",
+        url: "/payment/user/orders",
         method: "GET",
       });
       setOrders(response.data.orders);
