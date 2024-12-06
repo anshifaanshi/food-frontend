@@ -124,9 +124,11 @@ export const CartItem = ({ item, onRemove,onQuantityChange }) => {
         <h3 style={styles.itemPrice}>${(item.price * quantity).toFixed(2)}</h3>
         <p style={styles.itemQuantity}>Quantity:</p>
         <div style={styles.buttonGroup}>
-          <button onClick={handleIncrement} style={styles.incrementButton}>+</button>
-          <span>{quantity}</span>
+          
           <button onClick={handleDecrement} style={styles.decrementButton}>-</button>
+          <span>{quantity}</span>
+          
+          <button onClick={handleIncrement} style={styles.incrementButton}>+</button>
         </div>
         <button onClick={handleRemove} style={styles.removeButton}>Remove</button>
       </div>

@@ -27,21 +27,7 @@ import Loading from "../components/user/Loading";
     };
     
 
-    const addToCart = async () => {
-        try {
-            const response = await axiosinstance({
-                url: "cart/add-to-cart",
-                method: "POST",
-                data: { FoodItemId: data.id }
-            });
-            console.log('Add to cart response:', response);
-            toast.success('Food item added to cart');
-        } catch (error) {
-            toast.error("Item couldn't be added to cart");
-            console.error("Error adding item to cart:", error);
-        }
-    };
-
+   
     useEffect(() => {
         fetchHotelsdetails();
     }, [id]);

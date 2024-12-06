@@ -26,7 +26,7 @@ export const Signup = ({ role = "user" }) => {
         try {
             const response = await axiosinstance({ method: "POST", url: user.signup_api, data });
             console.log(response, "====response");
-            const userId = response.data.userId;  // Adjust according to the API response structure
+            const userId = response.data.userId;  
             if (userId) {
                 localStorage.setItem("userId", userId); 
             }
@@ -39,46 +39,77 @@ export const Signup = ({ role = "user" }) => {
     };
 
     return (
-        <div className="hero bg-base-200 min-h-screen">
-            
-            <div className="hero-content flex-col lg:flex-row-reverse">
-                <div className="text-center lg:text-left">
-                    <h1 className="signuphead text-5xl font-bold">signup now!  </h1>
-                
-                </div>
-                <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                    <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
-                        <div className="form-control">
-                        <label className="label">
-                                <span className="label-text">name</span>
-                                <input type="name" {...register("name")} placeholder="name" className="input input-bordered" requed />
-                            </label>
-                            <label className="label">
-                                <span className="label-text">Email</span>
-                            </label>
-                            <input type="email" {...register("email")} placeholder="email" className="input input-bordered" requed />
-                        </div>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Password</span>
-                            </label>
-                            <input
-                                type="password"
-                                {...register("password")}
-                                placeholder="password"
-                                className="input input-bordered"
-                                required
-                            />
-                            <label className="label">
-                                <Link to={'/login'}>existing user ?</Link>
-                            </label>
-                        </div>
-                        <div className="form-control mt-6">
-                            <button className="btn btn-primary">signup</button>
-                        </div>
-                    </form>
-                </div>
+        <div className="hero bg-base-200 min-h-screen flex items-center">
+        <div className="container mx-auto px-4">
+          <div className="hero-content flex flex-col lg:flex-row-reverse items-center">
+            {/* Text Section */}
+            <div className="text-center lg:text-left lg:w-1/2 mb-8 lg:mb-0">
+              <h1 className="text-5xl font-bold mb-4 text-primary">Sign Up Now!</h1>
+              <p className="text-lg text-gray-600">
+                Join us today to explore amazing features and opportunities. Signing up is quick and easy!
+              </p>
             </div>
+      
+            {/* Form Section */}
+            <div className="card bg-base-100 w-full max-w-md shadow-lg p-6 rounded-lg">
+              <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+                {/* Name Field */}
+                <div className="form-group">
+                  <label className="label">
+                    <span className="label-text font-semibold">Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    {...register("name")}
+                    placeholder="Your name"
+                    className="input input-bordered w-full"
+                    required
+                  />
+                </div>
+      
+                {/* Email Field */}
+                <div className="form-group">
+                  <label className="label">
+                    <span className="label-text font-semibold">Email</span>
+                  </label>
+                  <input
+                    type="email"
+                    {...register("email")}
+                    placeholder="Your email"
+                    className="input input-bordered w-full"
+                    required
+                  />
+                </div>
+      
+                {/* Password Field */}
+                <div className="form-group">
+                  <label className="label">
+                    <span className="label-text font-semibold">Password</span>
+                  </label>
+                  <input
+                    type="password"
+                    {...register("password")}
+                    placeholder="Your password"
+                    className="input input-bordered w-full"
+                    required
+                  />
+                </div>
+      
+                {/* Existing User Link */}
+                <div className="text-sm text-center mt-2">
+                  <Link to="/login" className="text-primary hover:underline">
+                    Existing user? Log in
+                  </Link>
+                </div>
+      
+                {/* Signup Button */}
+                <div className="form-group mt-6">
+                  <button className="btn btn-primary w-full py-2">Sign Up</button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-    );
-};
+      </div>
+    )
+}

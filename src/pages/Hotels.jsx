@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { axiosinstance } from "../config/axiosinstance"; 
-import { Link } from "react-router-dom"; // Ensure Link is imported
+import { Link } from "react-router-dom"; 
 import Loading from "../components/user/Loading";
 export const Hotel = () => {
     const [data, setData] = useState([]);
