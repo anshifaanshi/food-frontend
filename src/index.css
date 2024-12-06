@@ -990,38 +990,30 @@ form {
   text-align: center;
 }
 
-.admin-login-btn:hover {
-  background-color: #0056b3; /* Darker blue when hovered */
-}
-
-.admin-login-btn:focus {
-  outline: none; /* Remove focus outline */
-}
-
-/* Button Container (optional) */
-.footerlist li {
-  margin-bottom: 10px;
-}
 .hero {
-  background: linear-gradient(to bottom right, #f5f7fa, #c3cfe2);
+  background: linear-gradient(90deg, #a770ef, #cf8bf3, #fdb99b);
 }
 
 .card {
-  transition: transform 0.2s, box-shadow 0.2s;
+  animation: fadeIn 0.5s ease-out;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
-  transition: background-color 0.2s, transform 0.2s;
+  transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
+  transform: translateY(-3px);
+  background-color: #6b46c1;
 }

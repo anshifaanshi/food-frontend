@@ -39,76 +39,65 @@ export const Signup = ({ role = "user" }) => {
     };
 
     return (
-        <div className="hero bg-base-200 min-h-screen flex items-center">
-        <div className="container mx-auto px-4">
-          <div className="hero-content flex flex-col lg:flex-row-reverse items-center">
-            {/* Text Section */}
-            <div className="text-center lg:text-left lg:w-1/2 mb-8 lg:mb-0">
-              <h1 className="text-5xl font-bold mb-4 text-primary">Sign Up Now!</h1>
-              <p className="text-lg text-gray-600">
-                Join us today to explore amazing features and opportunities. Signing up is quick and easy!
-              </p>
+        <div className="hero bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 min-h-screen flex items-center justify-center">
+        <div className="card w-full max-w-md p-6 bg-white shadow-xl rounded-lg">
+          {/* Heading Section */}
+          <h1 className="text-3xl font-bold text-center text-gray-800 mb-4">Create Your Account</h1>
+          <p className="text-center text-gray-500 mb-6">
+            Sign up to explore amazing features. It’s quick and easy!
+          </p>
+      
+          {/* Form Section */}
+          <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+            {/* Name Field */}
+            <div className="form-group">
+              <label className="block text-gray-600 font-medium mb-1">Name</label>
+              <input
+                type="text"
+                {...register("name")}
+                placeholder="Enter your name"
+                className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:ring focus:ring-purple-200"
+                required
+              />
             </div>
       
-            {/* Form Section */}
-            <div className="card bg-base-100 w-full max-w-md shadow-lg p-6 rounded-lg">
-              <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-                {/* Name Field */}
-                <div className="form-group">
-                  <label className="label">
-                    <span className="label-text font-semibold">Name</span>
-                  </label>
-                  <input
-                    type="text"
-                    {...register("name")}
-                    placeholder="Your name"
-                    className="input input-bordered w-full"
-                    required
-                  />
-                </div>
-      
-                {/* Email Field */}
-                <div className="form-group">
-                  <label className="label">
-                    <span className="label-text font-semibold">Email</span>
-                  </label>
-                  <input
-                    type="email"
-                    {...register("email")}
-                    placeholder="Your email"
-                    className="input input-bordered w-full"
-                    required
-                  />
-                </div>
-      
-                {/* Password Field */}
-                <div className="form-group">
-                  <label className="label">
-                    <span className="label-text font-semibold">Password</span>
-                  </label>
-                  <input
-                    type="password"
-                    {...register("password")}
-                    placeholder="Your password"
-                    className="input input-bordered w-full"
-                    required
-                  />
-                </div>
-      
-                {/* Existing User Link */}
-                <div className="text-sm text-center mt-2">
-                  <Link to="/login" className="text-primary hover:underline">
-                    Existing user? Log in
-                  </Link>
-                </div>
-      
-                {/* Signup Button */}
-                <div className="form-group mt-6">
-                  <button className="btn btn-primary w-full py-2">Sign Up</button>
-                </div>
-              </form>
+            {/* Email Field */}
+            <div className="form-group">
+              <label className="block text-gray-600 font-medium mb-1">Email</label>
+              <input
+                type="email"
+                {...register("email")}
+                placeholder="Enter your email"
+                className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:ring focus:ring-purple-200"
+                required
+              />
             </div>
-          </div>
+      
+            {/* Password Field */}
+            <div className="form-group">
+              <label className="block text-gray-600 font-medium mb-1">Password</label>
+              <input
+                type="password"
+                {...register("password")}
+                placeholder="Enter your password"
+                className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:ring focus:ring-purple-200"
+                required
+              />
+            </div>
+      
+            {/* Signup Button */}
+            <button className="btn btn-primary w-full bg-purple-500 hover:bg-purple-600 text-white py-2 rounded-lg font-medium">
+              Sign Up
+            </button>
+          </form>
+      
+          {/* Existing User Link */}
+          <p className="text-center text-gray-600 mt-4">
+            Already have an account?{" "}
+            <Link to="/login" className="text-purple-500 font-medium hover:underline">
+              Log in
+            </Link>
+          </p>
         </div>
       </div>
     )
