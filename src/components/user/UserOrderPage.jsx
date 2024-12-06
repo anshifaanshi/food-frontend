@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { axiosinstance } from "../config/axiosinstance";
+import { axiosinstance } from "../../config/axiosinstance";
 import toast from "react-hot-toast";
 import Loading from "../user/Loading"
 
