@@ -7,7 +7,7 @@ const UserOrdersPage = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch orders from backend
+
   const fetchOrders = async () => {
     try {
       setLoading(true);
