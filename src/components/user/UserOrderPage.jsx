@@ -32,40 +32,40 @@ const UserOrdersPage = () => {
 
   return (
     <div className="orders-container p-4">
-      <h1 className="text-2xl font-bold mb-4">Your Orders</h1>
-      {orders.length === 0 ? (
-        <p>No orders found.</p>
-      ) : (
-        <div className="grid gap-4">
-          {orders.map((order) => (
-            <div
-              key={order._id}
-              className="border p-4 rounded-lg shadow-md bg-gray-100"
-            >
-              <h2 className="text-lg font-semibold mb-2">Order #{order._id}</h2>
-              <p>
-                <strong>Status:</strong> {order.status}
-              </p>
-              <p>
-                <strong>Total:</strong> ${order.totalPrice.toFixed(2)}
-              </p>
-              <ul className="list-disc pl-5 mt-2">
-                {order.products.map((product, index) => (
-                  <li key={index}>
-                    {product.name} - {product.quantity} × $
-                    {(product.price / 100).toFixed(2)}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-2 text-sm">
-                <strong>Placed On:</strong>{" "}
-                {new Date(order.createdAt).toLocaleString()}
-              </p>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+    <h1 className="text-2xl font-bold mb-4">Your Orders</h1>
+    {orders.length === 0 ? (
+      <p className="text-center text-gray-600">No orders found.</p>
+    ) : (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {orders.map((order) => (
+          <div
+            key={order._id}
+            className="border p-4 rounded-lg shadow-lg bg-base-100 hover:bg-base-200 transition duration-300 ease-in-out"
+          >
+            <h2 className="text-lg font-semibold mb-2 text-primary">
+              Order #{order._id}
+            </h2>
+            <p className="text-sm text-gray-500">
+              <strong>Total:</strong> ${order.totalPrice.toFixed(2)}
+            </p>
+            <ul className="list-disc pl-5 mt-2 text-sm">
+              {order.products.map((product, index) => (
+                <li key={index}>
+                  {product.name} - {product.quantity} × $
+                  {(product.price / 100).toFixed(2)}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-2 text-xs text-gray-400">
+              <strong>Placed On:</strong>{" "}
+              {new Date(order.createdAt).toLocaleString()}
+            </p>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+  
   );
 };
 
