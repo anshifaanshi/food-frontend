@@ -26,10 +26,8 @@ export function CreateHotelsAndFoodItems() {
         method: 'POST',
         data: formData,
       });
-      if (response) {toast.success('Hotel created successfully! Check the hotels list.');
-      setHotelImage({ preview: '', data: '' });
-      setHotelData({ name: '', phone: '', email: '' });
-    }
+      if (response) toast.success('Hotel created successfully! Check the hotels list.');
+      
     } catch (error) {
       toast.error('Failed to create hotel');
       console.error(error);
