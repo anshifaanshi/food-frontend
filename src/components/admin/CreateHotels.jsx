@@ -26,7 +26,10 @@ export function CreateHotelsAndFoodItems() {
         method: 'POST',
         data: formData,
       });
-      if (response) toast.success('Hotel created successfully! Check the hotels list.');
+      if (response) {toast.success('Hotel created successfully! Check the hotels list.');
+      setHotelImage({ preview: '', data: '' });
+      setHotelData({ name: '', phone: '', email: '' });
+    }
     } catch (error) {
       toast.error('Failed to create hotel');
       console.error(error);
@@ -51,6 +54,7 @@ export function CreateHotelsAndFoodItems() {
         data,
       });
       if (response) toast.success('Food item created successfully!,check the menu');
+      setFoodData({ name: '', description: '', price: '', availability: true });
     } catch (error) {
       toast.error('Failed to create food item');
       console.error(error);
