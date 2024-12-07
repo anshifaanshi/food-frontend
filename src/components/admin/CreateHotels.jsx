@@ -9,9 +9,9 @@ export function CreateHotelsAndFoodItems() {
   const [hotelData, setHotelData] = useState({ name: '', phone: '', email: '' });
 
   // Food Item state
-
   const [foodData, setFoodData] = useState({ name: '', description: '', price: '', availability: true });
   const [foodStatus, setFoodStatus] = useState('');
+
   // Handles hotel form submission
   const handleHotelSubmit = async (e) => {
     e.preventDefault();
@@ -26,10 +26,15 @@ export function CreateHotelsAndFoodItems() {
         method: 'POST',
         data: formData,
       });
-      if (response) toast.success('Hotel created successfully! Check the hotels list.');
-      
+      if (response) {
+        toast.success('Hotel created successfully! Check the hotels list.');
+        setHotelStatus(''); // Clear status
+        setHotelImage({ preview: '', data: '' }); // Clear image preview
+        setHotelData({ name: '', phone: '', email: '' }); // Reset hotel data
+      }
     } catch (error) {
       toast.error('Failed to create hotel');
+      setHotelStatus('Failed to create hotel.'); // Set failure status
       console.error(error);
     }
   };
@@ -43,18 +48,21 @@ export function CreateHotelsAndFoodItems() {
       price: foodData.price,
       availability: foodData.availability,
     };
-  
-   
+
     try {
       const response = await axiosinstance({
         url: '/fooditems/createfood',
         method: 'POST',
         data,
       });
-      if (response) toast.success('Food item created successfully!,check the menu');
-      setFoodData({ name: '', description: '', price: '', availability: true });
+      if (response) {
+        toast.success('Food item created successfully! Check the menu.');
+        setFoodStatus(''); // Clear status
+        setFoodData({ name: '', description: '', price: '', availability: true }); // Reset food data
+      }
     } catch (error) {
       toast.error('Failed to create food item');
+      setFoodStatus('Failed to create food item.'); // Set failure status
       console.error(error);
     }
   };
@@ -113,6 +121,7 @@ export function CreateHotelsAndFoodItems() {
             name="name"
             placeholder="Hotel Name"
             onChange={handleHotelInput}
+            value={hotelData.name} // Ensure the form reflects the state
             required
             className="input-field"
           />
@@ -121,6 +130,7 @@ export function CreateHotelsAndFoodItems() {
             name="phone"
             placeholder="Phone"
             onChange={handleHotelInput}
+            value={hotelData.phone} // Ensure the form reflects the state
             required
             className="input-field"
           />
@@ -129,6 +139,7 @@ export function CreateHotelsAndFoodItems() {
             name="email"
             placeholder="Email"
             onChange={handleHotelInput}
+            value={hotelData.email} // Ensure the form reflects the state
             required
             className="input-field"
           />
@@ -155,6 +166,7 @@ export function CreateHotelsAndFoodItems() {
             name="name"
             placeholder="Food Name"
             onChange={handleFoodInput}
+            value={foodData.name} // Ensure the form reflects the state
             required
             className="input-field"
           />
@@ -162,6 +174,7 @@ export function CreateHotelsAndFoodItems() {
             name="description"
             placeholder="Description"
             onChange={handleFoodInput}
+            value={foodData.description} // Ensure the form reflects the state
             required
             className="input-field"
           />
@@ -170,6 +183,7 @@ export function CreateHotelsAndFoodItems() {
             name="price"
             placeholder="Price"
             onChange={handleFoodInput}
+            value={foodData.price} // Ensure the form reflects the state
             required
             className="input-field"
           />
