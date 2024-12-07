@@ -51,6 +51,7 @@ function UserEditPage() {
       fetchUserDetails(); // Fetch updated user details
     } catch (error) {
       console.error('Error updating user:', error);
+      toast.error("failed to update")
     } finally {
       setLoading(false); // Stop loading
     }
