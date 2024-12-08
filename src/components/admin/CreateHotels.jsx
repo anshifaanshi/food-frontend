@@ -19,15 +19,18 @@ export function CreateHotelsAndFoodItems() {
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-        const response = await axiosinstance.get("/hotel/hotels"); // Replace with your actual endpoint
-        if (response.data) {
-          setHotels(response.data);
+        const response = await axiosinstance.get("/hotel/gethotels");
+        if (Array.isArray(response.data)) {
+          setHotels(response.data); // Set the hotels array if it's valid
+        } else {
+          console.error("Received data is not an array:", response.data);
         }
       } catch (error) {
-        toast.error('Failed to fetch hotels');
-        console.error(error);
+        console.error("Error fetching hotels:", error);
+        toast.error("Failed to fetch hotels.");
       }
     };
+    
 
     fetchHotels();
   }, []);
