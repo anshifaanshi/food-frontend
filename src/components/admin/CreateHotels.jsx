@@ -217,6 +217,18 @@ export function CreateHotelsAndFoodItems() {
             />
             Available
           </label>
+          <select
+            name="hotelId"
+            value={selectedHotelId}
+            onChange={(e) => setSelectedHotelId(e.target.value)}
+            className="input-field"
+            required
+          >
+            <option value="" disabled>Select Hotel</option>
+            {hotelList.map(hotel => (
+              <option key={hotel._id} value={hotel._id}>{hotel.name}</option>
+            ))}
+          </select>
           <button type="submit" className="submit-button">
             Submit Food Item
           </button>
