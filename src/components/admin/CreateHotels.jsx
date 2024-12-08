@@ -19,7 +19,7 @@ export function CreateHotelsAndFoodItems() {
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-        const response = await axiosinstance.get("/hotel/gethotels"); // Replace with your actual endpoint
+        const response = await axiosinstance.get("/hotel/hotels"); // Replace with your actual endpoint
         if (response.data) {
           setHotels(response.data);
         }
