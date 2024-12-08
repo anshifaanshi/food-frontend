@@ -9,8 +9,9 @@ export function CreateHotelsAndFoodItems() {
   const [hotelData, setHotelData] = useState({ name: '', phone: '', email: '' });
 
   // Food Item state
-  const [foodData, setFoodData] = useState({ name: '', description: '', price: '', availability: true });
+  const [foodImage, setFoodImage] = useState({ preview: '', data: '' }); // Food image state
   const [foodStatus, setFoodStatus] = useState('');
+  const [foodData, setFoodData] = useState({ name: '', description: '', price: '', availability: true });
 
   // Handles hotel form submission
   const handleHotelSubmit = async (e) => {
@@ -20,6 +21,7 @@ export function CreateHotelsAndFoodItems() {
     formData.append('name', hotelData.name);
     formData.append('phone', hotelData.phone);
     formData.append('email', hotelData.email);
+    
     try {
       const response = await axiosinstance({
         url: '/hotel/createhotel',
@@ -42,22 +44,23 @@ export function CreateHotelsAndFoodItems() {
   // Handles food item form submission
   const handleFoodSubmit = async (e) => {
     e.preventDefault();
-    const data = {
-      name: foodData.name,
-      description: foodData.description,
-      price: foodData.price,
-      availability: foodData.availability,
-    };
-
+    let formData = new FormData();
+    formData.append('image', foodImage.data); // Append image to form data
+    formData.append('name', foodData.name);
+    formData.append('description', foodData.description);
+    formData.append('price', foodData.price);
+    formData.append('availability', foodData.availability);
+    
     try {
       const response = await axiosinstance({
         url: '/fooditems/createfood',
         method: 'POST',
-        data,
+        data: formData,
       });
       if (response) {
         toast.success('Food item created successfully! Check the menu.');
         setFoodStatus(''); // Clear status
+        setFoodImage({ preview: '', data: '' }); // Clear image preview
         setFoodData({ name: '', description: '', price: '', availability: true }); // Reset food data
       }
     } catch (error) {
@@ -76,13 +79,13 @@ export function CreateHotelsAndFoodItems() {
     setHotelImage(img);
   };
 
-  // Handles food item input changes
-  const handleFoodInput = (event) => {
-    const { name, value, type, checked } = event.target;
-    setFoodData((prev) => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
+  // Handles food image file change
+  const handleFoodFileChange = (e) => {
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
+    };
+    setFoodImage(img);
   };
 
   // Handles hotel input changes
@@ -94,10 +97,18 @@ export function CreateHotelsAndFoodItems() {
     }));
   };
 
+  // Handles food item input changes
+  const handleFoodInput = (event) => {
+    const { name, value, type, checked } = event.target;
+    setFoodData((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
+
   return (
     <div className="create-hotel-container">
       <h1>Create Hotel</h1>
-      {/* Hotel Form */}
       <section className="form-section">
         <h2>Upload Hotel</h2>
         {hotelImage.preview && (
@@ -121,7 +132,7 @@ export function CreateHotelsAndFoodItems() {
             name="name"
             placeholder="Hotel Name"
             onChange={handleHotelInput}
-            value={hotelData.name} // Ensure the form reflects the state
+            value={hotelData.name}
             required
             className="input-field"
           />
@@ -130,24 +141,17 @@ export function CreateHotelsAndFoodItems() {
             name="phone"
             placeholder="Phone"
             onChange={handleHotelInput}
-            value={hotelData.phone} // Ensure the form reflects the state
+            value={hotelData.phone}
             required
             className="input-field"
           />
           <input
-            type="text"
+            type="email"
             name="email"
             placeholder="Email"
             onChange={handleHotelInput}
-            value={hotelData.email} // Ensure the form reflects the state
+            value={hotelData.email}
             required
-            className="input-field"
-          />
-          <input
-            type="text"
-            name="website"
-            placeholder="Website"
-            onChange={handleHotelInput}
             className="input-field"
           />
           <button type="submit" className="submit-button">
@@ -158,15 +162,31 @@ export function CreateHotelsAndFoodItems() {
       </section>
 
       <hr className="divider" />
+      
       <section className="form-section">
         <h2>Upload Food Item</h2>
+        {foodImage.preview && (
+          <img
+            src={foodImage.preview}
+            width="100"
+            height="100"
+            alt="Food preview"
+            className="food-preview"
+          />
+        )}
         <form onSubmit={handleFoodSubmit} className="food-form">
+          <input
+            type="file"
+            name="file"
+            onChange={handleFoodFileChange}
+            className="input-file"
+          />
           <input
             type="text"
             name="name"
             placeholder="Food Name"
             onChange={handleFoodInput}
-            value={foodData.name} // Ensure the form reflects the state
+            value={foodData.name}
             required
             className="input-field"
           />
@@ -174,7 +194,7 @@ export function CreateHotelsAndFoodItems() {
             name="description"
             placeholder="Description"
             onChange={handleFoodInput}
-            value={foodData.description} // Ensure the form reflects the state
+            value={foodData.description}
             required
             className="input-field"
           />
@@ -183,7 +203,7 @@ export function CreateHotelsAndFoodItems() {
             name="price"
             placeholder="Price"
             onChange={handleFoodInput}
-            value={foodData.price} // Ensure the form reflects the state
+            value={foodData.price}
             required
             className="input-field"
           />
