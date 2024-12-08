@@ -19,7 +19,7 @@ export function CreateHotelsAndFoodItems() {
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-        const response = await axiosinstance.get("/hotel/gethotels");
+        const response = await axiosinstance.get("/hotel/hotels");
         if (Array.isArray(response.data)) {
           setHotels(response.data); // Set the hotels array if it's valid
         } else {
