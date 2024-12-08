@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { axiosinstance } from "../../config/axiosinstance";
 import toast from "react-hot-toast";
 
@@ -7,11 +7,30 @@ export function CreateHotelsAndFoodItems() {
   const [hotelImage, setHotelImage] = useState({ preview: '', data: '' });
   const [hotelStatus, setHotelStatus] = useState('');
   const [hotelData, setHotelData] = useState({ name: '', phone: '', email: '' });
+  const [hotels, setHotels] = useState([]); // Store list of hotels
+  const [selectedHotelId, setSelectedHotelId] = useState(''); // Store selected hotel ID
 
   // Food Item state
   const [foodImageUrl, setFoodImageUrl] = useState(''); // Food image URL state
   const [foodStatus, setFoodStatus] = useState('');
   const [foodData, setFoodData] = useState({ name: '', description: '', price: '', availability: true });
+
+  // Fetch list of hotels on component mount
+  useEffect(() => {
+    const fetchHotels = async () => {
+      try {
+        const response = await axiosinstance.get("/hotel/gethotels"); // Replace with your actual endpoint
+        if (response.data) {
+          setHotels(response.data);
+        }
+      } catch (error) {
+        toast.error('Failed to fetch hotels');
+        console.error(error);
+      }
+    };
+
+    fetchHotels();
+  }, []);
 
   // Handles hotel form submission
   const handleHotelSubmit = async (e) => {
@@ -44,6 +63,11 @@ export function CreateHotelsAndFoodItems() {
   // Handles food item form submission
   const handleFoodSubmit = async (e) => {
     e.preventDefault();
+    if (!selectedHotelId) {
+      toast.error("Please select a hotel for the food item.");
+      return;
+    }
+
     const data = {
       image: foodImageUrl, // Image URL is sent as part of the request body
       name: foodData.name,
@@ -173,6 +197,22 @@ export function CreateHotelsAndFoodItems() {
           />
         )}
         <form onSubmit={handleFoodSubmit} className="food-form">
+          {/* Hotel selection dropdown */}
+          <select
+            name="hotel"
+            value={selectedHotelId}
+            onChange={(e) => setSelectedHotelId(e.target.value)}
+            className="input-field"
+            required
+          >
+            <option value="">Select Hotel</option>
+            {hotels.map((hotel) => (
+              <option key={hotel._id} value={hotel._id}>
+                {hotel.name}
+              </option>
+            ))}
+          </select>
+
           <input
             type="text"
             name="imageUrl"
@@ -217,18 +257,6 @@ export function CreateHotelsAndFoodItems() {
             />
             Available
           </label>
-          <select
-            name="hotelId"
-            value={selectedHotelId}
-            onChange={(e) => setSelectedHotelId(e.target.value)}
-            className="input-field"
-            required
-          >
-            <option value="" disabled>Select Hotel</option>
-            {hotelList.map(hotel => (
-              <option key={hotel._id} value={hotel._id}>{hotel.name}</option>
-            ))}
-          </select>
           <button type="submit" className="submit-button">
             Submit Food Item
           </button>
