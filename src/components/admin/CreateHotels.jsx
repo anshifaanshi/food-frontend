@@ -50,6 +50,7 @@ export function CreateHotelsAndFoodItems() {
       description: foodData.description,
       price: foodData.price,
       availability: foodData.availability,
+      hotelId: selectedHotelId,
     };
     
     try {

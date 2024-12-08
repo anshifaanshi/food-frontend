@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { axiosinstance } from "../config/axiosinstance";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
-import { Link } from "react-router-dom";
+import { Link ,useParams} from "react-router-dom";
 import ImageCarousel from "../components/user/CarouselComponent";
 import Loading from "../components/user/Loading";
 
@@ -10,11 +10,11 @@ function Fooditems() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const { hotelId } = useParams();
     const fetchFoodItems = async () => {
         console.log("Fetching food items..."); 
         try {
-            const response = await axiosinstance.get('fooditems/allfood');
+            const response = await axiosinstance.get('fooditems/hotel/${hotelId}');
             console.log('Food items fetched successfully:', response.data); 
             setData(response.data); 
         } catch (error) {
