@@ -75,6 +75,11 @@ function Fooditems() {
         <div key={menu._id} className="col-md-4 mb-4 d-flex align-items-stretch">
             <div className="card4 custom-card">
                 <div className="menubody3 card-body">
+                <img
+                    src={menu?.image }
+                    alt={menu?.name}
+                    className="card-img-top rounded-top"
+                  />
                     <h2 className="card4-title">{menu.name}</h2>
                     <p className="card4-text"><strong>Description:</strong> {menu.description}</p><br />
                     <p className="card4-text"><strong>Price:</strong> ${menu.price}</p><br />
