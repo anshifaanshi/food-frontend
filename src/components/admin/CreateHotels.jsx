@@ -20,16 +20,21 @@ export function CreateHotelsAndFoodItems() {
     const fetchHotels = async () => {
       try {
         const response = await axiosinstance.get("/hotel/hotels");
-        if (Array.isArray(response.data)) {
-          setHotels(response.data); // Set the hotels array if it's valid
+        console.log("Full response:", response); // Log the entire response
+        const hotelList = response.data.data; // Access the 'data' key inside 'data'
+        if (Array.isArray(hotelList)) {
+          setHotels(hotelList); // Set the array of hotels
+          console.log("Hotels fetched successfully:", hotelList);
         } else {
-          console.error("Received data is not an array:", response.data);
+          console.error("Received data is not an array:", hotelList);
         }
       } catch (error) {
         console.error("Error fetching hotels:", error);
         toast.error("Failed to fetch hotels.");
       }
     };
+    
+    
     
 
     fetchHotels();
