@@ -9,7 +9,7 @@ export function CreateHotelsAndFoodItems() {
   const [hotelData, setHotelData] = useState({ name: '', phone: '', email: '' });
 
   // Food Item state
-  const [foodImage, setFoodImage] = useState({ preview: '', data: '' }); // Food image state
+  const [foodImageUrl, setFoodImageUrl] = useState(''); // Food image URL state
   const [foodStatus, setFoodStatus] = useState('');
   const [foodData, setFoodData] = useState({ name: '', description: '', price: '', availability: true });
 
@@ -45,7 +45,7 @@ export function CreateHotelsAndFoodItems() {
   const handleFoodSubmit = async (e) => {
     e.preventDefault();
     let formData = new FormData();
-    formData.append('image', foodImage.data); // Append image to form data
+    formData.append('image', foodImageUrl); // Append the image URL to form data
     formData.append('name', foodData.name);
     formData.append('description', foodData.description);
     formData.append('price', foodData.price);
@@ -60,7 +60,7 @@ export function CreateHotelsAndFoodItems() {
       if (response) {
         toast.success('Food item created successfully! Check the menu.');
         setFoodStatus(''); // Clear status
-        setFoodImage({ preview: '', data: '' }); // Clear image preview
+        setFoodImageUrl(''); // Clear image URL
         setFoodData({ name: '', description: '', price: '', availability: true }); // Reset food data
       }
     } catch (error) {
@@ -79,13 +79,9 @@ export function CreateHotelsAndFoodItems() {
     setHotelImage(img);
   };
 
-  // Handles food image file change
-  const handleFoodFileChange = (e) => {
-    const img = {
-      preview: URL.createObjectURL(e.target.files[0]),
-      data: e.target.files[0],
-    };
-    setFoodImage(img);
+  // Handles food image URL input change
+  const handleFoodImageUrlChange = (e) => {
+    setFoodImageUrl(e.target.value);
   };
 
   // Handles hotel input changes
@@ -165,9 +161,9 @@ export function CreateHotelsAndFoodItems() {
       
       <section className="form-section">
         <h2>Upload Food Item</h2>
-        {foodImage.preview && (
+        {foodImageUrl && (
           <img
-            src={foodImage.preview}
+            src={foodImageUrl}
             width="100"
             height="100"
             alt="Food preview"
@@ -176,10 +172,12 @@ export function CreateHotelsAndFoodItems() {
         )}
         <form onSubmit={handleFoodSubmit} className="food-form">
           <input
-            type="file"
-            name="file"
-            onChange={handleFoodFileChange}
-            className="input-file"
+            type="text"
+            name="imageUrl"
+            placeholder="Food Image URL"
+            onChange={handleFoodImageUrlChange}
+            value={foodImageUrl}
+            className="input-field"
           />
           <input
             type="text"
