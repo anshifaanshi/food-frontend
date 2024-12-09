@@ -14,7 +14,7 @@ function Fooditems() {
     const fetchFoodItems = async () => {
         console.log("Fetching food items..."); 
         try {
-            const response = await axiosinstance.get('fooditems/hotel/${hotelId}');
+            const response = await axiosinstance.get(`fooditems/hotel/${hotelId}`);
             console.log('Food items fetched successfully:', response.data); 
             setData(response.data); 
         } catch (error) {
