@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { toast, ToastContainer } from 'react-toastify';
 
-const Edithotelmenu = () => {
+const EditHotelMenuPage = () => {
   const { hotelId } = useParams();
   const [hotel, setHotel] = useState({});
   const [menuItems, setMenuItems] = useState([]);
@@ -125,4 +125,4 @@ const Edithotelmenu = () => {
   );
 };
 
-export default Edithotelmenu;
+export default EditHotelMenuPage;
