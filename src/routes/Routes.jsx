@@ -24,7 +24,7 @@ import { CreateHotelsAndFoodItems } from '../components/admin/CreateHotels';
 import OrderHistory from '../pages/Order';
 import PaymentSuccess from '../payment/PaymentSuccessPage';
 import UserOrdersPage from '../components/user/UserOrderPage';
-import {Edithotelmenu} from '../components/admin/Edithotelemenu'
+import {Edithotelmenu} from '../components/admin/EditHotelMenu'
 export const router = createBrowserRouter([
   {
     path: "/",
