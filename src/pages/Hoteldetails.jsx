@@ -54,7 +54,7 @@ import Loading from "../components/user/Loading";
             <p><strong>Opening Hours:</strong> {data?.openingHours?.open} - {data?.openingHours?.close}</p>
             <p><strong>Website:</strong> <a href={data?.website} target="_blank" rel="noopener noreferrer">{data?.website}</a></p>
             <button 
-              onClick={() => navigate('/fooditems/allfood')} 
+              onClick={() => navigate(`/fooditems/hotel/${data?._id}`)} 
               className="btn btn-primary mt-3 view-menu-btn"
             >
               View Menu
