@@ -12,15 +12,17 @@ export const SideBar = () => {
             <Link to="/hotel/hotels" className="sidebar-link">Show Hotels</Link>
           </li>
           <li>
-            <Link to="/admin/createhotel" className="sidebar-link">Create Hotels</Link>
+            <Link to="/admin/createhotel" className="sidebar-link">Create Hotels and Menu</Link>
+          </li>
+          <li>
+            <Link to="/admin/edithotel" className="sidebar-link">Edit Hotel and Menu</Link>
           </li>
         </ul>
       </div>
       
       {/* Main Content Area */}
       <div className="content">
-        <h1 className="content-heading">Welcome, Admin!</h1>
-        <p className="content-description">Manage hotels</p>
+      
       </div>
     </div>
     );
