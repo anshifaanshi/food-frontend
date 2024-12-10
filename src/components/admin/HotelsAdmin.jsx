@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { axiosinstance } from "../config/axiosinstance"; 
 import { Link } from "react-router-dom"; 
 import Loading from "../components/user/Loading";
-export const Hotel = () => {
+export const HotelAdmin = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -95,3 +95,4 @@ return (
   </div>
 );
 }
+export default HotelAdmin
