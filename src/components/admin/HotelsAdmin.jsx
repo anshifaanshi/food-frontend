@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { axiosinstance } from "../config/axiosinstance"; 
+import { axiosinstance } from "../../config/axiosinstance"; 
 import { Link } from "react-router-dom"; 
 import Loading from "../components/user/Loading";
 export const HotelAdmin = () => {
