@@ -67,7 +67,7 @@ const EditHotel= () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axiosinstance.put(`/hotel/update/${id}`, formData);
+      const response = await axiosinstance.put(`/hotel/update${id}`, formData);
       toast.success('Hotel details updated successfully');
       console.log('Response:', response);
     } catch (error) {
