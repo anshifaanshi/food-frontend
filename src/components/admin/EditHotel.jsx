@@ -1,90 +1,130 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { useForm } from 'react-hook-form';
-import { ToastContainer, toast } from 'react-toastify';
+import { axiosinstance } from '../../config/axiosinstance';
+import toast from 'react-hot-toast';
+import Loading from '../../components/user/Loading';
+import { useParams } from 'react-router-dom'; // To get hotel ID from URL
 
-const EditHotel = () => {
+function HotelEditPage() {
   const { id } = useParams(); // Get hotel ID from URL
+  const [hotel, setHotel] = useState({});
+  const [name, setName] = useState('');
+  const [location, setLocation] = useState('');
+  const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(true); // Loading state
-  const { register, handleSubmit, reset } = useForm(); // Form hooks
-  const navigate = useNavigate();
 
-  // Fetch hotel details and populate the form
-  useEffect(() => {
-    const fetchHotelDetails = async () => {
-      try {
-        const response = await axios.get(`/hotel/hotelprofile/${id}`);
-        const hotelData = response.data;
-        
-        // Populate the form with existing hotel data
-        reset({
-          name: hotelData.name || '',
-          location: hotelData.location || '',
-          description: hotelData.description || ''
-        });
-        setLoading(false); // Data is loaded
-      } catch (error) {
-        console.error('Error fetching hotel details:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchHotelDetails();
-  }, [id, reset]);
-
-  // Update hotel details
-  const onSubmit = async (data) => {
+  // Fetch hotel details
+  const fetchHotelDetails = async () => {
+    setLoading(true); // Start loading
     try {
-      await axios.put(`/hotel/update/${id}`, data);
-      toast.success('Hotel updated successfully!');
-      navigate('/hotel-list'); // Redirect back to the list page
+      const response = await axiosinstance({
+        url: `/hotel/hotelprofile/${id}`,
+        method: 'GET',
+      });
+      setHotel(response.data);
+      setName(response.data.name);
+      setLocation(response.data.location);
+      setDescription(response.data.description);
     } catch (error) {
-      toast.error('Failed to update hotel.');
+      console.error('Error fetching hotel details:', error);
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
-  // Display loading message if data is still loading
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    if (name === 'name') setName(value);
+    else if (name === 'location') setLocation(value);
+    else if (name === 'description') setDescription(value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true); // Start loading during update
+    try {
+      const response = await axiosinstance({
+        url: `/hotel/update/${id}`,
+        method: 'PUT',
+        data: {
+          name,
+          location,
+          description,
+        },
+      });
+      toast.success('Hotel details updated successfully');
+      fetchHotelDetails(); // Refresh the hotel details
+    } catch (error) {
+      console.error('Error updating hotel:', error);
+      toast.error('Failed to update hotel');
+    } finally {
+      setLoading(false); // Stop loading
+    }
+  };
+
+  useEffect(() => {
+    fetchHotelDetails();
+  }, []);
+
   if (loading) {
-    return <div>Loading hotel details...</div>;
+    return <Loading />; // Display loading spinner while loading is true
   }
 
   return (
-    <div className="container my-5">
-      <h2>Edit Hotel</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-3">
-          <label>Hotel Name</label>
-          <input 
-            type="text" 
-            className="form-control" 
-            {...register('name', { required: true })} 
+    <div className="flex items-center justify-center min-h-screen bg-base-200 p-6">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"
+      >
+        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Update Hotel</h2>
+
+        <div className="mb-4">
+          <label className="label">
+            <span className="label-text text-gray-700 font-semibold">Hotel Name</span>
+          </label>
+          <input
+            type="text"
+            name="name"
+            value={name}
+            onChange={handleChange}
+            className="input input-bordered w-full p-2 border-gray-300 rounded-md"
+            required
           />
         </div>
 
-        <div className="mb-3">
-          <label>Location</label>
-          <input 
-            type="text" 
-            className="form-control" 
-            {...register('location', { required: true })} 
+        <div className="mb-4">
+          <label className="label">
+            <span className="label-text text-gray-700 font-semibold">Location</span>
+          </label>
+          <input
+            type="text"
+            name="location"
+            value={location}
+            onChange={handleChange}
+            className="input input-bordered w-full p-2 border-gray-300 rounded-md"
+            required
           />
         </div>
 
-        <div className="mb-3">
-          <label>Description</label>
-          <textarea 
-            className="form-control" 
-            {...register('description')} 
+        <div className="mb-6">
+          <label className="label">
+            <span className="label-text text-gray-700 font-semibold">Description</span>
+          </label>
+          <textarea
+            name="description"
+            value={description}
+            onChange={handleChange}
+            placeholder="Enter hotel description"
+            className="input input-bordered w-full p-2 border-gray-300 rounded-md"
+            required
           ></textarea>
         </div>
 
-        <button type="submit" className="btn btn-success">Update Hotel</button>
+        <button type="submit" className="btn btn-primary w-full py-2 text-white rounded-md">
+          Update Hotel
+        </button>
       </form>
-
-      <ToastContainer />
     </div>
   );
-};
+}
 
-export default EditHotel;
+export default HotelEditPage;
