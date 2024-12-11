@@ -4,7 +4,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { axiosinstance } from '../../config/axiosinstance';
 
-const HotelDetail = () => {
+const EditMenu = () => {
   const { id } = useParams(); // Extract 'id' from the URL
   const [data, setData] = useState(null);
   const [formData, setFormData] = useState({
@@ -23,14 +23,14 @@ const HotelDetail = () => {
       return;
     }
 
-    const fetchHotelDetails = async () => {
+    const fetchMenuDetails = async () => {
       try {
         if (!id) {
             throw new Error("Hotel ID is missing");
         }
-        const response = await axiosinstance.get(`/hotel/hotelprofile/${id}`);
-        const hotelData = response?.data?.data || {};
-        setData(hotelData);
+        const response = await axiosinstance.get(/fooditems/allfood);
+        const menuData = response?.data?.data || {};
+        setData(menuData);
         setFormData({
           name: hotelData.name || '',
           phone: hotelData.phone || '',
@@ -38,9 +38,9 @@ const HotelDetail = () => {
           image: hotelData.image || '',
           cuisineType: hotelData.cuisineType?.join(', ') || ''
         });
-        console.log('Hotel details fetched:', response);
+        console.log('menu details fetched:', response);
       } catch (error) {
-        console.error("Error fetching hotel details:", error);
+        console.error("Error fetching menu details:", error);
         toast.error("Failed to retrieve hotel details.");
       } finally {
         setLoading(false);
@@ -73,7 +73,7 @@ const HotelDetail = () => {
         ...formData,
         cuisineType: formData.cuisineType.split(',').map(type => type.trim())
       };
-      const response = await axiosinstance.put(`/hotel/update/${id}`, updatedData);
+      const response = await axiosinstance.put(`/fooditems/update/${id}`, updatedData);
       setData(response.data.data);
       toast.success('Hotel details updated successfully');
     } catch (error) {
