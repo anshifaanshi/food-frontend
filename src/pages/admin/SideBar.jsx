@@ -15,7 +15,10 @@ export const SideBar = () => {
             <Link to="/admin/createhotel" className="sidebar-link">Create Hotels and Menu</Link>
           </li>
           <li>
-            <Link to="/admin/edithotel" className="sidebar-link">Edit Hotel and Menu</Link>
+            <Link to="/admin/edithotel" className="sidebar-link">Edit Hotel </Link>
+          </li>
+          <li>
+            <Link to="/admin/editmenu" className="sidebar-link">Edit Menu </Link>
           </li>
         </ul>
       </div>
