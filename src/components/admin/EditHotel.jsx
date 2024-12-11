@@ -13,10 +13,15 @@ const EditHotel = () => {
 
   // Fetch hotel details and populate the form
   useEffect(() => {
-    axios.get(`/hotel/hotelprofile/${id}`)
+    axios.get(`/hotel/hotelprofile/${id}`, { headers: { 'Accept': 'application/json' } })
       .then(response => {
-        setHotelDetails(response.data);
-        reset(response.data); // Auto-fill form with response data
+        if (typeof response.data === 'object') {
+          console.log('Response Data:', response.data); // Log the response
+          setHotelDetails(response.data);
+          reset(response.data); // Auto-fill form with response data
+        } else {
+          console.error('Unexpected response data:', response.data);
+        }
         setLoading(false); // Data is loaded
       })
       .catch(error => {
@@ -28,10 +33,12 @@ const EditHotel = () => {
   // Update hotel details
   const onSubmit = async (data) => {
     try {
-      await axios.put(`hotel/update/${id}`, data);
+      const response = await axios.put(`/hotel/update/${id}`, data);
+      console.log('Update response:', response); // Log the response
       toast.success('Hotel updated successfully!');
       navigate('/hotel-list'); // Redirect back to the list page
     } catch (error) {
+      console.error('Error updating hotel:', error);
       toast.error('Failed to update hotel.');
     }
   };
