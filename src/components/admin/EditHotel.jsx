@@ -92,99 +92,69 @@ const HotelDetail = () => {
 
   return (
     <div className="edit-hotel-form">
-      <h1>Edit Hotel Details</h1>
+    <h1>Edit Hotel Details</h1>
 
-      {data ? (
-        <div>
-          {formData.image && (
-            <img 
-              src={formData.image} 
-              alt={`${formData.name} hotel`} 
-              style={{ width: '200px', height: '200px', borderRadius: '8px' }} 
-            />
-          )}
-          <h1>Hotel Name: {data.name}</h1>
-          <p>Phone: {data.phone}</p>
-          <p>Email: {data.email}</p>
+    {formData.image && (
+      <img 
+        src={formData.image} 
+        alt={`${formData.name} hotel`} 
+        style={{ width: '200px', height: '200px', borderRadius: '8px' }} 
+      />
+    )}
 
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="name">Hotel Name</label>
-              <input 
-                type="text" 
-                id="name" 
-                name="name" 
-                value={formData.name} 
-                onChange={handleChange} 
-                required 
-              />
-            </div>
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="name">Hotel Name</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          value={formData.name} 
+          onChange={handleChange} 
+          required 
+        />
+      </div>
 
-            <div>
-              <label htmlFor="phone">Phone</label>
-              <input 
-                type="text" 
-                id="phone" 
-                name="phone" 
-                value={formData.phone} 
-                onChange={handleChange} 
-                required 
-              />
-            </div>
+      <div>
+        <label htmlFor="phone">Phone</label>
+        <input 
+          type="text" 
+          id="phone" 
+          name="phone" 
+          value={formData.phone} 
+          onChange={handleChange} 
+          required 
+        />
+      </div>
 
-            <div>
-              <label htmlFor="email">Email</label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                value={formData.email} 
-                onChange={handleChange} 
-                required 
-              />
-            </div>
+      <div>
+        <label htmlFor="email">Email</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          value={formData.email} 
+          onChange={handleChange} 
+          required 
+        />
+      </div>
 
-            <div>
-              <label htmlFor="image">Image URL</label>
-              <input 
-                type="text" 
-                id="image" 
-                name="image" 
-                value={formData.image} 
-                onChange={handleChange} 
-              />
-            </div>
+      <div>
+        <label htmlFor="image">Image URL</label>
+        <input 
+          type="text" 
+          id="image" 
+          name="image" 
+          value={formData.image} 
+          onChange={handleChange} 
+        />
+      </div>
 
-            <div>
-              <label htmlFor="cuisineType">Cuisine Types (comma-separated)</label>
-              <input 
-                type="text" 
-                id="cuisineType" 
-                name="cuisineType" 
-                value={formData.cuisineType} 
-                onChange={handleCuisineChange} 
-                placeholder="e.g., Indian, Chinese, Continental" 
-              />
-            </div>
+     
 
-            <button type="submit">Save Changes</button>
-          </form>
-
-          <h2>Menu</h2>
-          <ul>
-            {data.fooditems.length > 0 ? (
-              data.fooditems.map((foodId, index) => (
-                <li key={index}>Food Item ID: {foodId}</li>
-              ))
-            ) : (
-              <p>No food items available.</p>
-            )}
-          </ul>
-        </div>
-      ) : (
-        <p>Loading hotel data...</p>
-      )}
-    </div>
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
   );
 };
 
