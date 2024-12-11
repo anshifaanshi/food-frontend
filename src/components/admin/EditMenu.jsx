@@ -28,7 +28,7 @@ const EditMenu = () => {
         if (!id) {
           throw new Error("Food item ID is missing");
         }
-        const response = await axiosinstance.get(`/fooditems/${id}`);
+        const response = await axiosinstance.get('/fooditems/allfood');
         const menuData = response?.data || {}; // Ensure menuData is extracted from the API
         setData(menuData);
         setFormData({
