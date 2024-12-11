@@ -39,7 +39,7 @@ const EditMenu = () => {
     e.preventDefault();
     const updatedFoodItem = foodItems.find(item => item._id === id);
     try {
-      const response = await axiosinstance.put(`/fooditems/update/${id}`, updatedFoodItem);
+      const response = await axiosinstance.put(`/fooditems/${id}`, updatedFoodItem);
       toast.success('Food item updated successfully');
     } catch (error) {
       console.error('Error updating food item:', error);
