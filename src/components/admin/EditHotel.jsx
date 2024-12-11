@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Loading from '../user/Loading';
-
+import toast from 'react-hot-toast';
+import { axiosinstance } from '../../config/axiosinstance';
 const HotelDetail = () => {
   const { id } = useParams(); // Extract 'id' from the URL
   const [data, setData] = useState(null);
