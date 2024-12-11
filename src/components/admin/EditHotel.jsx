@@ -73,7 +73,7 @@ const HotelDetail = () => {
         ...formData,
         cuisineType: formData.cuisineType.split(',').map(type => type.trim())
       };
-      const response = await axiosinstance.put(`/hotel/update${id}`, updatedData);
+      const response = await axiosinstance.put(`/hotel/update/${id}`, updatedData);
       setData(response.data.data);
       toast.success('Hotel details updated successfully');
     } catch (error) {
