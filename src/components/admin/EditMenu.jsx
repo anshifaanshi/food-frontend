@@ -1,170 +1,68 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { axiosinstance } from '../../config/axiosinstance';
 
 const EditMenu = () => {
-  const { id } = useParams(); // Extract 'id' from the URL
-  const [data, setData] = useState(null);
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    image: '',
-    cuisineType: ''
-  });
+  const [foodItems, setFoodItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fetch all food items on component mount
   useEffect(() => {
-    if (!id) {
-      setError('Food item ID is not defined');
-      return;
-    }
-
-    const fetchMenuDetails = async () => {
+    const fetchFoodItems = async () => {
       try {
-        if (!id) {
-          throw new Error("Food item ID is missing");
-        }
         const response = await axiosinstance.get('/fooditems/allfood');
-        const menuData = response?.data || {}; // Ensure menuData is extracted from the API
-        setData(menuData);
-        setFormData({
-          name: menuData.name || '',  
-          phone: menuData.phone || '',
-          email: menuData.email || '',
-          image: menuData.image || '',
-          cuisineType: menuData.cuisineType?.join(', ') || '' 
-        });
-        console.log('Menu details fetched:', response);
+        setFoodItems(response.data);
       } catch (error) {
-        console.error("Error fetching menu details:", error);
-        setError('Failed to retrieve food item details.');
-        toast.error("Failed to retrieve food item details.");
+        console.error('Error fetching food items:', error);
+        setError('Failed to retrieve food items.');
+        toast.error('Failed to retrieve food items.');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchMenuDetails(); // Correctly call the function
-  }, [id]);
+    fetchFoodItems();
+  }, []);
 
-  const handleChange = (e) => {
+  const handleChange = (e, id) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
+    setFoodItems(prevItems => 
+      prevItems.map(item => 
+        item._id === id ? { ...item, [name]: value } : item
+      )
+    );
   };
 
-  const handleCuisineChange = (e) => {
-    const { value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      cuisineType: value
-    }));
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, id) => {
     e.preventDefault();
+    const updatedFoodItem = foodItems.find(item => item._id === id);
     try {
-      const updatedData = {
-        ...formData,
-        cuisineType: formData.cuisineType.split(',').map(type => type.trim())
-      };
-      const response = await axiosinstance.put(`/fooditems/update/${id}`, updatedData);
-      setData(response.data.data);
-      toast.success('Food item details updated successfully');
+      const response = await axiosinstance.put(`/fooditems/update/${id}`, updatedFoodItem);
+      toast.success('Food item updated successfully');
     } catch (error) {
-      console.error("Error updating food item details:", error);
-      toast.error("Failed to update food item details.");
+      console.error('Error updating food item:', error);
+      toast.error('Failed to update food item.');
     }
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+  if (foodItems.length === 0) return <div>No food items found.</div>;
 
   return (
-    <div className="edit-food-form">
-      <h1>Edit Menu Details</h1>
-
-      {formData.image && (
-        <img 
-          src={formData.image} 
-          alt={`${formData.name} image`} 
-          style={{ width: '200px', height: '200px', borderRadius: '8px' }} 
-        />
-      )}
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Food Name</label>
-          <input 
-            type="text" 
-            id="name" 
-            name="name" 
-            value={formData.name} 
-            onChange={handleChange} 
-            required 
-          />
-        </div>
-
-        <div>
-          <label htmlFor="phone">Phone</label>
-          <input 
-            type="text" 
-            id="phone" 
-            name="phone" 
-            value={formData.phone} 
-            onChange={handleChange} 
-            required 
-          />
-        </div>
-
-        <div>
-          <label htmlFor="email">Email</label>
-          <input 
-            type="email" 
-            id="email" 
-            name="email" 
-            value={formData.email} 
-            onChange={handleChange} 
-            required 
-          />
-        </div>
-
-        <div>
-          <label htmlFor="image">Image URL</label>
-          <input 
-            type="text" 
-            id="image" 
-            name="image" 
-            value={formData.image} 
-            onChange={handleChange} 
-          />
-        </div>
-
-        <div>
-          <label htmlFor="cuisineType">Cuisine Type</label>
-          <input 
-            type="text" 
-            id="cuisineType" 
-            name="cuisineType" 
-            value={formData.cuisineType} 
-            onChange={handleChange} 
-          />
-          <small>Enter multiple cuisines separated by commas (e.g., Italian, Chinese)</small>
-        </div>
-
-        <button type="submit">Save Changes</button>
-      </form>
+    <div className="edit-food-list">
+      <h1>Edit Food Items</h1>
+      {foodItems.map((item) => (
+        <form key={item._id} onSubmit={(e) => handleSubmit(e, item._id)}>
+          <input type="text" name="name" value={item.name} onChange={(e) => handleChange(e, item._id)} />
+          <input type="text" name="description" value={item.description} onChange={(e) => handleChange(e, item._id)} />
+          <input type="number" name="price" value={item.price} onChange={(e) => handleChange(e, item._id)} />
+          <input type="text" name="image" value={item.image} onChange={(e) => handleChange(e, item._id)} />
+          <button type="submit">Save</button>
+        </form>
+      ))}
     </div>
   );
 };
