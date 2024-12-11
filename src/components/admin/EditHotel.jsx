@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Loading from '../user/Loading';
 
 const HotelDetail = () => {
   const { id } = useParams(); // Extract 'id' from the URL
-  const [hotel, setHotel] = useState(null);
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -16,16 +17,18 @@ const HotelDetail = () => {
 
     const fetchHotelDetails = async () => {
       try {
-        console.log('Fetching hotel details for ID:', id); // Check if ID is valid
-        const response = await axios.get(`/hotel/hotelprofile/${id}`); 
-        console.log('Full response:', response); // Log full response to debug
-        setHotel(response.data); 
-      } catch (err) {
-        console.error('Error fetching hotel details:', err); 
-        setError('Error fetching hotel details');
-      } finally {
+        if (!id) {
+            throw new Error("Hotel ID is missing");
+        }
+        const response = await axiosinstance.get(`/hotel/hotelprofile/${id}`);
+        setData(response?.data?.data || {});
+        console.log('Hotel details fetchedet:', response);
+    } catch (error) {
+        console.error("Error fetching hotel details:", error);
+        toast.error("Failed to retrieve hotel details.");
+    } finally {
         setLoading(false);
-      }
+    }
     };
 
     fetchHotelDetails();
@@ -41,9 +44,9 @@ const HotelDetail = () => {
 
   return (
     <div>
-      <h1>Hotel Name: {hotel?.name}</h1>
-      <p>Description: {hotel?.description}</p>
-      <p>Price: ${hotel?.price}</p>
+      <h1>Hotel Name: {data?.name}</h1>
+      <p>Description: {data?.description}</p>
+      <p>Price: ${data?.price}</p>
     </div>
   );
 };
