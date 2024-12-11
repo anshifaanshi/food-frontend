@@ -17,7 +17,7 @@ const EditHotel = (hotelId) => {
 
   // Fetch hotel data when component mounts
   useEffect(() => {
-    axios.get(`/api/hotels/${hotelId}`)
+    axios.get(`/hotel/hotelprofile/${id}`)
       .then(response => {
         const data = response.data;
         setHotelData(data);
