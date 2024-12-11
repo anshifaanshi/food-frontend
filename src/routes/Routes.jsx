@@ -129,7 +129,7 @@ element:<UserOrdersPage/>
       }
       ,
       {
-        path: 'hoteledit',
+        path: 'hoteledit/:id',
         element: <EditHotel/>,
         
 
