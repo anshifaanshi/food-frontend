@@ -2,84 +2,94 @@ import React, { useEffect, useState } from 'react';
 import { axiosinstance } from '../../config/axiosinstance';
 import toast from 'react-hot-toast';
 import Loading from '../../components/user/Loading';
-import { useParams } from 'react-router-dom'; // To get hotel ID from URL
 
-function HotelEditPage() {
-  const { id } = useParams(); // Get hotel ID from URL
-  const [hotel, setHotel] = useState({});
+function UserEditPage() {
+  const [user, setUser] = useState({ email: '', name: '' }); // Default state
+  const [email, setEmail] = useState('');
   const [name, setName] = useState('');
-  const [location, setLocation] = useState('');
-  const [description, setDescription] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(true); // Loading state
 
-  // Fetch hotel details
-  const fetchHotelDetails = async () => {
-    setLoading(true); // Start loading
+  const fetchUserDetails = async () => {
+    setLoading(true); 
     try {
       const response = await axiosinstance({
-        url: `/hotel/hotelprofile/${id}`,
+        url: '/user/profile',
         method: 'GET',
       });
-      setHotel(response.data);
-      setName(response.data.name);
-      setLocation(response.data.location);
-      setDescription(response.data.description);
+      console.log('Full Response:', response); // Log the response
+      const userData = response.data.data || response.data; // Handle both cases
+      console.log('User data from API:', userData); // Log the extracted user data
+      setUser(userData);
+      setEmail(userData.email);
+      setName(userData.name);
     } catch (error) {
-      console.error('Error fetching hotel details:', error);
+      console.error('Error fetching user details:', error);
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false); 
     }
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    if (name === 'name') setName(value);
-    else if (name === 'location') setLocation(value);
-    else if (name === 'description') setDescription(value);
+    if (name === 'email') setEmail(value);
+    else if (name === 'name') setName(value);
+    else if (name === 'password') setPassword(value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true); // Start loading during update
+    setLoading(true);
     try {
       const response = await axiosinstance({
-        url: `/hotel/update/${id}`,
+        url: '/user/edit',
         method: 'PUT',
         data: {
+          email,
           name,
-          location,
-          description,
+          password,
         },
       });
-      toast.success('Hotel details updated successfully');
-      fetchHotelDetails(); // Refresh the hotel details
+      toast.success('User details updated successfully');
+      fetchUserDetails();
     } catch (error) {
-      console.error('Error updating hotel:', error);
-      toast.error('Failed to update hotel');
+      console.error('Error updating user:', error);
+      toast.error('Failed to update user details');
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchHotelDetails();
+    fetchUserDetails();
   }, []);
 
   if (loading) {
-    return <Loading />; // Display loading spinner while loading is true
+    return <Loading />;
   }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-base-200 p-6">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"
-      >
-        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Update Hotel</h2>
+      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Update User</h2>
 
         <div className="mb-4">
           <label className="label">
-            <span className="label-text text-gray-700 font-semibold">Hotel Name</span>
+            <span className="label-text text-gray-700 font-semibold">Email</span>
+          </label>
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+            className="input input-bordered w-full p-2 border-gray-300 rounded-md"
+            required
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="label">
+            <span className="label-text text-gray-700 font-semibold">Name</span>
           </label>
           <input
             type="text"
@@ -91,40 +101,27 @@ function HotelEditPage() {
           />
         </div>
 
-        <div className="mb-4">
+        <div className="mb-6">
           <label className="label">
-            <span className="label-text text-gray-700 font-semibold">Location</span>
+            <span className="label-text text-gray-700 font-semibold">Password</span>
           </label>
           <input
-            type="text"
-            name="location"
-            value={location}
+            type="password"
+            name="password"
+            value={password}
             onChange={handleChange}
+            placeholder="Enter new password"
             className="input input-bordered w-full p-2 border-gray-300 rounded-md"
             required
           />
         </div>
 
-        <div className="mb-6">
-          <label className="label">
-            <span className="label-text text-gray-700 font-semibold">Description</span>
-          </label>
-          <textarea
-            name="description"
-            value={description}
-            onChange={handleChange}
-            placeholder="Enter hotel description"
-            className="input input-bordered w-full p-2 border-gray-300 rounded-md"
-            required
-          ></textarea>
-        </div>
-
         <button type="submit" className="btn btn-primary w-full py-2 text-white rounded-md">
-          Update Hotel
+          Update User
         </button>
       </form>
     </div>
   );
 }
 
-export default HotelEditPage;
+export default UserEditPage;
