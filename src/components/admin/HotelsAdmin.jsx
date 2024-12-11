@@ -74,7 +74,7 @@ export const HotelAdmin = () => {
                         <strong>Email:</strong> {hotel?.email}
                       </p>
                       <Link
-                            to={`/admin/hoteledit/${hotel?._id}`}
+                            to={`/hoteledit/${hotel?._id}`}
                             className="btn btn-secondary btn-edit"
                           >
                             Edit

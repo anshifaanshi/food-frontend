@@ -60,7 +60,13 @@ export const router = createBrowserRouter([
         path: "fooditems/hotel/:hotelId",
         element: <Fooditems />,
       },
-       
+      {
+        path: 'hoteledit/:id',
+        element: <EditHotel/>,
+        
+
+
+      },
      
       
       {
@@ -127,14 +133,7 @@ element:<UserOrdersPage/>
 
 
       }
-      ,
-      {
-        path: 'hoteledit/:id',
-        element: <EditHotel/>,
-        
-
-
-      }
+   
     ],
   },
   {
