@@ -27,6 +27,7 @@ import UserOrdersPage from '../components/user/UserOrderPage';
 import EditHotel from '../components/admin/EditHotel'
 import HotelAdmin from '../components/admin/HotelsAdmin'
 import EditMenu from '../components/admin/EditMenu'
+import UserList from '../pages/admin/UserList';
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -67,6 +68,9 @@ export const router = createBrowserRouter([
         
 
 
+      },{
+path:'users/all',
+element:<UserList/>
       },
      
       

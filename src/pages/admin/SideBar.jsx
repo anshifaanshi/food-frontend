@@ -20,6 +20,9 @@ export const SideBar = () => {
           <li>
             <Link to="/admin/editmenu" className="sidebar-link">Edit Menu </Link>
           </li>
+          <li>
+            <Link to="/users/all" className="sidebar-link">Edit Menu </Link>
+          </li>
         </ul>
       </div>
       
