@@ -19,35 +19,36 @@ const EditMenu = () => {
 
   useEffect(() => {
     if (!id) {
-      setError('Hotel ID is not defined');
+      setError('Food item ID is not defined');
       return;
     }
 
     const fetchMenuDetails = async () => {
       try {
         if (!id) {
-            throw new Error("Hotel ID is missing");
+          throw new Error("Food item ID is missing");
         }
-        const response = await axiosinstance.get(/fooditems/allfood);
-        const menuData = response?.data?.data || {};
+        const response = await axiosinstance.get(`/fooditems/${id}`);
+        const menuData = response?.data?.data || {}; // Ensure menuData is extracted from the API
         setData(menuData);
         setFormData({
-          name: hotelData.name || '',
-          phone: hotelData.phone || '',
-          email: hotelData.email || '',
-          image: hotelData.image || '',
-          cuisineType: hotelData.cuisineType?.join(', ') || ''
+          name: menuData.name || '',  
+          phone: menuData.phone || '',
+          email: menuData.email || '',
+          image: menuData.image || '',
+          cuisineType: menuData.cuisineType?.join(', ') || '' 
         });
-        console.log('menu details fetched:', response);
+        console.log('Menu details fetched:', response);
       } catch (error) {
         console.error("Error fetching menu details:", error);
-        toast.error("Failed to retrieve hotel details.");
+        setError('Failed to retrieve food item details.');
+        toast.error("Failed to retrieve food item details.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchHotelDetails();
+    fetchMenuDetails(); // Correctly call the function
   }, [id]);
 
   const handleChange = (e) => {
@@ -75,10 +76,10 @@ const EditMenu = () => {
       };
       const response = await axiosinstance.put(`/fooditems/update/${id}`, updatedData);
       setData(response.data.data);
-      toast.success('Hotel details updated successfully');
+      toast.success('Food item details updated successfully');
     } catch (error) {
-      console.error("Error updating hotel details:", error);
-      toast.success("hotel updated successfully");
+      console.error("Error updating food item details:", error);
+      toast.error("Failed to update food item details.");
     }
   };
 
@@ -91,71 +92,81 @@ const EditMenu = () => {
   }
 
   return (
-    <div className="edit-hotel-form">
-    <h1>Edit Hotel Details</h1>
+    <div className="edit-food-form">
+      <h1>Edit Menu Details</h1>
 
-    {formData.image && (
-      <img 
-        src={formData.image} 
-        alt={`${formData.name} hotel`} 
-        style={{ width: '200px', height: '200px', borderRadius: '8px' }} 
-      />
-    )}
-
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="name">Hotel Name</label>
-        <input 
-          type="text" 
-          id="name" 
-          name="name" 
-          value={formData.name} 
-          onChange={handleChange} 
-          required 
+      {formData.image && (
+        <img 
+          src={formData.image} 
+          alt={`${formData.name} image`} 
+          style={{ width: '200px', height: '200px', borderRadius: '8px' }} 
         />
-      </div>
+      )}
 
-      <div>
-        <label htmlFor="phone">Phone</label>
-        <input 
-          type="text" 
-          id="phone" 
-          name="phone" 
-          value={formData.phone} 
-          onChange={handleChange} 
-          required 
-        />
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="name">Food Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            value={formData.name} 
+            onChange={handleChange} 
+            required 
+          />
+        </div>
 
-      <div>
-        <label htmlFor="email">Email</label>
-        <input 
-          type="email" 
-          id="email" 
-          name="email" 
-          value={formData.email} 
-          onChange={handleChange} 
-          required 
-        />
-      </div>
+        <div>
+          <label htmlFor="phone">Phone</label>
+          <input 
+            type="text" 
+            id="phone" 
+            name="phone" 
+            value={formData.phone} 
+            onChange={handleChange} 
+            required 
+          />
+        </div>
 
-      <div>
-        <label htmlFor="image">Image URL</label>
-        <input 
-          type="text" 
-          id="image" 
-          name="image" 
-          value={formData.image} 
-          onChange={handleChange} 
-        />
-      </div>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            value={formData.email} 
+            onChange={handleChange} 
+            required 
+          />
+        </div>
 
-     
+        <div>
+          <label htmlFor="image">Image URL</label>
+          <input 
+            type="text" 
+            id="image" 
+            name="image" 
+            value={formData.image} 
+            onChange={handleChange} 
+          />
+        </div>
 
-      <button type="submit">Save Changes</button>
-    </form>
-  </div>
+        <div>
+          <label htmlFor="cuisineType">Cuisine Type</label>
+          <input 
+            type="text" 
+            id="cuisineType" 
+            name="cuisineType" 
+            value={formData.cuisineType} 
+            onChange={handleChange} 
+          />
+          <small>Enter multiple cuisines separated by commas (e.g., Italian, Chinese)</small>
+        </div>
+
+        <button type="submit">Save Changes</button>
+      </form>
+    </div>
   );
 };
 
-export default HotelDetail;
+export default EditMenu;
