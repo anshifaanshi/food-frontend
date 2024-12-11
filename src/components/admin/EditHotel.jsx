@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import toast from 'react-hot-toast';
 import { axiosinstance } from '../../config/axiosinstance';
-import Loading from '../user/Loading';
 
-const EditHotel= () => {
+const HotelDetail = () => {
   const { id } = useParams(); // Extract 'id' from the URL
-  const [hotelData, setHotelData] = useState(null);
+  const [data, setData] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     email: '',
     image: '',
-    cuisineType: []
+    cuisineType: ''
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -25,41 +25,43 @@ const EditHotel= () => {
 
     const fetchHotelDetails = async () => {
       try {
+        if (!id) {
+            throw new Error("Hotel ID is missing");
+        }
         const response = await axiosinstance.get(`/hotel/hotelprofile/${id}`);
-        const data = response?.data?.data || {};
-        setHotelData(data);
+        const hotelData = response?.data?.data || {};
+        setData(hotelData);
         setFormData({
-          name: data.name || '',
-          phone: data.phone || '',
-          email: data.email || '',
-          image: data.image || '',
-          cuisineType: data.cuisineType || []
+          name: hotelData.name || '',
+          phone: hotelData.phone || '',
+          email: hotelData.email || '',
+          image: hotelData.image || '',
+          cuisineType: hotelData.cuisineType?.join(', ') || ''
         });
-        console.log('Hotel details fetched:', data);
+        console.log('Hotel details fetched:', response);
       } catch (error) {
-        console.error('Error fetching hotel details:', error);
-        toast.error('Failed to retrieve hotel details.');
-        setError('Failed to retrieve hotel details.');
+        console.error("Error fetching hotel details:", error);
+        toast.error("Failed to retrieve hotel details.");
       } finally {
         setLoading(false);
       }
     };
 
     fetchHotelDetails();
-  }, [id]); 
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
+    setFormData(prevState => ({
+      ...prevState,
       [name]: value
     }));
   };
 
   const handleCuisineChange = (e) => {
-    const value = e.target.value.split(',').map((cuisine) => cuisine.trim());
-    setFormData((prevData) => ({
-      ...prevData,
+    const { value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
       cuisineType: value
     }));
   };
@@ -67,77 +69,123 @@ const EditHotel= () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axiosinstance.put(`/hotel/update${id}`, formData);
+      const updatedData = {
+        ...formData,
+        cuisineType: formData.cuisineType.split(',').map(type => type.trim())
+      };
+      const response = await axiosinstance.put(`/hotel/update${id}`, updatedData);
+      setData(response.data.data);
       toast.success('Hotel details updated successfully');
-      console.log('Response:', response);
     } catch (error) {
-      toast.error('Failed to update hotel details');
-      console.error('Error updating hotel details:', error);
+      console.error("Error updating hotel details:", error);
+      toast.error("Failed to update hotel details.");
     }
   };
 
-  if (loading) return <Loading />;
-  if (error) return <div>{error}</div>;
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div className="edit-hotel-form">
-    <h1>Edit Hotel Details</h1>
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="name">Hotel Namee</label>
-        <input 
-          type="text" 
-          id="name" 
-          name="name" 
-          value={formData.name} 
-          onChange={handleChange} 
-          required 
-        />
-      </div>
+      <h1>Edit Hotel Details</h1>
 
-      <div>
-        <label htmlFor="phone">Phone</label>
-        <input 
-          type="text" 
-          id="phone" 
-          name="phone" 
-          value={formData.phone} 
-          onChange={handleChange} 
-          required 
-        />
-      </div>
+      {data ? (
+        <div>
+          {formData.image && (
+            <img 
+              src={formData.image} 
+              alt={`${formData.name} hotel`} 
+              style={{ width: '200px', height: '200px', borderRadius: '8px' }} 
+            />
+          )}
+          <h1>Hotel Name: {data.name}</h1>
+          <p>Phone: {data.phone}</p>
+          <p>Email: {data.email}</p>
 
-      <div>
-        <label htmlFor="email">Email</label>
-        <input 
-          type="email" 
-          id="email" 
-          name="email" 
-          value={formData.email} 
-          onChange={handleChange} 
-          required 
-        />
-      </div>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="name">Hotel Name</label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                value={formData.name} 
+                onChange={handleChange} 
+                required 
+              />
+            </div>
 
-      <div>
-        <label htmlFor="image">Image URL</label>
-        <input 
-          type="text" 
-          id="image" 
-          name="image" 
-          value={formData.image} 
-          onChange={handleChange} 
-        />
-        {formData.image && <img src={formData.image} alt="Hotel" style={{ width: '200px', height: '200px', borderRadius: '8px' }} />}
-      </div>
+            <div>
+              <label htmlFor="phone">Phone</label>
+              <input 
+                type="text" 
+                id="phone" 
+                name="phone" 
+                value={formData.phone} 
+                onChange={handleChange} 
+                required 
+              />
+            </div>
 
-     
-    
+            <div>
+              <label htmlFor="email">Email</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                value={formData.email} 
+                onChange={handleChange} 
+                required 
+              />
+            </div>
 
-      <button type="submit">Save Changes</button>
-    </form>
-  </div>
+            <div>
+              <label htmlFor="image">Image URL</label>
+              <input 
+                type="text" 
+                id="image" 
+                name="image" 
+                value={formData.image} 
+                onChange={handleChange} 
+              />
+            </div>
+
+            <div>
+              <label htmlFor="cuisineType">Cuisine Types (comma-separated)</label>
+              <input 
+                type="text" 
+                id="cuisineType" 
+                name="cuisineType" 
+                value={formData.cuisineType} 
+                onChange={handleCuisineChange} 
+                placeholder="e.g., Indian, Chinese, Continental" 
+              />
+            </div>
+
+            <button type="submit">Save Changes</button>
+          </form>
+
+          <h2>Menu</h2>
+          <ul>
+            {data.fooditems.length > 0 ? (
+              data.fooditems.map((foodId, index) => (
+                <li key={index}>Food Item ID: {foodId}</li>
+              ))
+            ) : (
+              <p>No food items available.</p>
+            )}
+          </ul>
+        </div>
+      ) : (
+        <p>Loading hotel data...</p>
+      )}
+    </div>
   );
 };
 
-export default EditHotel;
+export default HotelDetail;
