@@ -142,7 +142,7 @@ element:<UserOrdersPage/>
 
 
       },{
-        path:'users/all',
+        path:'all',
         element:<UserList/>
               }
    

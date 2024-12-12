@@ -17,7 +17,7 @@ function SideBar() {
         <li><a>show hotels</a></li>
         
         <li><Link to='fooditems/allfood'>show menu</Link></li>
-        <li><Link to='user/all'>USERS</Link></li>
+        <li><Link to='admin/all'>USERS</Link></li>
       </ul>
     </div>
   </div></div>
