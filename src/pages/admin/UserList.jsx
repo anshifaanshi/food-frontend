@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import {axiosinstance} from '../../config/axiosinstance'
+import { axiosinstance } from '../../config/axiosinstance';
 
 const UserList = () => {
   const [users, setUsers] = useState([]); // State to store users
@@ -34,22 +33,24 @@ const UserList = () => {
         setLoading(false); // End loading state
       }
     };
-    const handleDelete = async (userId) => {
-      try {
-        // Send a DELETE request to the API
-        await axiosinstance.delete(`/user/users/${userId}`);
-        
-        // Remove the user from the state without reloading
-        const updatedUsers = users.filter(user => user._id !== userId);
-        setUsers(updatedUsers);
-        alert('User deleted successfully');
-      } catch (error) {
-        console.error('Error deleting user:', error);
-        setError('Failed to delete user');
-      }
-    };
+
     fetchUsers(); // Call the function to fetch users
   }, []); // Empty dependency array to run this effect only once (on mount)
+
+  const handleDelete = async (userId) => {
+    try {
+      // Send a DELETE request to the API
+      await axiosinstance.delete(`/user/users/${userId}`);
+      
+      // Remove the user from the state without reloading
+      const updatedUsers = users.filter(user => user._id !== userId);
+      setUsers(updatedUsers);
+      alert('User deleted successfully');
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      setError('Failed to delete user');
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>; // Display loading message while data is being fetched
@@ -67,7 +68,8 @@ const UserList = () => {
           <tr>
             <th className="border border-gray-300 p-2">Name</th>
             <th className="border border-gray-300 p-2">Email</th>
-            <th className="border border-gray-300 p-2">Role</th>
+           
+            <th className="border border-gray-300 p-2">Actionn</th> {/* Added new column for Action */}
           </tr>
         </thead>
         <tbody>
@@ -75,12 +77,15 @@ const UserList = () => {
             <tr key={user._id}>
               <td className="border border-gray-300 p-2">{user.name}</td>
               <td className="border border-gray-300 p-2">{user.email}</td>
-              <button 
+      
+              <td className="border border-gray-300 p-2">
+                <button 
                   className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
                   onClick={() => handleDelete(user._id)}
                 >
                   Delete User
                 </button>
+              </td>
             </tr>
           ))}
         </tbody>
