@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import axiosinstance from '../../config/axiosinstance'
 
 const UserList = () => {
   const [users, setUsers] = useState([]); // State to store users
@@ -10,7 +11,7 @@ const UserList = () => {
     const fetchUsers = async () => {
       try {
         // Sending the GET request to the API
-        const response = await axios.get('/user/users'); 
+        const response = await axiosinstance.get('/user/users'); 
         
         // Check if response.data is an array
         let userData;
