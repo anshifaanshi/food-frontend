@@ -11,7 +11,7 @@ const UserList = () => {
     const fetchUsers = async () => {
       try {
         // Send GET request to the backend API
-        const response = await axios.get('https://your-backend-url/api/users');
+        const response = await axios.get('user/users');
         
         console.log(response.data); // Log the data to check its structure
   
