@@ -11,17 +11,29 @@ const UserList = () => {
     const fetchUsers = async () => {
       try {
         // Send GET request to the backend API
-        const response = await axios.get('user/users');
-        setUsers(response.data); // Set the users data to state
+        const response = await axios.get('https://your-backend-url/api/users');
+        
+        console.log(response.data); // Log the data to check its structure
+  
+        // Ensure the response is an array before setting the state
+        if (Array.isArray(response.data)) {
+          setUsers(response.data); // Set the users data to state
+        } else {
+          throw new Error('Received data is not an array');
+        }
+  
         setLoading(false); // Set loading to false once data is fetched
       } catch (err) {
-        setError('Failed to fetch users'); // Set error if request fails
+        setError('Failed to fetch users');
         setLoading(false); // Set loading to false on error
       }
     };
-
+  
     fetchUsers(); // Call the function to fetch users
   }, []); // Empty dependency array to run this effect only once (on mount)
+  
+
+   ; // Empty dependency array to run this effect only once (on mount)
 
   if (loading) {
     return <div>Loading...</div>; // Display loading message while data is being fetched
