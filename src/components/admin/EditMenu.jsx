@@ -41,7 +41,7 @@ const EditMenu = () => {
     console.log('Updated Food Item:', updatedFoodItem); // Debug
   
     try {
-      const response = await axiosinstance.put(`/fooditems/${id}`, updatedFoodItem);
+      const response = await axiosinstance.put(`/fooditems/update/${id}`, updatedFoodItem);
       toast.success('Food item updated successfully');
     } catch (error) {
       console.error('Error updating food item:', error);
