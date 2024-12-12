@@ -6,37 +6,36 @@ const UserList = () => {
   const [loading, setLoading] = useState(true); // State to manage loading status
   const [error, setError] = useState(null); // State to store errors
 
-  // Fetch users from the backend API
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         // Sending the GET request to the API
-        const response = await axios.get('user/users');
+        const response = await axios.get('/user/users'); 
         
-        console.log('Full response:', response);  // Log the full response for debugging
-        console.log('User data:', response.data);  // Log the data received from the API
-  
-        // Ensure you're accessing the correct data structure
+        // Check if response.data is an array
+        let userData;
         if (Array.isArray(response.data)) {
-          setUsers(response.data);  // If it's an array, set the state
+          userData = response.data;
+        } else if (Array.isArray(response.data.data)) {
+          userData = response.data.data;
         } else {
-          // If it's not an array, log an error or handle appropriately
-          console.error('Error: Response data is not an array');
+          console.error('Unexpected data format:', response.data);
+          setError('Unexpected data format from server');
+          return; // Exit early since the data is not as expected
         }
-  
-        setLoading(false);  // End loading state
-      } catch (err) {
-        setError('Failed to fetch users');  // Handle any errors
-        setLoading(false);  // End loading state
+
+        setUsers(userData); // Set the users to state
+        console.log('User data:', userData);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        setError('Failed to fetch users'); // Set error message
+      } finally {
+        setLoading(false); // End loading state
       }
     };
-  
-    fetchUsers();  // Call the function to fetch users
-  }, []);
-  
-  
 
-   ; // Empty dependency array to run this effect only once (on mount)
+    fetchUsers(); // Call the function to fetch users
+  }, []); // Empty dependency array to run this effect only once (on mount)
 
   if (loading) {
     return <div>Loading...</div>; // Display loading message while data is being fetched
