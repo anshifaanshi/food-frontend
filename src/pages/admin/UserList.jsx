@@ -10,27 +10,30 @@ const UserList = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        // Send GET request to the backend API
-        const response = await axios.get('user/users');
+        // Sending the GET request to the API
+        const response = await axios.get('https://your-backend-url/api/users');
         
-        console.log(response.data); // Log the data to check its structure
+        console.log('Full response:', response);  // Log the full response for debugging
+        console.log('User data:', response.data);  // Log the data received from the API
   
-        // Ensure the response is an array before setting the state
+        // Ensure you're accessing the correct data structure
         if (Array.isArray(response.data)) {
-          setUsers(response.data); // Set the users data to state
+          setUsers(response.data);  // If it's an array, set the state
         } else {
-          throw new Error('Received data is not an array');
+          // If it's not an array, log an error or handle appropriately
+          console.error('Error: Response data is not an array');
         }
   
-        setLoading(false); // Set loading to false once data is fetched
+        setLoading(false);  // End loading state
       } catch (err) {
-        setError('Failed to fetch users');
-        setLoading(false); // Set loading to false on error
+        setError('Failed to fetch users');  // Handle any errors
+        setLoading(false);  // End loading state
       }
     };
   
-    fetchUsers(); // Call the function to fetch users
-  }, []); // Empty dependency array to run this effect only once (on mount)
+    fetchUsers();  // Call the function to fetch users
+  }, []);
+  
   
 
    ; // Empty dependency array to run this effect only once (on mount)
