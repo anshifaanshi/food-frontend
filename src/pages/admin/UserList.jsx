@@ -61,29 +61,29 @@ const UserList = () => {
   }
 
   return (
-    <div>
-      <h1>User List</h1>
-      <table className="table-auto border-collapse border border-gray-200">
+    <div className="p-8">
+      <h1 className="text-3xl font-bold mb-6">User List</h1>
+      <table className="table-auto border-collapse border border-gray-300 w-full">
         <thead>
           <tr>
-            <th className="border border-gray-300 p-2">Name</th>
-            <th className="border border-gray-300 p-2">Email</th>
-           
-            <th className="border border-gray-300 p-2">Actionn</th> {/* Added new column for Action */}
+            <th className="border border-gray-300 p-4">Name</th>
+            <th className="border border-gray-300 p-4">Email</th>
+            <th className="border border-gray-300 p-4">Role</th>
+            <th className="border border-gray-300 p-4">Action</th> 
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
-            <tr key={user._id}>
-              <td className="border border-gray-300 p-2">{user.name}</td>
-              <td className="border border-gray-300 p-2">{user.email}</td>
-      
-              <td className="border border-gray-300 p-2">
+            <tr key={user._id} className="hover:bg-gray-100">
+              <td className="border border-gray-300 p-4">{user.name}</td>
+              <td className="border border-gray-300 p-4">{user.email}</td>
+              <td className="border border-gray-300 p-4">{user.role}</td>
+              <td className="border border-gray-300 p-4">
                 <button 
-                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
+                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all duration-300"
                   onClick={() => handleDelete(user._id)}
                 >
-                  Delete User
+                  🗑️ Delete
                 </button>
               </td>
             </tr>
