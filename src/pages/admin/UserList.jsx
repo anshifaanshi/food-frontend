@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { axiosinstance } from '../../config/axiosinstance';
-
+import toast from 'react-hot-toast';
 const UserList = () => {
   const [users, setUsers] = useState([]); // State to store users
   const [loading, setLoading] = useState(true); // State to manage loading status
@@ -40,12 +40,12 @@ const UserList = () => {
   const handleDelete = async (userId) => {
     try {
       // Send a DELETE request to the API
-      await axiosinstance.delete(`/user/users/${userId}`);
+      await axiosinstance.delete(`/user/delete/${userId}`);
       
       // Remove the user from the state without reloading
       const updatedUsers = users.filter(user => user._id !== userId);
       setUsers(updatedUsers);
-      alert('User deleted successfully');
+      toast.success('User deleted successfully');
     } catch (error) {
       console.error('Error deleting user:', error);
       setError('Failed to delete user');
