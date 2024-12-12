@@ -34,7 +34,20 @@ const UserList = () => {
         setLoading(false); // End loading state
       }
     };
-
+    const handleDelete = async (userId) => {
+      try {
+        // Send a DELETE request to the API
+        await axiosinstance.delete(`/user/users/${userId}`);
+        
+        // Remove the user from the state without reloading
+        const updatedUsers = users.filter(user => user._id !== userId);
+        setUsers(updatedUsers);
+        alert('User deleted successfully');
+      } catch (error) {
+        console.error('Error deleting user:', error);
+        setError('Failed to delete user');
+      }
+    };
     fetchUsers(); // Call the function to fetch users
   }, []); // Empty dependency array to run this effect only once (on mount)
 
@@ -62,7 +75,12 @@ const UserList = () => {
             <tr key={user._id}>
               <td className="border border-gray-300 p-2">{user.name}</td>
               <td className="border border-gray-300 p-2">{user.email}</td>
-              <td className="border border-gray-300 p-2">{user.role}</td>
+              <button 
+                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
+                  onClick={() => handleDelete(user._id)}
+                >
+                  Delete
+                </button>
             </tr>
           ))}
         </tbody>
