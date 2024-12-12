@@ -68,9 +68,6 @@ export const router = createBrowserRouter([
         
 
 
-      },{
-path:'users/all',
-element:<UserList/>
       },
      
       
@@ -144,7 +141,10 @@ element:<UserOrdersPage/>
         
 
 
-      }
+      },{
+        path:'users/all',
+        element:<UserList/>
+              }
    
     ],
   },
