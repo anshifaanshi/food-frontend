@@ -38,6 +38,8 @@ const EditMenu = () => {
   const handleSubmit = async (e, id) => {
     e.preventDefault();
     const updatedFoodItem = foodItems.find(item => item._id === id);
+    console.log('Updated Food Item:', updatedFoodItem); // Debug
+  
     try {
       const response = await axiosinstance.put(`/fooditems/${id}`, updatedFoodItem);
       toast.success('Food item updated successfully');
@@ -46,6 +48,7 @@ const EditMenu = () => {
       toast.error('Failed to update food item.');
     }
   };
+  
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
