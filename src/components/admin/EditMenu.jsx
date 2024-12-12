@@ -55,18 +55,92 @@ const EditMenu = () => {
   if (foodItems.length === 0) return <div>No food items found.</div>;
 
   return (
-    <div className="edit-food-list">
-      <h1>Edit Food Items</h1>
-      {foodItems.map((item) => (
-        <form key={item._id} onSubmit={(e) => handleSubmit(e, item._id)}>
-          <input type="text" name="name" value={item.name} onChange={(e) => handleChange(e, item._id)} />
-          <input type="text" name="description" value={item.description} onChange={(e) => handleChange(e, item._id)} />
-          <input type="number" name="price" value={item.price} onChange={(e) => handleChange(e, item._id)} />
-          <input type="text" name="image" value={item.image} onChange={(e) => handleChange(e, item._id)} />
-          <button type="submit">Save</button>
-        </form>
-      ))}
-    </div>
+    <div className="edit-food-list p-6 bg-white rounded-lg shadow-lg max-w-4xl mx-auto">
+    <h1 className="text-3xl font-bold text-center mb-6">Edit Food Items</h1>
+    {foodItems.map((item) => (
+      <form
+        key={item._id}
+        onSubmit={(e) => handleSubmit(e, item._id)}
+        className="space-y-6 border-b pb-6 mb-6"
+      >
+        <div className="flex flex-col space-y-2">
+          <label htmlFor={`name-${item._id}`} className="font-medium text-lg">
+            Food Name
+          </label>
+          <input
+            type="text"
+            id={`name-${item._id}`}
+            name="name"
+            value={item.name}
+            onChange={(e) => handleChange(e, item._id)}
+            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
+  
+        <div className="flex flex-col space-y-2">
+          <label htmlFor={`description-${item._id}`} className="font-medium text-lg">
+            Description
+          </label>
+          <input
+            type="text"
+            id={`description-${item._id}`}
+            name="description"
+            value={item.description}
+            onChange={(e) => handleChange(e, item._id)}
+            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
+  
+        <div className="flex flex-col space-y-2">
+          <label htmlFor={`price-${item._id}`} className="font-medium text-lg">
+            Price
+          </label>
+          <input
+            type="number"
+            id={`price-${item._id}`}
+            name="price"
+            value={item.price}
+            onChange={(e) => handleChange(e, item._id)}
+            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
+  
+        <div className="flex flex-col space-y-2">
+          <label htmlFor={`image-${item._id}`} className="font-medium text-lg">
+            Image URL
+          </label>
+          <input
+            type="text"
+            id={`image-${item._id}`}
+            name="image"
+            value={item.image}
+            onChange={(e) => handleChange(e, item._id)}
+            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
+  
+        {item.image && (
+          <div className="flex justify-center mt-4">
+            <img
+              src={item.image}
+              alt={item.name}
+              className="w-40 h-40 object-cover rounded-lg shadow-md"
+            />
+          </div>
+        )}
+  
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="mt-4 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    ))}
+  </div>
+  
   );
 };
 

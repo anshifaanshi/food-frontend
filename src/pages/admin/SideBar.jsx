@@ -9,7 +9,7 @@ export const SideBar = () => {
         <h2 className="sidebar-title">Admin Dashboard</h2>
         <ul className="sidebar-menu">
           <li>
-            <Link to="/hotel/hotels" className="sidebar-link">Show Hotels</Link>
+            <Link to="/hotel/hotels" className="sidebar-link">Show Hotels And Menu</Link>
           </li>
           <li>
             <Link to="/admin/createhotel" className="sidebar-link">Create Hotels and Menu</Link>
