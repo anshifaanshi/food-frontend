@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import axiosinstance from '../../config/axiosinstance'
+import {axiosinstance} from '../../config/axiosinstance'
 
 const UserList = () => {
   const [users, setUsers] = useState([]); // State to store users
