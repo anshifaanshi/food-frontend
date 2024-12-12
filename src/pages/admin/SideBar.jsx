@@ -21,7 +21,7 @@ export const SideBar = () => {
             <Link to="/admin/editmenu" className="sidebar-link">Edit Menu </Link>
           </li>
           <li>
-            <Link to="/users/all" className="sidebar-link">users</Link>
+            <Link to="/admin/all" className="sidebar-link">users</Link>
           </li>
         </ul>
       </div>
