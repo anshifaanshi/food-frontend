@@ -11,7 +11,7 @@ const UserList = () => {
     const fetchUsers = async () => {
       try {
         // Sending the GET request to the API
-        const response = await axiosinstance.get('/user/users'); 
+        const response = await axiosinstance.get('/user/users');
         
         // Check if response.data is an array
         let userData;
@@ -96,19 +96,19 @@ const UserList = () => {
             <tr key={user._id} className="hover:bg-gray-100">
               <td className="border border-gray-300 p-4">{user.name}</td>
               <td className="border border-gray-300 p-4">{user.email}</td>
-              <td className="border border-gray-300 p-4 space-x-2">
-                {user?.isBlocked !== undefined && (
-                  <button 
-                    className={`${
-                      user.isBlocked ? 'bg-green-500 hover:bg-green-700' : 'bg-yellow-500 hover:bg-yellow-700'
-                    } text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 transition-all duration-300`}
-                    onClick={() => handleBlockToggle(user._id, user.isBlocked)}
-                  >
-                    {user.isBlocked ? 'Unblock' : 'Block'}
-                  </button>
-                )}
+              <td className="border border-gray-300 p-4">
+                <button 
+                  className={`${
+                    user.isBlocked 
+                      ? 'bg-green-500 hover:bg-green-700' 
+                      : 'bg-yellow-500 hover:bg-yellow-700'
+                  } text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 transition-all duration-300`}
+                  onClick={() => handleBlockToggle(user._id, user.isBlocked)}
+                >
+                  {user.isBlocked ? 'Unblock' : 'Block'}
+                </button>
               </td>
-              <td className="border border-gray-300 p-4 space-x-2">
+              <td className="border border-gray-300 p-4">
                 <button 
                   className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all duration-300"
                   onClick={() => handleDelete(user._id)}
