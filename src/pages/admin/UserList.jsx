@@ -102,21 +102,26 @@ const UserList = () => {
                 {user.isBlocked ? 'Blocked' : 'Active'}
               </td>
               <td className="border border-gray-300 p-4 space-x-2">
-                <button 
-                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all duration-300"
-                  onClick={() => handleDelete(user._id)}
-                >
-                  🗑️ Delete
-                </button>
-                <button 
-                  className={`${
-        user.isBlocked ? 'bg-green-500 hover:bg-green-700' : 'bg-yellow-500 hover:bg-yellow-700'} 
-                  text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 transition-all duration-300`}
-                  onClick={() => handleBlockToggle(user._id, user.isBlocked)}
-                >
-                  {user.isBlocked ? 'Unblock' : 'Block'}
-                </button>
-              </td>
+  <button 
+    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all duration-300"
+    onClick={() => handleDelete(user._id)}
+  >
+    🗑️ Delete
+  </button>
+
+  <button 
+    className={`
+      ${user.isBlocked ? 'bg-green-500 hover:bg-green-700' : 'bg-yellow-500 hover:bg-yellow-700'} 
+      text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 
+      focus:ring-${user.isBlocked ? 'green' : 'yellow'}-400 
+      transition-all duration-300
+    `}
+    onClick={() => handleBlockToggle(user._id, user.isBlocked)}
+  >
+    {user.isBlocked ? 'Unblock' : 'Block'}
+  </button>
+</td>
+
             </tr>
           ))}
         </tbody>
