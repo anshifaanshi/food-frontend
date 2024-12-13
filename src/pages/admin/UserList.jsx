@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { axiosinstance } from '../../config/axiosinstance';
 import toast from 'react-hot-toast';
+
 const UserList = () => {
   const [users, setUsers] = useState([]); // State to store users
   const [loading, setLoading] = useState(true); // State to manage loading status
@@ -52,6 +53,24 @@ const UserList = () => {
     }
   };
 
+  const handleBlockToggle = async (userId, isBlocked) => {
+    try {
+      // Send a PATCH request to toggle block status
+      const response = await axiosinstance.patch(`/user/block/${userId}`, { isBlocked: !isBlocked });
+      
+      // Update the user's block status in the state
+      const updatedUsers = users.map(user => 
+        user._id === userId ? { ...user, isBlocked: !user.isBlocked } : user
+      );
+      
+      setUsers(updatedUsers);
+      toast.success(`User ${!isBlocked ? 'blocked' : 'unblocked'} successfully`);
+    } catch (error) {
+      console.error('Error updating user block status:', error);
+      setError('Failed to update user block status');
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>; // Display loading message while data is being fetched
   }
@@ -68,8 +87,9 @@ const UserList = () => {
           <tr>
             <th className="border border-gray-300 p-4">Name</th>
             <th className="border border-gray-300 p-4">Email</th>
-            <th className="border border-gray-300 p-4">Role</th>
-            <th className="border border-gray-300 p-4">Action</th> 
+          
+            <th className="border border-gray-300 p-4">Status</th>
+            <th className="border border-gray-300 p-4">Actions</th> 
           </tr>
         </thead>
         <tbody>
@@ -77,13 +97,24 @@ const UserList = () => {
             <tr key={user._id} className="hover:bg-gray-100">
               <td className="border border-gray-300 p-4">{user.name}</td>
               <td className="border border-gray-300 p-4">{user.email}</td>
-              <td className="border border-gray-300 p-4">{user.role}</td>
-              <td className="border border-gray-300 p-4">
+        
+              <td className={`border border-gray-300 p-4 ${user.isBlocked ? 'text-red-500' : 'text-green-500'}`}>
+                {user.isBlocked ? 'Blocked' : 'Active'}
+              </td>
+              <td className="border border-gray-300 p-4 space-x-2">
                 <button 
                   className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all duration-300"
                   onClick={() => handleDelete(user._id)}
                 >
                   🗑️ Delete
+                </button>
+                <button 
+                  className={`${
+        user.isBlocked ? 'bg-green-500 hover:bg-green-700' : 'bg-yellow-500 hover:bg-yellow-700'} 
+                  text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 transition-all duration-300`}
+                  onClick={() => handleBlockToggle(user._id, user.isBlocked)}
+                >
+                  {user.isBlocked ? 'Unblock' : 'Block'}
                 </button>
               </td>
             </tr>
