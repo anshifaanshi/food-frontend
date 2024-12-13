@@ -87,7 +87,6 @@ const UserList = () => {
           <tr>
             <th className="border border-gray-300 p-4">Name</th>
             <th className="border border-gray-300 p-4">Email</th>
-          
             <th className="border border-gray-300 p-4">Status</th>
             <th className="border border-gray-300 p-4">Actions</th> 
           </tr>
@@ -97,28 +96,26 @@ const UserList = () => {
             <tr key={user._id} className="hover:bg-gray-100">
               <td className="border border-gray-300 p-4">{user.name}</td>
               <td className="border border-gray-300 p-4">{user.email}</td>
-        
-              <td className={`border border-gray-300 p-4 ${user.isBlocked ? 'text-red-500' : 'text-green-500'}`}>
-                {user.isBlocked ? 'Blocked' : 'Active'}
+              <td className="border border-gray-300 p-4 space-x-2">
+                {user?.isBlocked !== undefined && (
+                  <button 
+                    className={`${
+                      user.isBlocked ? 'bg-green-500 hover:bg-green-700' : 'bg-yellow-500 hover:bg-yellow-700'
+                    } text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 transition-all duration-300`}
+                    onClick={() => handleBlockToggle(user._id, user.isBlocked)}
+                  >
+                    {user.isBlocked ? 'Unblock' : 'Block'}
+                  </button>
+                )}
               </td>
               <td className="border border-gray-300 p-4 space-x-2">
-              
-              {user?.isBlocked !== undefined && (
-  <button 
-    className={`${
-      user.isBlocked ? 'bg-green-500 hover:bg-green-700' : 'bg-yellow-500 hover:bg-yellow-700'
-    } text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 transition-all duration-300`}
-    onClick={() => handleBlockToggle(user._id, user.isBlocked)}
-  >
-    {user.isBlocked ? 'Unblock' : 'Block'}
-  </button>
-)}
-
-
-
-  
-</td>
-
+                <button 
+                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all duration-300"
+                  onClick={() => handleDelete(user._id)}
+                >
+                  🗑️ Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
