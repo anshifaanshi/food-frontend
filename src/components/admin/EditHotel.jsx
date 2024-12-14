@@ -91,85 +91,86 @@ const HotelDetail = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden mt-10">
-  <div className="p-6">
-    <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Edit Hotel Details</h1>
-
-    {formData.image && (
-      <div className="flex justify-center mb-6">
-        <img 
-          src={formData.image} 
-          alt={`${formData.name} hotel`} 
-          className="w-40 h-40 object-cover rounded-lg border border-gray-200" 
-        />
-      </div>
-    )}
-
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Hotel Name</label>
-        <input 
-          type="text" 
-          id="name" 
-          name="name" 
-          value={formData.name} 
-          onChange={handleChange} 
-          required 
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2.5" 
-          placeholder="Enter hotel name"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone</label>
-        <input 
-          type="text" 
-          id="phone" 
-          name="phone" 
-          value={formData.phone} 
-          onChange={handleChange} 
-          required 
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2.5" 
-          placeholder="Enter phone number"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-        <input 
-          type="email" 
-          id="email" 
-          name="email" 
-          value={formData.email} 
-          onChange={handleChange} 
-          required 
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2.5" 
-          placeholder="Enter email address"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="image" className="block text-sm font-medium text-gray-700">Image URL</label>
-        <input 
-          type="text" 
-          id="image" 
-          name="image" 
-          value={formData.image} 
-          onChange={handleChange} 
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2.5" 
-          placeholder="Enter image URL"
-        />
-      </div>
-
-      <button 
-        type="submit" 
-        className="w-full bg-indigo-600 text-white py-2.5 rounded-md text-sm font-medium hover:bg-indigo-700 transition-all duration-150"
-      >
-        Save Changes
-      </button>
-    </form>
+    <div class="container mx-auto mt-10 max-w-md bg-white shadow-md rounded-lg">
+    <div class="p-6">
+      <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Edit Hotel Details</h1>
+  
+      {formData.image && (
+        <div class="flex justify-center mb-6">
+          <img 
+            src={formData.image} 
+            alt={`${formData.name} hotel`} 
+            class="w-40 h-40 object-cover rounded-lg border border-gray-200" 
+          />
+        </div>
+      )}
+  
+      <form onSubmit={handleSubmit} class="space-y-4">
+        <div class="form-group">
+          <label htmlFor="name" class="block text-sm font-medium text-gray-700">Hotel Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            value={formData.name} 
+            onChange={handleChange} 
+            required 
+            class="form-control block w-full rounded border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2.5" 
+            placeholder="Enter hotel name"
+          />
+        </div>
+  
+        <div class="form-group">
+          <label htmlFor="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+          <input 
+            type="text" 
+            id="phone" 
+            name="phone" 
+            value={formData.phone} 
+            onChange={handleChange} 
+            required 
+            class="form-control block w-full rounded border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2.5" 
+            placeholder="Enter phone number"
+          />
+        </div>
+  
+        <div class="form-group">
+          <label htmlFor="email" class="block text-sm font-medium text-gray-700">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            value={formData.email} 
+            onChange={handleChange} 
+            required 
+            class="form-control block w-full rounded border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2.5" 
+            placeholder="Enter email address"
+          />
+        </div>
+  
+        <div class="form-group">
+          <label htmlFor="image" class="block text-sm font-medium text-gray-700">Image URL</label>
+          <input 
+            type="text" 
+            id="image" 
+            name="image" 
+            value={formData.image} 
+            onChange={handleChange} 
+            class="form-control block w-full rounded border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2.5" 
+            placeholder="Enter image URL"
+          />
+        </div>
+  
+        <button 
+          type="submit" 
+          class="btn btn-primary w-full py-2.5 rounded-md text-sm font-medium hover:bg-indigo-700 transition-all duration-150"
+        >
+          Save Changes
+        </button>
+      </form>
+    </div>
   </div>
-</div>
+  
 
   );
 };
