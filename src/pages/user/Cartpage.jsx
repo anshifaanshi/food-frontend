@@ -132,7 +132,8 @@ const makePayment = async () => {
 // Call clearCart function after successful payment redirection
 const handleSuccessRedirect = () => {
   clearCart(); // Clear the cart in the frontend
-  navigate("/user/payment/success"); // Redirect to success page
+  navigate("/");
+  toast.success("order placed") // Redirect to success page
 };
 
 const clearCart = () => {
