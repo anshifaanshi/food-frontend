@@ -43,19 +43,15 @@ const UserList = () => {
 
   const handleBlockToggle = async (userId, isBlocked) => {
     try {
-      // Send the PATCH request with the userId in the URL and no data in the body
       const response = await axiosinstance.patch(`/user/block/${userId}`);
-  
-      // Update the users array with the new block status
       const updatedUsers = users.map(user =>
         user._id === userId ? { ...user, isBlocked: response.data.isBlocked } : user
       );
-  
       setUsers(updatedUsers);
-      toast.success(`User ${!isBlocked ? 'blocked' : 'unblocked'} successfully`);
+      toast.success(`User ${response.data.isBlocked ? 'blocked' : 'unblocked'} successfully`);
     } catch (error) {
       setError('Failed to update user block status');
-      console.error('Error updating user block status:', error);
+      console.error('Error updating user block status:', error.response ? error.response.data : error.message);
     }
   };
   
