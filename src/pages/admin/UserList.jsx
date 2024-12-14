@@ -69,7 +69,7 @@ const UserList = () => {
           <tr>
             <th className="border border-gray-300 p-4">Name</th>
             <th className="border border-gray-300 p-4">Email</th>
-            <th className="border border-gray-300 p-4">Status</th>
+         
             <th className="border border-gray-300 p-4">Actions</th>
           </tr>
         </thead>

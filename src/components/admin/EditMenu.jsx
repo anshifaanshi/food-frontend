@@ -55,92 +55,96 @@ const EditMenu = () => {
   if (foodItems.length === 0) return <div>No food items found.</div>;
 
   return (
-    <div className="edit-food-list p-6 bg-white rounded-lg shadow-lg max-w-4xl mx-auto">
-  <h1 className="text-3xl font-bold text-center mb-6">Edit Food Items</h1>
-  {foodItems.map((item) => (
-    <form
-      key={item._id}
-      onSubmit={(e) => handleSubmit(e, item._id)}
-      className="space-y-6 border-b pb-6 mb-6"
-    >
-      <div className="form-control">
-        <label htmlFor={`name-${item._id}`} className="label">
-          <span className="label-text font-medium text-lg">Food Name</span>
-        </label>
-        <input
-          type="text"
-          id={`name-${item._id}`}
-          name="name"
-          value={item.name}
-          onChange={(e) => handleChange(e, item._id)}
-          className="input input-bordered w-full"
-        />
-      </div>
-
-      <div className="form-control">
-        <label htmlFor={`description-${item._id}`} className="label">
-          <span className="label-text font-medium text-lg">Description</span>
-        </label>
-        <input
-          type="text"
-          id={`description-${item._id}`}
-          name="description"
-          value={item.description}
-          onChange={(e) => handleChange(e, item._id)}
-          className="input input-bordered w-full"
-        />
-      </div>
-
-      <div className="form-control">
-        <label htmlFor={`price-${item._id}`} className="label">
-          <span className="label-text font-medium text-lg">Price</span>
-        </label>
-        <input
-          type="number"
-          id={`price-${item._id}`}
-          name="price"
-          value={item.price}
-          onChange={(e) => handleChange(e, item._id)}
-          className="input input-bordered w-full"
-        />
-      </div>
-
-      <div className="form-control">
-        <label htmlFor={`image-${item._id}`} className="label">
-          <span className="label-text font-medium text-lg">Image URL</span>
-        </label>
-        <input
-          type="text"
-          id={`image-${item._id}`}
-          name="image"
-          value={item.image}
-          onChange={(e) => handleChange(e, item._id)}
-          className="input input-bordered w-full"
-        />
-      </div>
-
-      {item.image && (
-        <div className="flex justify-center mt-4">
-          <img
-            src={item.image}
-            alt={item.name}
-            className="w-40 h-40 object-cover rounded-lg shadow-md"
+    <div class="edit-food-list p-8 bg-white rounded-lg shadow-lg max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold text-center mb-8 text-primary">Edit Food Items</h1>
+    
+    {foodItems.map((item) => (
+      <form
+        key={item._id}
+        onSubmit={(e) => handleSubmit(e, item._id)}
+        className="space-y-6 border-b border-gray-200 pb-6 mb-8"
+      >
+        <div className="form-control">
+          <label htmlFor={`name-${item._id}`} className="label">
+            <span className="label-text font-semibold text-lg">Food Name</span>
+          </label>
+          <input
+            type="text"
+            id={`name-${item._id}`}
+            name="name"
+            value={item.name}
+            onChange={(e) => handleChange(e, item._id)}
+            placeholder="Enter food name"
+            className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
-      )}
-
-      <div className="flex justify-center mt-6">
-        <button
-          type="submit"
-          className="btn btn-primary px-6 py-3 rounded-lg"
-        >
-          Save
-        </button>
-      </div>
-    </form>
-  ))}
-</div>
-
+  
+        <div className="form-control">
+          <label htmlFor={`description-${item._id}`} className="label">
+            <span className="label-text font-semibold text-lg">Description</span>
+          </label>
+          <textarea
+            id={`description-${item._id}`}
+            name="description"
+            value={item.description}
+            onChange={(e) => handleChange(e, item._id)}
+            placeholder="Enter food description"
+            className="textarea textarea-bordered w-full h-24 focus:outline-none focus:ring-2 focus:ring-primary"
+          ></textarea>
+        </div>
+  
+        <div className="form-control">
+          <label htmlFor={`price-${item._id}`} className="label">
+            <span className="label-text font-semibold text-lg">Price</span>
+          </label>
+          <input
+            type="number"
+            id={`price-${item._id}`}
+            name="price"
+            value={item.price}
+            onChange={(e) => handleChange(e, item._id)}
+            placeholder="Enter food price"
+            className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+        </div>
+  
+        <div className="form-control">
+          <label htmlFor={`image-${item._id}`} className="label">
+            <span className="label-text font-semibold text-lg">Image URL</span>
+          </label>
+          <input
+            type="text"
+            id={`image-${item._id}`}
+            name="image"
+            value={item.image}
+            onChange={(e) => handleChange(e, item._id)}
+            placeholder="Enter image URL"
+            className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+        </div>
+  
+        {item.image && (
+          <div className="flex justify-center mt-4">
+            <img
+              src={item.image}
+              alt={item.name}
+              className="w-40 h-40 object-cover rounded-lg shadow-md border border-gray-200"
+            />
+          </div>
+        )}
+  
+        <div className="flex justify-center mt-8">
+          <button
+            type="submit"
+            className="btn btn-primary px-8 py-3 rounded-full text-white font-semibold tracking-wide shadow-md hover:shadow-lg hover:bg-primary-focus"
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    ))}
+  </div>
+  
   );
 };
 
