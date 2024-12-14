@@ -1054,3 +1054,26 @@ form {
   font-size: 0.875rem;
   color: #718096;
 }
+.container {
+  max-width: 900px;
+}
+.table-responsive {
+  overflow-x: auto;
+}
+.btn-success {
+  background-color: #198754;
+  color: white;
+}
+.btn-warning {
+  background-color: #ffc107;
+  color: black;
+}
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+.btn-success:hover, 
+.btn-warning:hover, 
+.btn-danger:hover {
+  opacity: 0.9;
+}

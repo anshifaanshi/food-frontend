@@ -62,47 +62,42 @@ const UserList = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold mb-6">User List</h1>
-      <table className="table-auto border-collapse border border-gray-300 w-full">
-        <thead>
-          <tr>
-            <th className="border border-gray-300 p-4">Name</th>
-            <th className="border border-gray-300 p-4">Email</th>
-         
-            <th className="border border-gray-300 p-4">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map(user => (
-            <tr key={user._id} className="hover:bg-gray-100">
-              <td className="border border-gray-300 p-4">{user.name}</td>
-              <td className="border border-gray-300 p-4">{user.email}</td>
-              <td className="border border-gray-300 p-4">
-                <button 
-                  className={`block-unblock-btn ${
-                    user.isBlocked 
-                      ? 'bg-green-500 hover:bg-green-700' 
-                      : 'bg-yellow-500 hover:bg-yellow-700'
-                  } text-white px-4 py-2 rounded-lg`}
-                  onClick={() => handleBlockToggle(user._id, user.isBlocked)}
-                >
-                  {user.isBlocked ? 'Unblock' : 'Block'}
-                </button>
-              </td>
-              <td className="border border-gray-300 p-4">
-                <button 
-                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700"
-                  onClick={() => handleDelete(user._id)}
-                >
-                  🗑️ Delete
-                </button>
-              </td>
+    <div className="container py-4">
+      <h1 className="text-center fw-bold mb-4">User List</h1>
+      <div className="table-responsive">
+        <table className="table table-bordered table-hover">
+          <thead className="table-dark">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {users.map(user => (
+              <tr key={user._id}>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>
+                  <button 
+                    className={`btn ${user.isBlocked ? 'btn-success' : 'btn-warning'} me-2`} 
+                    onClick={() => handleBlockToggle(user._id, user.isBlocked)}>
+                    {user.isBlocked ? 'Unblock' : 'Block'}
+                  </button>
+                  <button 
+                    className="btn btn-danger" 
+                    onClick={() => handleDelete(user._id)}>
+                    🗑️ Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
+    
+    
   );
 };
 
