@@ -91,20 +91,23 @@ const HotelDetail = () => {
   }
 
   return (
-    <div className="edit-hotel-form">
-    <h1>Edit Hotel Details</h1>
+    <div className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden mt-10">
+  <div className="p-6">
+    <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Edit Hotel Details</h1>
 
     {formData.image && (
-      <img 
-        src={formData.image} 
-        alt={`${formData.name} hotel`} 
-        style={{ width: '200px', height: '200px', borderRadius: '8px' }} 
-      />
+      <div className="flex justify-center mb-6">
+        <img 
+          src={formData.image} 
+          alt={`${formData.name} hotel`} 
+          className="w-40 h-40 object-cover rounded-lg border border-gray-200" 
+        />
+      </div>
     )}
 
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="name">Hotel Name</label>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Hotel Name</label>
         <input 
           type="text" 
           id="name" 
@@ -112,11 +115,13 @@ const HotelDetail = () => {
           value={formData.name} 
           onChange={handleChange} 
           required 
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2.5" 
+          placeholder="Enter hotel name"
         />
       </div>
 
       <div>
-        <label htmlFor="phone">Phone</label>
+        <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone</label>
         <input 
           type="text" 
           id="phone" 
@@ -124,11 +129,13 @@ const HotelDetail = () => {
           value={formData.phone} 
           onChange={handleChange} 
           required 
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2.5" 
+          placeholder="Enter phone number"
         />
       </div>
 
       <div>
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
         <input 
           type="email" 
           id="email" 
@@ -136,25 +143,34 @@ const HotelDetail = () => {
           value={formData.email} 
           onChange={handleChange} 
           required 
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2.5" 
+          placeholder="Enter email address"
         />
       </div>
 
       <div>
-        <label htmlFor="image">Image URL</label>
+        <label htmlFor="image" className="block text-sm font-medium text-gray-700">Image URL</label>
         <input 
           type="text" 
           id="image" 
           name="image" 
           value={formData.image} 
           onChange={handleChange} 
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2.5" 
+          placeholder="Enter image URL"
         />
       </div>
 
-     
-
-      <button type="submit">Save Changes</button>
+      <button 
+        type="submit" 
+        className="w-full bg-indigo-600 text-white py-2.5 rounded-md text-sm font-medium hover:bg-indigo-700 transition-all duration-150"
+      >
+        Save Changes
+      </button>
     </form>
   </div>
+</div>
+
   );
 };
 
