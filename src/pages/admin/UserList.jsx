@@ -3,19 +3,18 @@ import { axiosinstance } from '../../config/axiosinstance';
 import toast from 'react-hot-toast';
 
 const UserList = () => {
-  const [users, setUsers] = useState([]); // State to store users
-  const [loading, setLoading] = useState(true); // State to manage loading status
-  const [error, setError] = useState(null); // State to store errors
+  const [users, setUsers] = useState([]); 
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await axiosinstance.get('/user/users');
         
-        // Ensure users have isBlocked property (default false if undefined)
         const usersWithDefaults = response.data.map(user => ({
           ...user,
-          isBlocked: user.isBlocked ?? false
+          isBlocked: user.isBlocked ?? false // Ensure default value
         }));
 
         setUsers(usersWithDefaults);
@@ -44,10 +43,10 @@ const UserList = () => {
 
   const handleBlockToggle = async (userId, isBlocked) => {
     try {
-      await axiosinstance.patch(`/user/block/${userId}`, { isBlocked: !isBlocked });
+      const response = await axiosinstance.patch(`/user/block/${userId}`, { isBlocked: !isBlocked });
       
       const updatedUsers = users.map(user => 
-        user._id === userId ? { ...user, isBlocked: !user.isBlocked } : user
+        user._id === userId ? { ...user, isBlocked: response.data.isBlocked } : user
       );
 
       setUsers(updatedUsers);
@@ -96,9 +95,5 @@ const UserList = () => {
         </table>
       </div>
     </div>
-    
-    
   );
 };
-
-export default UserList;
