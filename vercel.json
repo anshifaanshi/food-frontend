@@ -1,20 +1,20 @@
 {
   "rewrites": [
     {
-      "source": "/api/(.*)", 
-      "destination": "https://food-backend-9-ajzi.onrender.com/api/$1" 
-    },
-    {
-      "source": "/user/(.*)", 
-      "destination": "https://food-backend-9-ajzi.onrender.com/user/$1" 
-    },
-    {
       "source": "/user/payment/success",
       "destination": "/index.html"
     },
     {
       "source": "/user/payment/cancel",
       "destination": "/index.html"
+    },
+    {
+      "source": "/api/(.*)", 
+      "destination": "https://food-backend-9-ajzi.onrender.com/api/$1" 
+    },
+    {
+      "source": "/user/(.*)", 
+      "destination": "https://food-backend-9-ajzi.onrender.com/user/$1" 
     },
     {
       "source": "/(.*)", 
