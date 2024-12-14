@@ -78,7 +78,7 @@ const HotelDetail = () => {
       toast.success('Hotel details updated successfully');
     } catch (error) {
       console.error("Error updating hotel details:", error);
-      toast.success("hotel updated successfully");
+      toast.error("hotel already exist");
     }
   };
 
