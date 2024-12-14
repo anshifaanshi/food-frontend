@@ -43,12 +43,14 @@ const UserList = () => {
 
   const handleBlockToggle = async (userId, isBlocked) => {
     try {
-      const response = await axiosinstance.patch(`/user/block/${userId}`, { isBlocked: !isBlocked });
-      
-      const updatedUsers = users.map(user => 
+      // Send the PATCH request with the userId in the URL and no data in the body
+      const response = await axiosinstance.patch(`/user/block/${userId}`);
+  
+      // Update the users array with the new block status
+      const updatedUsers = users.map(user =>
         user._id === userId ? { ...user, isBlocked: response.data.isBlocked } : user
       );
-
+  
       setUsers(updatedUsers);
       toast.success(`User ${!isBlocked ? 'blocked' : 'unblocked'} successfully`);
     } catch (error) {
@@ -56,6 +58,7 @@ const UserList = () => {
       console.error('Error updating user block status:', error);
     }
   };
+  
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
