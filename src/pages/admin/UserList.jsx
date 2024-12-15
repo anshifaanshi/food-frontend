@@ -31,7 +31,7 @@ const UserList = () => {
   // Function to delete a user by ID
   const handleDelete = async (userId) => {
     try {
-      await axiosinstance.patch(`/user/delete/${userId}`);
+      await axiosinstance.delete(`/user/delete/${userId}`);
       const updatedUsers = users.filter(user => user._id !== userId);
       setUsers(updatedUsers);
       toast.success('User deleted successfully');
