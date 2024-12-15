@@ -31,7 +31,7 @@ export const LoginPage = ({ role = "user" }) => {
             }
 
             toast.success(response.data.message || "Log-in success");
-            navigate(user.profile_route);
+            navigate('/');
 
         } catch (error) {
             const errorMessage = error.response?.data?.message || "Something went wrong";
@@ -83,7 +83,7 @@ export const LoginPage = ({ role = "user" }) => {
                                     </button>
                                 </div>
                                 <label className="label mt-2">
-                                    <Link to={user.signup_route} className="link link-hover text-primary">
+                                    <Link to={user/signup} className="link link-hover text-primary">
                                         New User? Sign Up
                                     </Link>
                                 </label>
