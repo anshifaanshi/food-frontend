@@ -83,7 +83,7 @@ export const LoginPage = ({ role = "user" }) => {
                                     </button>
                                 </div>
                                 <label className="label mt-2">
-                                    <Link to={user/signup} className="link link-hover text-primary">
+                                    <Link to={'user/signup'} className="link link-hover text-primary">
                                         New User? Sign Up
                                     </Link>
                                 </label>
