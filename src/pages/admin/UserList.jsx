@@ -3,20 +3,19 @@ import { axiosinstance } from '../../config/axiosinstance';
 import toast from 'react-hot-toast';
 
 const UserList = () => {
-  const [users, setUsers] = useState([]); 
-  const [loading, setLoading] = useState(true); 
-  const [error, setError] = useState(null); 
+  const [users, setUsers] = useState([]); // State to store user data
+  const [loading, setLoading] = useState(true); // State to track loading status
+  const [error, setError] = useState(null); // State to track any errors
 
+  // Fetch users from the server when the component mounts
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await axiosinstance.get('/user/users');
-        
         const usersWithDefaults = response.data.map(user => ({
           ...user,
-          isBlocked: user.isBlocked ?? false // Ensure default value
+          isBlocked: user.isBlocked ?? false // Ensure default value for isBlocked
         }));
-
         setUsers(usersWithDefaults);
       } catch (error) {
         setError('Failed to fetch users');
@@ -29,6 +28,7 @@ const UserList = () => {
     fetchUsers();
   }, []);
 
+  // Function to delete a user by ID
   const handleDelete = async (userId) => {
     try {
       await axiosinstance.patch(`/user/delete/${userId}`);
@@ -41,6 +41,7 @@ const UserList = () => {
     }
   };
 
+  // Function to toggle the block/unblock status of a user
   const handleBlockToggle = async (userId, isBlocked) => {
     try {
       const response = await axiosinstance.patch(`/user/block/${userId}`);
@@ -48,16 +49,19 @@ const UserList = () => {
         user._id === userId ? { ...user, isBlocked: response.data.isBlocked } : user
       );
       setUsers(updatedUsers);
-      toast.success(`User ${response.data.isBlocked ? 'blocked' : 'unblocked'} successfully`);
+      const statusMessage = response.data.isBlocked ? 'User blocked successfully' : 'User unblocked successfully';
+      toast.success(statusMessage);
     } catch (error) {
       setError('Failed to update user block status');
       console.error('Error updating user block status:', error.response ? error.response.data : error.message);
     }
   };
-  
 
+  // Handle loading state
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  
+  // Handle error state
+  if (error) return <div className="alert alert-danger" role="alert">{error}</div>;
 
   return (
     <div className="container py-4">
@@ -96,4 +100,5 @@ const UserList = () => {
     </div>
   );
 };
-  export default  UserList
+
+export default UserList;

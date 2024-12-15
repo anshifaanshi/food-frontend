@@ -140,3 +140,20 @@ const HotelDetail = () => {
 };
 
 export default HotelDetail;
+
+
+
+
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true); // Allow the request
+        } else {
+            console.error(`Blocked by CORS: ${origin}`);
+            callback(new Error('Request blocked by CORS policy.'));
+        }
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS','PATCH']
+}));
