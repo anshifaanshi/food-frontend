@@ -3,19 +3,20 @@ import { axiosinstance } from '../../config/axiosinstance';
 import toast from 'react-hot-toast';
 
 const UserList = () => {
-  const [users, setUsers] = useState([]); // State to store user data
-  const [loading, setLoading] = useState(true); // State to track loading status
-  const [error, setError] = useState(null); // State to track any errors
+  const [users, setUsers] = useState([]); 
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
 
-  // Fetch users from the server when the component mounts
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await axiosinstance.get('/user/users');
+
         const usersWithDefaults = response.data.map(user => ({
           ...user,
-          isBlocked: user.isBlocked ?? false // Ensure default value for isBlocked
+          Blocked: user.Blocked ?? false // Ensure default value
         }));
+
         setUsers(usersWithDefaults);
       } catch (error) {
         setError('Failed to fetch users');
@@ -28,7 +29,6 @@ const UserList = () => {
     fetchUsers();
   }, []);
 
-  // Function to delete a user by ID
   const handleDelete = async (userId) => {
     try {
       await axiosinstance.delete(`/user/delete/${userId}`);
@@ -41,27 +41,34 @@ const UserList = () => {
     }
   };
 
-  // Function to toggle the block/unblock status of a user
-  const handleBlockToggle = async (userId, Blocked) => {
+  const handleBlockToggle = async (userId, currentBlockStatus) => {
     try {
       const response = await axiosinstance.post(`/user/block/${userId}`);
+      
+      // Get the new block status from the server
+      const updatedBlockStatus = response.data.Blocked; // Make sure this matches the backend response
+
       const updatedUsers = users.map(user =>
-        user._id === userId ? { ...user, Blocked: response.data.Blocked } : user
+        user._id === userId ? { ...user, Blocked: updatedBlockStatus } : user
       );
+      
       setUsers(updatedUsers);
-      const statusMessage = response.data.Blocked ? 'User blocked successfully' : 'User unblocked successfully';
-      toast.success(statusMessage);
+
+      // Show the correct toast message
+      if (updatedBlockStatus) {
+        toast.success('User blocked successfully');
+      } else {
+        toast.success('User unblocked successfully');
+      }
+
     } catch (error) {
       setError('Failed to update user block status');
       console.error('Error updating user block status:', error.response ? error.response.data : error.message);
     }
   };
 
-  // Handle loading state
   if (loading) return <div>Loading...</div>;
-  
-  // Handle error state
-  if (error) return <div className="alert alert-danger" role="alert">{error}</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div className="container py-4">
@@ -82,9 +89,9 @@ const UserList = () => {
                 <td>{user.email}</td>
                 <td>
                   <button 
-                    className={`btn ${user.isBlocked ? 'btn-success' : 'btn-warning'} me-2`} 
-                    onClick={() => handleBlockToggle(user._id, user.isBlocked)}>
-                    {user.isBlocked ? 'Unblock' : 'Block'}
+                    className={`btn ${user.Blocked ? 'btn-success' : 'btn-warning'} me-2`} 
+                    onClick={() => handleBlockToggle(user._id, user.Blocked)}>
+                    {user.Blocked ? 'Unblock' : 'Block'}
                   </button>
                   <button 
                     className="btn btn-danger" 
