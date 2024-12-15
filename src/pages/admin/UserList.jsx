@@ -43,29 +43,37 @@ const UserList = () => {
 
   const handleBlockToggle = async (userId, currentBlockStatus) => {
     try {
-      const response = await axiosinstance.post(`/user/block/${userId}`);
+      // Toggle the block status
+      const newBlockStatus = !currentBlockStatus;
       
-      // Get the new block status from the server
-      const updatedBlockStatus = response.data.blocked; // Make sure this matches the backend response
-
+      // Send the block/unblock request with the new status
+      const response = await axiosinstance.post(`/user/block/${userId}`, {
+        blocked: newBlockStatus // Send the toggled block status to the backend
+      });
+  
+      // Check the response and update the users state
+      const updatedBlockStatus = response.data.user.blocked;
+  
+      // Update the users state with the new block status
       const updatedUsers = users.map(user =>
-        user._id === userId ? { ...user, Blocked: updatedBlockStatus } : user
+        user._id === userId ? { ...user, blocked: updatedBlockStatus } : user
       );
-      
+  
       setUsers(updatedUsers);
-
-      // Show the correct toast message
+  
+      // Show the appropriate toast message
       if (updatedBlockStatus) {
         toast.success('User blocked successfully');
       } else {
         toast.success('User unblocked successfully');
       }
-
+  
     } catch (error) {
       setError('Failed to update user block status');
       console.error('Error updating user block status:', error.response ? error.response.data : error.message);
     }
   };
+  
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
