@@ -46,7 +46,7 @@ const UserList = () => {
       const response = await axiosinstance.post(`/user/block/${userId}`);
       
       // Get the new block status from the server
-      const updatedBlockStatus = response.data.Blocked; // Make sure this matches the backend response
+      const updatedBlockStatus = response.data.blocked; // Make sure this matches the backend response
 
       const updatedUsers = users.map(user =>
         user._id === userId ? { ...user, Blocked: updatedBlockStatus } : user
