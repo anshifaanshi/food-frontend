@@ -40,12 +40,11 @@ const UserList = () => {
       console.error('Error deleting user:', error);
     }
   };
-
   const handleBlockToggle = async (userId, currentBlockStatus) => {
     try {
       // Toggle the block status
       const newBlockStatus = !currentBlockStatus;
-      
+  
       // Send the block/unblock request with the new status
       const response = await axiosinstance.post(`/user/block/${userId}`, {
         blocked: newBlockStatus // Send the toggled block status to the backend
@@ -61,7 +60,7 @@ const UserList = () => {
   
       setUsers(updatedUsers);
   
-      // Show the appropriate toast message
+      // Show the appropriate toast message based on the updated block status
       if (updatedBlockStatus) {
         toast.success('User blocked successfully');
       } else {
@@ -73,6 +72,7 @@ const UserList = () => {
       console.error('Error updating user block status:', error.response ? error.response.data : error.message);
     }
   };
+  
   
 
   if (loading) return <div>Loading...</div>;
