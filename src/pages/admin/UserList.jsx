@@ -44,7 +44,7 @@ const UserList = () => {
   // Function to toggle the block/unblock status of a user
   const handleBlockToggle = async (userId, isBlocked) => {
     try {
-      const response = await axiosinstance.patch(`/user/block/${userId}`);
+      const response = await axiosinstance.post(`/user/block/${userId}`);
       const updatedUsers = users.map(user =>
         user._id === userId ? { ...user, isBlocked: response.data.isBlocked } : user
       );
