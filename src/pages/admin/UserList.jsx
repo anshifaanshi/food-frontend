@@ -99,7 +99,7 @@ const UserList = () => {
                   <button 
                     className={`btn ${user.Blocked ? 'btn-success' : 'btn-warning'} me-2`} 
                     onClick={() => handleBlockToggle(user._id, user.Blocked)}>
-                    {updatedBlockStatus ? 'Unblock' : 'Block'}
+                    {user.blocked ? 'Unblock' : 'Block'}
                   </button>
                   <button 
                     className="btn btn-danger" 
